@@ -18,7 +18,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Dell
+ * @author franc
  */
 @Stateless
 @LocalBean

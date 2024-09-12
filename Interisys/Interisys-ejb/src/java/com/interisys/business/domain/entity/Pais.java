@@ -7,8 +7,6 @@ package com.interisys.business.domain.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -17,10 +15,11 @@ import javax.persistence.Id;
  */
 @Entity
 public class Pais implements Serializable {
-    private static final long serialVersionUID = 1L;
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
+    private String nombre;
+    private boolean eliminado;
 
     public String getId() {
         return id;
@@ -52,7 +51,24 @@ public class Pais implements Serializable {
 
     @Override
     public String toString() {
-        return "com.interisys.pais.Pais[ id=" + id + " ]";
+        return "com.consorcio.dominio.pais.Pais[ id=" + id + " ]";
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
+    }
+    
     
 }
