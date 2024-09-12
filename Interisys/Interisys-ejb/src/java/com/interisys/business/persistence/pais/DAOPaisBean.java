@@ -24,7 +24,7 @@ import javax.persistence.PersistenceContext;
 @LocalBean
 public class DAOPaisBean {
 
-   @PersistenceContext private EntityManager em;
+   @PersistenceContext(unitName="Interisys-ejbPU") private EntityManager em;
    
    public void guardarPais(Pais pais){
        em.persist(pais);
