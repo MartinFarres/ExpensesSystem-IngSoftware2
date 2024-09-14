@@ -35,17 +35,14 @@ public class PaisController implements Serializable {
     //Servicios Capa de Negocio
     private @EJB PaisServiceBean paisService;
     
-    private @EJB DAOPaisBean paisDAO;
-    
     public void crear() throws ErrorServiceException
     {
-        paisDAO.guardarPais(pais);
-//        paisService.crearPais(pais.getNombre());
+        paisService.crearPais(pais.getNombre());
     }
     
     public void eliminar() throws ErrorServiceException
     {
-//        paisService.eliminarPais(pais.getId());
+        paisService.eliminarPais(pais.getId());
     }
 
 }
