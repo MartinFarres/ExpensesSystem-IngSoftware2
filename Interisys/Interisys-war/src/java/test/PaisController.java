@@ -3,7 +3,6 @@ package test;
 import com.interisys.business.domain.entity.Pais;
 import com.interisys.business.logic.ErrorServiceException;
 import com.interisys.business.logic.PaisServiceBean;
-import com.interisys.business.persistence.pais.DAOPaisBean;
 
 
 import java.io.Serializable;

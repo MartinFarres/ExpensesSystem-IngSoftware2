@@ -7,7 +7,7 @@ package com.interisys.business.logic;
 
 import com.interisys.business.domain.entity.Pais;
 import com.interisys.business.persistence.NoResultDAOException;
-import com.interisys.business.persistence.pais.DAOPaisBean;
+import com.interisys.business.persistence.DAOPaisBean;
 import java.util.Collection;
 import java.util.UUID;
 import javax.ejb.EJB;
