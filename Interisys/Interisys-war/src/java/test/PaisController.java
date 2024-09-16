@@ -3,7 +3,6 @@ package test;
 import com.interisys.business.domain.entity.Pais;
 import com.interisys.business.logic.ErrorServiceException;
 import com.interisys.business.logic.PaisServiceBean;
-import com.interisys.business.persistence.pais.DAOPaisBean;
 
 
 import java.io.Serializable;
@@ -35,17 +34,14 @@ public class PaisController implements Serializable {
     //Servicios Capa de Negocio
     private @EJB PaisServiceBean paisService;
     
-    private @EJB DAOPaisBean paisDAO;
-    
     public void crear() throws ErrorServiceException
     {
-        paisDAO.guardarPais(pais);
-//        paisService.crearPais(pais.getNombre());
+        paisService.crearPais(pais.getNombre());
     }
     
     public void eliminar() throws ErrorServiceException
     {
-//        paisService.eliminarPais(pais.getId());
+        paisService.eliminarPais(pais.getId());
     }
 
 }

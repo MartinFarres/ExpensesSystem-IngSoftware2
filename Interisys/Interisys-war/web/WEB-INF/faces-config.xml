@@ -9,4 +9,23 @@
             <var>bundle</var>
         </resource-bundle>
     </application>
+
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/admin/index.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>editPais</from-outcome>
+            <to-view-id>/admin/pais/editPais.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    
 </faces-config>

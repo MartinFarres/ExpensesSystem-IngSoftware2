@@ -12,10 +12,11 @@
     <h:body>
         <h:form>
             <h:panelGrid columns="2">
-                <h:outputLabel value="#{bundle.CreatePaisLabel_id}" for="Nombre" />
-                <h:inputText id="Nombre" value="#{paisController.pais.nombre}" title="#{bundle.CreatePaisTitle_id}" />
+                <h:outputLabel value="Nombre"/>
+                <h:inputText id="Nombre" value="#{paisController.pais.nombre}" title="Nombre" />
             </h:panelGrid>
             <br/>
+                        
             <h:commandLink action="#{paisController.crear}" value="Crear" />
         </h:form>
         <h:link outcome="/index" value="Index"/>
