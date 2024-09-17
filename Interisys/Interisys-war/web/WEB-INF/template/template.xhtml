@@ -6,15 +6,21 @@
    
 <h:head>
     <title><ui:insert name="title">Default Title</ui:insert></title>
+    <h:outputStylesheet name="custom/css/styles.css" />
 </h:head>
-<h:body>
-    <h:form>
+
+<h:body class="flex-container">
+    <ui:include src="topBar.xhtml" />
+
+    <h:form class="content">
         <h:panelGroup>
             <ui:insert name="content">
                 <h:outputText value="Default Content" />
             </ui:insert>
         </h:panelGroup>
     </h:form>
+
+    <ui:include src="footer.xhtml" />
 
     <h:outputStylesheet name="rio-layout/css/core-layout.css" library="rio-layout" />
     <h:outputStylesheet name="rio-layout/css/animate.css" library="rio-layout" />
