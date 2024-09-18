@@ -1,0 +1,15 @@
+/* Ensure the body takes up the full height of the viewport */
+.flex-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* Style your footer (optional) */
+footer {
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
