@@ -1,5 +1,6 @@
 package com.interisys.business.persistence;
 
+import com.interisys.business.domain.entity.Consorcio;
 import com.interisys.business.domain.entity.Departamento;
 import java.util.Collection;
 import javax.ejb.Stateless;
@@ -20,30 +21,38 @@ public class DAODepartamentoBean {
    @PersistenceContext(unitName="Interisys-ejbPU")
    private EntityManager em;
    
-   public void guardarDepartamento(Departamento departamento){
-       em.persist(departamento);
-       /*
-       try{ 
+   public void guardarDepartamento(Departamento departamento)throws ErrorDAOException{
+      try{ 
        em.persist(departamento);
       } catch (Exception ex) {
         ex.printStackTrace();
-        throw new ErrorDAOException("Error de sistema");
-      }  */
+        throw new ErrorDAOException("Error del sistema");
+      } 
    }
    
-   public void actualizarDepartamento(Departamento departamento){
-       em.setFlushMode(FlushModeType.COMMIT);
-       em.merge(departamento);
-       em.flush();
-       /*
+   public void actualizarDepartamento(Departamento departamento)throws ErrorDAOException{
+       try{
+        em.setFlushMode(FlushModeType.COMMIT);
+        em.merge(departamento);
+        em.flush();
        } catch (Exception ex) {
         ex.printStackTrace();
-        throw new ErrorDAOException("Error de sistema");
-     }*/
+        throw new ErrorDAOException("Error del sistema");
+      } 
    }
    
-   public Departamento buscarDepartamento(String id) throws NoResultException{
-       return em.find(Departamento.class, id);
+   public Departamento buscarDepartamento(String id) throws NoResultDAOException, ErrorDAOException{
+       
+     try{
+         
+        return em.find(Departamento.class, id);
+        
+     } catch (NoResultException ex) {
+            throw new NoResultDAOException("No se encontró información");
+     } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorDAOException("Error de sistema");
+     } 
    }
    
    public Departamento buscarDepartamentoPorProvinciaYNombre(String idProvincia, String nombre) throws NoResultDAOException, ErrorDAOException{

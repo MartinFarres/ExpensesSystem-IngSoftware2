@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.interisys.business.persistence;
 
+import com.interisys.business.domain.entity.Consorcio;
 import com.interisys.business.domain.entity.Direccion;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -43,8 +39,18 @@ public class DAODireccionBean {
       } 
    }
    
-   public Direccion buscarDireccion(String id) throws NoResultException{
-       return em.find(Direccion.class, id);
+   public Direccion buscarDireccion(String id) throws NoResultDAOException, ErrorDAOException{
+       
+     try{
+         
+        return em.find(Direccion.class, id);
+        
+     } catch (NoResultException ex) {
+            throw new NoResultDAOException("No se encontró información");
+     } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorDAOException("Error de sistema");
+     } 
    }
     
 }

@@ -27,7 +27,7 @@ public class Direccion implements Serializable {
     private String ubicacionCoordenadaY;
     @Column(length = 500)
     private String observacion;
-    @ManyToOne (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne 
     private Localidad localidad;
     private boolean eliminado;
 

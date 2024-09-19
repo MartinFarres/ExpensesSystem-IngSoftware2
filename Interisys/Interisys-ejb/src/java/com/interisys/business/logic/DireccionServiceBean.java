@@ -83,7 +83,7 @@ public class DireccionServiceBean {
         
         try{
             
-            Direccion direccion = dao.buscarDireccion(idDireccion);
+            Direccion direccion = buscarDireccion(idDireccion);
             Localidad localidad = localidadService.buscarLocalidad(idLocalidad);
             
             if (calle == null || calle.isEmpty()){
