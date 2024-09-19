@@ -23,6 +23,8 @@ public class Inmueble implements Serializable {
     private String id;
     
     private String piso;
+
+    private String puerta;
     
     private String departamento;
     
