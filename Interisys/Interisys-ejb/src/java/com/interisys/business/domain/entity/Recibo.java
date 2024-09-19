@@ -18,16 +18,19 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class Recibo implements Serializable {
+
     @Id
     private String id;
-    
+
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaPago;
-    
+
     private double total;
-    
+
     private FormaDePago formaDePago;
-    
+
+    private boolean eliminado;
+
     public String getId() {
         return id;
     }
@@ -60,6 +63,13 @@ public class Recibo implements Serializable {
         this.formaDePago = formaDePago;
     }
 
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
+    }
 
     @Override
     public int hashCode() {
@@ -85,5 +95,5 @@ public class Recibo implements Serializable {
     public String toString() {
         return "com.interisys.business.domain.entity.Recibo[ id=" + id + " ]";
     }
-    
+
 }

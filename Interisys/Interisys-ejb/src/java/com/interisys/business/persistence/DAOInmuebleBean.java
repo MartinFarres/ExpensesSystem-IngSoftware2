@@ -57,7 +57,7 @@ public class DAOInmuebleBean {
       } 
    }
 
-    public Inmueble buscarInmueblePorPisoYPuerta(String piso, String puerta) throws ErrorDAOException{
+    public Inmueble buscarInmueblePorPisoYPuerta(String piso, String puerta) throws NoResultDAOException{
        
       try{
           
@@ -72,7 +72,7 @@ public class DAOInmuebleBean {
                .getSingleResult();
               
       } catch (Exception ex) {
-         throw new ErrorDAOException("Error de sistema: " + ex.toString());
+         throw new NoResultDAOException("Error de sistema: " + ex.toString());
       } 
    }
     

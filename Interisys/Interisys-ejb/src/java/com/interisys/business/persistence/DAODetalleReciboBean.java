@@ -44,7 +44,7 @@ public class DAODetalleReciboBean {
       }
    }
    
-   public DetalleRecibo buscarRecibo(String id) throws NoResultException{
+   public DetalleRecibo buscarDetalleRecibo(String id) throws NoResultException{
        return em.find(DetalleRecibo.class, id);
    }
    

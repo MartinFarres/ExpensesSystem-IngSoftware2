@@ -49,6 +49,14 @@ public class Inmueble implements Serializable {
         this.piso = piso;
     }
 
+    public String getPuerta() {
+        return puerta;
+    }
+
+    public void setPuerta(String puerta) {
+        this.puerta = puerta;
+    }
+
     public String getDepartamento() {
         return departamento;
     }
