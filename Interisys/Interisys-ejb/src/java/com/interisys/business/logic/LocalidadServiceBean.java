@@ -63,7 +63,7 @@ public class LocalidadServiceBean {
         try {
             
             Departamento departamento = departamentoService.buscarDepartamento(idDepartamento);
-            Localidad localidad = dao.buscarLocalidad(idLocalidad);
+            Localidad localidad = buscarLocalidad(idLocalidad);
            
             if (nombre == null || nombre.isEmpty()) {
                 throw new ErrorServiceException("Debe indicar el nombre");

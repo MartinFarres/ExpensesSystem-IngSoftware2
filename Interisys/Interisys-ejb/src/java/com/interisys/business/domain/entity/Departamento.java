@@ -23,7 +23,7 @@ public class Departamento implements Serializable {
     private String id;
     private String nombre;
     private boolean eliminado;
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne
     private Provincia provincia;
     /*
     @OneToMany

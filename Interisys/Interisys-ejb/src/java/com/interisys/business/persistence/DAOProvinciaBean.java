@@ -5,6 +5,7 @@
  */
 package com.interisys.business.persistence;
 
+import com.interisys.business.domain.entity.Consorcio;
 import com.interisys.business.domain.entity.Provincia;
 import com.interisys.business.persistence.ErrorDAOException;
 import com.interisys.business.persistence.NoResultDAOException;
@@ -37,8 +38,18 @@ public class DAOProvinciaBean {
        em.flush();
    }
    
-   public Provincia buscarProvincia(String id) throws NoResultException{
-       return em.find(Provincia.class, id);
+   public Provincia buscarProvincia(String id) throws NoResultDAOException, ErrorDAOException{
+       
+     try{
+         
+        return em.find(Provincia.class, id);
+        
+     } catch (NoResultException ex) {
+            throw new NoResultDAOException("No se encontró información");
+     } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorDAOException("Error de sistema");
+     } 
    }
    
    public Provincia buscarProvinciaPorNombre(String nombre) throws NoResultDAOException, ErrorDAOException{

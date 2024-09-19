@@ -18,7 +18,7 @@ public class Provincia implements Serializable {
     private String id;
     private String nombre;
     private boolean eliminado;
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne
     private Pais pais;
     /*
     @OneToMany

@@ -17,7 +17,7 @@ public class Localidad implements Serializable {
     private String nombre;
     private boolean eliminado;
     private String codigoPostal;
-    @ManyToOne (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne 
     private Departamento departamento;
     
 

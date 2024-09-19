@@ -5,6 +5,7 @@
  */
 package com.interisys.business.persistence;
 
+import com.interisys.business.domain.entity.Consorcio;
 import com.interisys.business.domain.entity.Pais;
 import com.interisys.business.persistence.ErrorDAOException;
 import com.interisys.business.persistence.NoResultDAOException;
@@ -26,19 +27,40 @@ public class DAOPaisBean {
 
    @PersistenceContext(unitName="Interisys-ejbPU") private EntityManager em;
    
-   public void guardarPais(Pais pais){
+   public void guardarPais(Pais pais)throws ErrorDAOException{
+      try{ 
        em.persist(pais);
+      } catch (Exception ex) {
+        ex.printStackTrace();
+        throw new ErrorDAOException("Error del sistema");
+      } 
    }
    
-   public void actualizarPais(Pais pais){
-       em.setFlushMode(FlushModeType.COMMIT);
-       em.merge(pais);
-       em.flush();
+   public void actualizarPais(Pais pais)throws ErrorDAOException{
+       try{
+        em.setFlushMode(FlushModeType.COMMIT);
+        em.merge(pais);
+        em.flush();
+       } catch (Exception ex) {
+        ex.printStackTrace();
+        throw new ErrorDAOException("Error del sistema");
+      } 
    }
    
-   public Pais buscarPais(String id) throws NoResultException{
-       return em.find(Pais.class, id);
+   public Pais buscarPais(String id) throws NoResultDAOException, ErrorDAOException{
+       
+     try{
+         
+        return em.find(Pais.class, id);
+        
+     } catch (NoResultException ex) {
+            throw new NoResultDAOException("No se encontró información");
+     } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorDAOException("Error de sistema");
+     } 
    }
+   
    
    public Pais buscarPaisPorNombre (String nombre) throws NoResultDAOException, ErrorDAOException{
        
