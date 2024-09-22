@@ -26,7 +26,15 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
-
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listExpensa</from-outcome>
+            <to-view-id>/admin/expensa/listExpensa.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
     <navigation-rule>
         <navigation-case>
             <from-outcome>editExpensa</from-outcome>

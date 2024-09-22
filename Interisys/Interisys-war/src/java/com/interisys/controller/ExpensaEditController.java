@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -29,12 +30,15 @@ public class ExpensaEditController {
     
     @PostConstruct
     public void init() {
+        //Se obtiene el caso de uso  
+        casoDeUso = (CasoDeUsoType)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("CASO_DE_USO");
         
-        casoDeUso = CasoDeUsoType.ALTA;
-        expensa = new Expensa();
-         //Se obtiene el caso de uso  
-//         casoDeUso = ((String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("CASO_DE_USO"));
-//         expensa = ((Expensa) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("EXPENSA"));
+        // Cuando el caso de uso es alta, crea la expensa
+        if (casoDeUso == CasoDeUsoType.ALTA)
+            expensa = new Expensa();
+        else
+            // Obtiene la expensa a traves del controlador de sesion
+            expensa = (Expensa)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("EXPENSA");
         
         // Los campos se desactiva en en caso de uso de consulta
         campoDesactivado = casoDeUso == CasoDeUsoType.CONSULTAR;

@@ -104,7 +104,7 @@ public class ExpensaServiceBean {
 
         try {
             
-            if (idExpensa == null || !idExpensa.isEmpty()){
+            if (idExpensa == null || idExpensa.isEmpty()){
                throw new ErrorServiceException("Debe indicar la expensa");  
             }
             
