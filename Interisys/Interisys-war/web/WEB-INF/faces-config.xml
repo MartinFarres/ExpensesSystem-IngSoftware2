@@ -26,6 +26,13 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
-    
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>editExpensa</from-outcome>
+            <to-view-id>/admin/expensa/editExpensa.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
     
 </faces-config>

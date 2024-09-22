@@ -11,6 +11,7 @@ import com.interisys.business.persistence.DAOReciboBean;
 import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
@@ -22,7 +23,7 @@ import javax.ejb.Stateless;
 @Stateless
 @LocalBean
 public class ReciboServiceBean {
-    private DAOReciboBean dao;
+    private @EJB DAOReciboBean dao;
 
     public void crearRecibo(Date fechaPago, FormaDePago formaPago)throws ErrorServiceException {
         

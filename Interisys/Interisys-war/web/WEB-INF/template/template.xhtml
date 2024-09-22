@@ -12,6 +12,9 @@
 <h:body class="flex-container">
     <ui:include src="topBar.xhtml" />
 
+    <!-- Mensajes globales -->
+    <h:messages globalOnly="true" layout="table" style="color:red;"/>
+
     <h:form class="content">
         <h:panelGroup>
             <ui:insert name="content">
