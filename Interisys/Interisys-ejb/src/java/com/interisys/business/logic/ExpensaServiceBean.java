@@ -10,6 +10,7 @@ import com.interisys.business.persistence.DAOExpensaBean;
 import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
@@ -21,16 +22,16 @@ import javax.ejb.Stateless;
 @Stateless
 @LocalBean
 public class ExpensaServiceBean {
-    private DAOExpensaBean dao;
+    private @EJB DAOExpensaBean dao;
 
-    public void crearExpensa(Date fechaDesde, double importeExpesan)throws ErrorServiceException {
+    public void crearExpensa(Date fechaDesde, Date fechaHasta, double importeExpesan)throws ErrorServiceException {
         
         try{
             
-            if (fechaDesde == null){
+            if (fechaDesde == null)
                throw new ErrorServiceException("Debe indicar la fecha inicio de vigencia"); 
-            }
-            
+            if (fechaHasta == null)
+               throw new ErrorServiceException("Debe indicar la fecha final de vigencia"); 
             if (importeExpesan  <= 0.0){
                 throw new ErrorServiceException("El importe de la expensa debe ser mayor a cero"); 
             }
@@ -38,6 +39,8 @@ public class ExpensaServiceBean {
             Expensa expensa = new Expensa();
             expensa.setId(UUID.randomUUID().toString());
             expensa.setFechaDesde(fechaDesde);
+            expensa.setFechaHasta(fechaHasta);
+
             expensa.setImporte(importeExpesan);
             expensa.setEliminado(false);
             
@@ -101,7 +104,7 @@ public class ExpensaServiceBean {
 
         try {
             
-            if (idExpensa == null || !idExpensa.isEmpty()){
+            if (idExpensa == null || idExpensa.isEmpty()){
                throw new ErrorServiceException("Debe indicar la expensa");  
             }
             

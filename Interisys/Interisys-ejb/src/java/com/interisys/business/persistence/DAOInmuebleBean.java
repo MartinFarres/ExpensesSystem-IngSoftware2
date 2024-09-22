@@ -63,10 +63,10 @@ public class DAOInmuebleBean {
           
        return (Inmueble)em.createQuery(
                              "SELECT i "
-                           + "FROM Inmueble i"
-                           + "WHERE i.puerta = :puerta "
-                           + "AND i.piso = :piso"
-                           + "AND i.eliminado = FALSE")
+                           + " FROM Inmueble i"
+                           + " WHERE i.puerta = :puerta "
+                           + " AND i.piso = :piso"
+                           + " AND i.eliminado = FALSE")
                .setParameter("piso", piso)
                .setParameter("puerta", puerta)
                .getSingleResult();

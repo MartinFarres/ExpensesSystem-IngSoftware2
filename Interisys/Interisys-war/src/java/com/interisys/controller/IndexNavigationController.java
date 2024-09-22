@@ -14,9 +14,14 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class IndexNavigationController {
-    public String navegarAEditPais()
+    public String navegarPais()
     {
         return "editPais";
     }
+    public String navegarExpensa()
+    {
+        return "listExpensa";
+    }
+    
 }
 

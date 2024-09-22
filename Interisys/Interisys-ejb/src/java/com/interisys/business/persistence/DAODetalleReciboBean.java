@@ -51,8 +51,8 @@ public class DAODetalleReciboBean {
     public Collection<DetalleRecibo> listarDetalleReciboActivo(Recibo recibo) throws ErrorDAOException {
         try {
             return em.createQuery("SELECT r "
-                                + "FROM DetalleRecibo r "
-                                + "WHERE r.eliminado = FALSE AND r.recibo = :recibo ")
+                                + " FROM DetalleRecibo r "
+                                + " WHERE r.eliminado = FALSE AND r.recibo = :recibo ")
                      .setParameter("recibo", recibo)
                      .getResultList();
         } catch (Exception ex) {

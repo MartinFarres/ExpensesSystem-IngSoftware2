@@ -52,9 +52,9 @@ public class DAOReciboBean {
       try{
           
        return em.createQuery("SELECT e "
-                           + "FROM Recibo r"
-                           + "WHERE r.eliminado = FALSE"
-                           + "ORDER BY r.fechaPago DESC").
+                           + " FROM Recibo r"
+                           + " WHERE r.eliminado = FALSE"
+                           + " ORDER BY r.fechaPago DESC").
                            getResultList();
        
       } catch (Exception ex) {

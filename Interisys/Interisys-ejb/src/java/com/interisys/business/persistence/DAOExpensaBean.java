@@ -52,9 +52,9 @@ public class DAOExpensaBean {
       try{
           
        return em.createQuery("SELECT e "
-                           + "FROM Expensa e"
-                           + "WHERE e.eliminado = FALSE"
-                           + "ORDER BY e.fechaDesde DESC").
+                           + " FROM Expensa e"
+                           + " WHERE e.eliminado = FALSE"
+                           + " ORDER BY e.fechaDesde DESC").
                            getResultList();
        
       } catch (Exception ex) {

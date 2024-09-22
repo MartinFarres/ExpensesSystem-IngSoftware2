@@ -75,10 +75,10 @@ public class DAOExpensaInmuebleBean {
        
       try{
           
-       return em.createQuery("SELECT e "
-                           + "FROM ExpensaInmueble e"
-                           + "WHERE e.eliminado = FALSE"
-                           + "ORDER BY e.periodo DESC").
+       return em.createQuery(" SELECT e "
+                           + " FROM ExpensaInmueble e"
+                           + " WHERE e.eliminado = FALSE"
+                           + " ORDER BY e.periodo DESC").
                            getResultList();
        
       } catch (Exception ex) {

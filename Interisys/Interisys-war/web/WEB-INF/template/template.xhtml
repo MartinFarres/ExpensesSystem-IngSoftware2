@@ -2,32 +2,58 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-   
-<h:head>
-    <title><ui:insert name="title">Default Title</ui:insert></title>
-    <h:outputStylesheet name="custom/css/styles.css" />
-</h:head>
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
-<h:body class="flex-container">
-    <ui:include src="topBar.xhtml" />
+    <h:head>
+        <title>Menu Example</title>
+        <h:outputStylesheet name="custom/css/styles.css" />
+    </h:head>
 
-    <h:form class="content">
-        <h:panelGroup>
-            <ui:insert name="content">
-                <h:outputText value="Default Content" />
-            </ui:insert>
-        </h:panelGroup>
-    </h:form>
+    <h:body class="flex-container">
 
-    <ui:include src="footer.xhtml" />
+        <div class="layout-container">
+            <div class="side-menu">
 
-    <h:outputStylesheet name="rio-layout/css/core-layout.css" library="rio-layout" />
-    <h:outputStylesheet name="rio-layout/css/animate.css" library="rio-layout" />
-    <h:outputStylesheet name="rio-layout/css/rio-font.css" library="rio-layout" />
-    <h:outputStylesheet name="rio-layout/css/ripple-effect.css" library="rio-layout" />
-    <h:outputStylesheet name="rio-layout/css/perfect-scrollbar.css" library="rio-layout" />
-    <h:outputStylesheet name="rio-layout/css/font-awesome.css" library="rio-layout" />
-    <h:outputStylesheet name="rio-layout/css/rio-layout.css" library="rio-layout" />
-</h:body>
+                <div class="menu-header">
+                    <h2>Interisys</h2>
+                </div>
+
+                <h:form id="menuForm">
+                    <p:menu>
+                        <p:submenu label="Expensa">
+                            <p:menuitem value="Expensas" action="#{indexNavigationController.navegarExpensa()}" />
+                        </p:submenu>
+                        <p:submenu label="Dirección">
+                            <p:menuitem value="Paises" action="#{indexNavigationController.navegarPais()}" />                
+                            <p:menuitem value="Provincias" action="#{indexNavigationController.navegarProvincia()}"/>
+                            <p:menuitem value="Departamentos" action="#{indexNavigationController.navegarDepartamento()}" />
+                            <p:menuitem value="Localidades" action="#{indexNavigationController.navegarLocalidad()}" />
+                        </p:submenu>                       
+                    </p:menu>
+                </h:form>
+
+            </div>
+        </div>
+
+        <div class="main-content">
+            <ui:include src="topBar.xhtml" />
+            <h:form class="content">
+                <h:panelGroup>
+                    <ui:insert name="content">
+                        <h:outputText value="Default Content" />
+                    </ui:insert>
+                </h:panelGroup>
+            </h:form>
+            <ui:include src="footer.xhtml" />
+        </div>
+
+        <h:outputStylesheet name="rio-layout/css/core-layout.css" library="rio-layout" />
+        <h:outputStylesheet name="rio-layout/css/animate.css" library="rio-layout" />
+        <h:outputStylesheet name="rio-layout/css/rio-font.css" library="rio-layout" />
+        <h:outputStylesheet name="rio-layout/css/ripple-effect.css" library="rio-layout" />
+        <h:outputStylesheet name="rio-layout/css/perfect-scrollbar.css" library="rio-layout" />
+        <h:outputStylesheet name="rio-layout/css/font-awesome.css" library="rio-layout" />
+        <h:outputStylesheet name="rio-layout/css/rio-layout.css" library="rio-layout" />
+    </h:body>
 </html>
