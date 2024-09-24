@@ -6,9 +6,6 @@
 package com.interisys.controller;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
-
 
 /**
  *
@@ -17,9 +14,14 @@ import java.io.IOException;
 @ManagedBean
 @RequestScoped
 public class IndexNavigationController {
-    public String navegarAEditPais()
+    public String navegarPais()
     {
         return "editPais";
     }
+    public String navegarExpensa()
+    {
+        return "listExpensa";
+    }
+    
 }
 

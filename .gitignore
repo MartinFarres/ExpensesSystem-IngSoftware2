@@ -8,3 +8,4 @@ nbdist/
 .nb-gradle/
 /Interisys/Interisys-war/nbproject/private/
 /Interisys/Interisys-ejb/nbproject/private/
+persistence.xml

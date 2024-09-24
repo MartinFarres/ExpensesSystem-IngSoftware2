@@ -5,7 +5,23 @@
         <data xmlns="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
             <name>Interisys-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
-            <included-library dirs="200">libs.CopyLibs.classpath</included-library>
+            <included-library dirs="200">file.reference.bcpkix-jdk15on-1.55.jar</included-library>
+            <included-library dirs="200">file.reference.bcprov-jdk15on-1.52.jar</included-library>
+            <included-library dirs="200">file.reference.bcprov-jdk16-1.46.jar</included-library>
+            <included-library dirs="200">file.reference.fluent-hc-4.5.13.jar</included-library>
+            <included-library dirs="200">file.reference.gson-2.8.2.jar</included-library>
+            <included-library dirs="200">file.reference.httpclient-4.5.13.jar</included-library>
+            <included-library dirs="200">file.reference.httpclient-cache-4.5.13.jar</included-library>
+            <included-library dirs="200">file.reference.httpclient-osgi-4.5.13.jar</included-library>
+            <included-library dirs="200">file.reference.httpclient-win-4.5.13.jar</included-library>
+            <included-library dirs="200">file.reference.httpcore-4.4.13.jar</included-library>
+            <included-library dirs="200">file.reference.iText-2.1.7.jar</included-library>
+            <included-library dirs="200">file.reference.itextpdf-5.1.0.jar</included-library>
+            <included-library dirs="200">file.reference.jasperreports-4.6.0.jar</included-library>
+            <included-library dirs="200">file.reference.jxl.jar</included-library>
+            <included-library dirs="200">file.reference.mysql-connector-java-5.1.22-bin.jar</included-library>
+            <included-library dirs="200">file.reference.org-netbeans-modules-java-j2seproject-copylibstask.jar</included-library>
+            <included-library dirs="200">file.reference.pdfbox-2.0.19.jar</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>

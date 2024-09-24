@@ -8,6 +8,7 @@ package com.interisys.controller.pais;
 import com.interisys.business.domain.entity.Pais;
 import com.interisys.business.logic.ErrorServiceException;
 import com.interisys.business.logic.PaisServiceBean;
+import com.interisys.controller.enumeration.CasoDeUsoType;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -31,19 +32,20 @@ public class PaisEditController {
     // Esto depende de la opción que haya seleccionado el usuario
     // en la lista de paises. Esta variable obtiene su valor desde
     // el controlador de sesión.
-    private String casoDeUso;
+    private CasoDeUsoType casoDeUso;
 
-    public String getCasoDeUso() {
+    public CasoDeUsoType getCasoDeUso() {
         return casoDeUso;
     }
 
-    public void setCasoDeUso(String casoDeUso) {
+    public void setCasoDeUso(CasoDeUsoType casoDeUso) {
         this.casoDeUso = casoDeUso;
     }
     
     @PostConstruct
     public void init() {
         pais = new Pais();
+        casoDeUso = CasoDeUsoType.ALTA;
     }
     
     public Pais getPais() {
@@ -57,7 +59,7 @@ public class PaisEditController {
     public String aceptar()
     {
         
-        if (casoDeUso.equals("ALTA"))
+        if (casoDeUso == CasoDeUsoType.ALTA)
         {        
             try {
                 paisService.crearPais(pais.getNombre());

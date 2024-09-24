@@ -1,0 +1,50 @@
+.cool-title {
+    text-align: center; /* Center the title */
+    margin-top: 50px; /* Add space above */
+}
+
+.cool-title h1 {
+    font-size: 3em; /* Make the text larger */
+    color: #4CAF50; /* Change the color to green */
+    font-family: 'Arial', sans-serif; /* Change the font */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+}
+
+
+/* Ensure the body takes up the full height of the viewport */
+.flex-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* Style your footer (optional) */
+footer {
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
+
+.layout-container {
+    display: flex; /* Enables flexbox layout */
+    height: 100vh; /* Full height for the container */
+}
+
+.side-menu {
+    width: 250px; /* Width of your side menu */
+    background-color: #f4f4f4; /* Background color */
+    padding: 15px; /* Padding inside the menu */
+}
+
+.menu-header {
+    margin-bottom: 20px; /* Space below the title */
+    text-align: center; /* Center the title */
+}
+
+.main-content {
+    flex-grow: 1; /* Allow this area to grow and take up available space */
+    padding: 20px; /* Add padding to the main content */
+    overflow-y: auto; /* Add scrolling if content is too tall */
+}
