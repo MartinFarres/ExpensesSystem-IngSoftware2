@@ -7,6 +7,7 @@ package com.interisys.business.logic;
 
 import com.interisys.business.domain.entity.Menu;
 import com.interisys.business.domain.entity.Perfil;
+import com.interisys.business.domain.entity.SubMenu;
 import com.interisys.business.domain.entity.Usuario;
 import com.interisys.business.persistence.DAOPerfilBean;
 import com.interisys.business.persistence.NoResultDAOException;
@@ -26,10 +27,10 @@ public class PerfilServiceBean {
     
     private @EJB DAOPerfilBean dao;
     
-    public void crearPerfil(String nombre, String detalle, Menu menu) throws ErrorServiceException{
+    public void crearPerfil(String nombre, String detalle, Collection<SubMenu> submenues) throws ErrorServiceException{
         try{
             
-            validateUserInput(nombre, detalle, menu);
+            validateUserInput(nombre, detalle, submenues);
             
             try{
                 // Si Existe el Perfil
@@ -43,7 +44,7 @@ public class PerfilServiceBean {
             perfil.setNombre(nombre);
             perfil.setDetalle(detalle);
             perfil.setEliminado(false);
-            perfil.setMenu(menu);
+            perfil.setSubmenu(submenues);
             
             dao.guardarPerfil(perfil);
             
@@ -56,9 +57,9 @@ public class PerfilServiceBean {
         
     }
     
-    public void modificarPerfil(String nombre, String detalle, Menu menu) throws ErrorServiceException{
+    public void modificarPerfil(String nombre, String detalle, Collection<SubMenu> submenues) throws ErrorServiceException{
         try{
-             validateUserInput(nombre, detalle, menu);
+             validateUserInput(nombre, detalle, submenues);
             
             try{
                 // Si Existe el Perfil
@@ -73,7 +74,7 @@ public class PerfilServiceBean {
             perfil.setNombre(nombre);
             perfil.setDetalle(detalle);
             perfil.setEliminado(false);
-            perfil.setMenu(menu);
+            perfil.setSubmenu(submenues);
             
             dao.actualizarPerfil(perfil);
             
@@ -155,14 +156,14 @@ public class PerfilServiceBean {
         }
     }
     
-    private void validateUserInput(String nombre, String detalle, Menu menu) throws ErrorServiceException {
+    private void validateUserInput(String nombre, String detalle, Collection<SubMenu> submenues) throws ErrorServiceException {
     if (nombre == null || nombre.isEmpty()) {
         throw new ErrorServiceException("El Nombre no puede ser vacío");
     }
     if (detalle == null || detalle.isEmpty()) {
         throw new ErrorServiceException("El Detalle no puede ser vacío");
     }
-    if (menu == null || menu.isEmpty()) {
+    if (submenues == null || submenues.isEmpty()) {
         throw new ErrorServiceException("El menu no puede ser vacío");
     }
     }
