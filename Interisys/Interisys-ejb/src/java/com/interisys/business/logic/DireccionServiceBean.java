@@ -7,9 +7,8 @@ package com.interisys.business.logic;
 
 import com.interisys.business.domain.entity.Direccion;
 import com.interisys.business.domain.entity.Localidad;
-import com.interisys.business.persistence.NoResultDAOException;
-import com.interisys.business.logic.ErrorServiceException;
 import com.interisys.business.persistence.DAODireccionBean;
+import java.util.Collection;
 import java.util.UUID;
 import javax.ejb.EJB;
 
@@ -168,6 +167,34 @@ public class DireccionServiceBean {
             
         } catch (ErrorServiceException ex) {  
             throw ex;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error del sistema");
+        }
+    }
+    
+    public Collection<Direccion> listarDireccionActiva() throws ErrorServiceException {
+        try {
+            
+            return dao.listarDireccionActiva();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error del sistema");
+        }
+    }
+    
+    public Collection<Direccion> listarDireccionActiva(String idLocalidad) throws ErrorServiceException {
+        try {
+            
+            if (idLocalidad == null || idLocalidad.trim().isEmpty()) {
+                throw new ErrorServiceException("Debe indicar el departamento");
+            }
+            
+            return dao.listarDireccionActiva(idLocalidad);
+
+        } catch (ErrorServiceException ex) {  
+            throw ex;    
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new ErrorServiceException("Error del sistema");
