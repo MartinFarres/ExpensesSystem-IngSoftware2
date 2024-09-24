@@ -7,6 +7,7 @@ package com.interisys.business.domain.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -16,6 +17,8 @@ import javax.persistence.Entity;
 public class Usuario extends Persona implements Serializable {
     private String usuario;
     private String clave;
+    @ManyToOne
+    private Perfil perfil;
 
     public String getUsuario() {
         return usuario;
@@ -33,8 +36,12 @@ public class Usuario extends Persona implements Serializable {
         this.clave = clave;
     }
 
-    public Object getPerfil() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
     }
     
 }
