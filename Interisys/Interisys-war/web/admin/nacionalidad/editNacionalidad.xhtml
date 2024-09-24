@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+
+    <ui:define name="content">
+        <div class="botoneraAMB ShowOnDesktop Responsive">
+            <p:breadCrumb styleClass="navegacion">
+                <p:menuitem value="Menu principal" url="/admin/index.xhtml" />
+                <p:menuitem value="Nacionalidades" url="/admin/nacionalidad/listNacionalidad.xhtml" />
+                <p:menuitem value="#{nacionalidadEditController.casoDeUso} Nacionalidad" url="#" />
+            </p:breadCrumb>   
+        </div>
+
+        <div class="EmptyBox90"></div>
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent ">
+                <div class="Card ShadowEffect HeiAutoOnMobile Wid90">
+                    EDIT NACIONALIDAD
+                    <p:separator/>
+
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Nombre:"/>
+                    <div class="EmptyBox1"></div>
+                    <p:inputText id="idNombre"  value="#{nacionalidadEditController.nacionalidad.nombre}" type="text"   styleClass="Wid90" disabled="#{nacionalidadEditController.campoDesactivado}"/>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="EmptyBox30"></div>
+        <div class="Container100 ShowOnMobile">
+            <div class="ContainerIndent ">
+                <div class="Card Wid90 HeiAutoOnMobile">
+                    <div class="Fright">
+                        <p:commandButton value="Aceptar"  action="#{nacionalidadEditController.aceptar()}" /> 
+                        <p:commandButton value="Cancelar" action="#{nacionalidadEditController.cancelar()}" />                                
+                    </div>
+                </div>
+            </div>        
+        </div> 
+
+    </ui:define>
+
+</ui:composition> 
