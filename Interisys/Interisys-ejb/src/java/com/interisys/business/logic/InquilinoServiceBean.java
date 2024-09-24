@@ -6,8 +6,8 @@
 package com.interisys.business.logic;
 
 import com.interisys.business.domain.entity.Inquilino;
-import com.interisys.business.domain.entity.Inquilino.Sexo;
-import com.interisys.business.domain.entity.Inquilino.TipoDocumento;
+import com.interisys.business.domain.enumeration.Sexo;
+import com.interisys.business.domain.enumeration.TipoDocumento;
 import com.interisys.business.domain.entity.Nacionalidad;
 import com.interisys.business.persistence.DAOInquilinoBean;
 import com.interisys.business.persistence.NoResultDAOException;

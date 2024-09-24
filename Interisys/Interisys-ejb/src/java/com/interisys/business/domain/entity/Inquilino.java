@@ -1,6 +1,8 @@
 
 package com.interisys.business.domain.entity;
 
+import com.interisys.business.domain.enumeration.Sexo;
+import com.interisys.business.domain.enumeration.TipoDocumento;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -55,21 +57,4 @@ public class Inquilino extends Persona implements Serializable {
     public void setTipoDocumento(TipoDocumento tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
-    
-
-    public enum Sexo {
-        MASCULINO,
-        FEMENINO,
-        OTRO
-    }
-    public enum TipoDocumento {
-    
-    DOCUMENTO_UNICO,
-    PASAPORTE,
-    LIBRETA_CIVICA,
-    LIBRETA_DE_ENROLAMIENTO,
-    CERTIFICADO_MIGRATORIO,
-    EN_TRAMITE_RECIEN_NACIDO,
-    SIN_INFORMACION
-}
 }
