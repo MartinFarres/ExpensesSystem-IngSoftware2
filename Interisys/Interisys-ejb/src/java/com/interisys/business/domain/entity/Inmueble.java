@@ -8,9 +8,8 @@ package com.interisys.business.domain.entity;
 import com.interisys.business.domain.enumeration.EstadoInmueble;
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -30,9 +29,15 @@ public class Inmueble implements Serializable {
     
     // Si esta habitado o desocupado
     private EstadoInmueble estado;
+       
+    @ManyToOne
+    private Propietario propietario;
     
-    private boolean eliminado;
+    @ManyToOne
+    private Inquilino inquilino;
 
+    private boolean eliminado;
+    
     public String getId() {
         return id;
     }
@@ -71,6 +76,22 @@ public class Inmueble implements Serializable {
 
     public void setEstado(EstadoInmueble estado) {
         this.estado = estado;
+    }
+
+    public Propietario getPropietario() {
+        return propietario;
+    }
+
+    public void setPropietario(Propietario propietario) {
+        this.propietario = propietario;
+    }
+
+    public Inquilino getInquilino() {
+        return inquilino;
+    }
+
+    public void setInquilino(Inquilino inquilino) {
+        this.inquilino = inquilino;
     }
 
     public boolean isEliminado() {

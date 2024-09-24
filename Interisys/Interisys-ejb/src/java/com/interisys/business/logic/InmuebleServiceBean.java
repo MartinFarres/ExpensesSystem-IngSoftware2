@@ -6,6 +6,8 @@
 package com.interisys.business.logic;
 
 import com.interisys.business.domain.entity.Inmueble;
+import com.interisys.business.domain.entity.Inquilino;
+import com.interisys.business.domain.entity.Propietario;
 import com.interisys.business.domain.enumeration.EstadoInmueble;
 import com.interisys.business.persistence.DAOInmuebleBean;
 import com.interisys.business.persistence.NoResultDAOException;
@@ -24,17 +26,20 @@ import javax.ejb.Stateless;
 @LocalBean
 public class InmuebleServiceBean {
     private @EJB DAOInmuebleBean dao;
+    private @EJB PropietarioServiceBean propietarioService;
+    private @EJB InquilinoServiceBean inquilinoService;
     public void crearInmueble(String idPropietario, String idInquilino, String piso, String puerta)throws ErrorServiceException {
         
         try{
             
-//            Propietario propietario = propietarioService.buscarPropietario(idPropietario);
+            if (idPropietario == null || idPropietario.isEmpty()){
+               throw new ErrorServiceException("Debe indicar el inmueble");  
+            }
             
-//            Inquilino inquilino =null;
-//            if (idInquilino != null && !idInquilino.trim().isEmpty()){
-//             inquilino = inquilinoService.buscarInquilino(idInquilino);
-//            } 
-            
+            if (idInquilino == null || idInquilino.isEmpty()){
+               throw new ErrorServiceException("Debe indicar el piso");  
+            }
+                       
             if (piso == null || piso.trim().isEmpty()){
                throw new ErrorServiceException("Debe indicar el piso");  
             }
@@ -48,11 +53,19 @@ public class InmuebleServiceBean {
                 throw new ErrorServiceException("Existe un inmueble con el piso y puerta indicado");
             } catch (NoResultDAOException ex) {}
             
+            Propietario propietario = propietarioService.buscarPropietario(idPropietario);
+            Inquilino inquilino = null;
+            try
+            {
+                inquilino = inquilinoService.buscarInquilino(idInquilino);
+            } catch(ErrorServiceException ex)
+            {}
+            
             Inmueble inmueble = new Inmueble();
             inmueble.setId(UUID.randomUUID().toString());
-//            inmueble.setInquilino(inquilino);
-//            inmueble.setPropietario(propietario);
-//            inmueble.setEstado((inquilino == null ? (propietario.isHabitaConsorcio() ? EstadoInmueble.HABITADO : EstadoInmueble.DESOCUPADO) : EstadoInmueble.HABITADO));
+            inmueble.setInquilino(inquilino);
+            inmueble.setPropietario(propietario);
+            inmueble.setEstado((inquilino == null ? (propietario.isHabitaConsorcio() ? EstadoInmueble.HABITADO : EstadoInmueble.DESOCUPADO) : EstadoInmueble.HABITADO));
             inmueble.setEstado(EstadoInmueble.DESOCUPADO);
             inmueble.setPiso(piso);
             inmueble.setPuerta(puerta);
@@ -72,12 +85,11 @@ public class InmuebleServiceBean {
             
             Inmueble inmueble = buscarInmueble(idInmueble);
             
-//            Propietario propietario = propietarioService.buscarPropietario(idPropietario);
-            
-//            Inquilino inquilino =null;
-//            if (idInquilino != null && !idInquilino.trim().isEmpty()){
-//             inquilino = inquilinoService.buscarInquilino(idInquilino);
-//            } 
+            Propietario propietario = propietarioService.buscarPropietario(idPropietario);
+            Inquilino inquilino =null;
+            if (idInquilino != null && !idInquilino.trim().isEmpty()){
+             inquilino = inquilinoService.buscarInquilino(idInquilino);
+            } 
             
             if (piso == null || piso.trim().isEmpty()){
                throw new ErrorServiceException("Debe indicar el piso");  
@@ -94,9 +106,9 @@ public class InmuebleServiceBean {
                 } 
             } catch (NoResultDAOException ex) {}
             
-//            inmueble.setPropietario(propietario);
-//            inmueble.setInquilino(inquilino);
-//            inmueble.setEstado((inquilino == null ? (propietario.isHabitaConsorcio() ? EstadoInmueble.HABITADO : EstadoInmueble.DESOCUPADO) : EstadoInmueble.HABITADO));
+            inmueble.setPropietario(propietario);
+            inmueble.setInquilino(inquilino);
+            inmueble.setEstado((inquilino == null ? (propietario.isHabitaConsorcio() ? EstadoInmueble.HABITADO : EstadoInmueble.DESOCUPADO) : EstadoInmueble.HABITADO));
             inmueble.setEstado(EstadoInmueble.HABITADO);
             inmueble.setPiso(piso);
             inmueble.setPuerta(puerta);

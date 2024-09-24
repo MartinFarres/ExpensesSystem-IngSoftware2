@@ -59,7 +59,37 @@
         </navigation-case>
     </navigation-rule>
 
-<!--permite configurar la navegabilidad
-que tendrán las distintas pantallas de la aplicación.-->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listInquilino</from-outcome>
+            <to-view-id>/admin/inquilino/listInquilino.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
 
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>editInquilino</from-outcome>
+            <to-view-id>/admin/inquilino/editInquilino.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listNacionalidad</from-outcome>
+            <to-view-id>/admin/nacionalidad/listNacionalidad.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>editNacionalidad</from-outcome>
+            <to-view-id>/admin/nacionalidad/editNacionalidad.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+   
 </faces-config>

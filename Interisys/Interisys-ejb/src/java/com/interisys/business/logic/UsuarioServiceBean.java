@@ -5,8 +5,10 @@
  */
 package com.interisys.business.logic;
 
+import com.interisys.business.domain.entity.Perfil;
 import com.interisys.business.persistence.DAOUsuarioBean;
 import com.interisys.business.domain.entity.Usuario;
+import com.interisys.business.persistence.ErrorDAOException;
 import com.interisys.business.persistence.NoResultDAOException;
 import java.util.Collection;
 import java.util.UUID;
@@ -23,59 +25,91 @@ import javax.ejb.Stateless;
 public class UsuarioServiceBean {
     
     private @EJB DAOUsuarioBean dao;
+    private @EJB PerfilServiceBean perfilService;
     
-    public void crearUsuario(String nombre, String apellido, String telefono, String correoElectronico, String usuarioCuenta, String clave, String claveVerificacion) throws ErrorServiceException{
+    public void validar(String nombre, String apellido, String correoElectronico, String telefono, String cuenta, String clave, String claveVerificacion)throws ErrorServiceException {
+        
         try{
             
-            validateUserInput(nombre, apellido, telefono, correoElectronico, clave, claveVerificacion);
+            if (nombre == null || nombre.isEmpty()){
+               throw new ErrorServiceException("Debe indicar el nombre"); 
+            }
+            
+            if (apellido == null || apellido.isEmpty()){
+               throw new ErrorServiceException("Debe indicar el apellido"); 
+            }
+
+            if (correoElectronico == null || correoElectronico.isEmpty()){
+               throw new ErrorServiceException("Debe indicar el correo electrónico"); 
+            }
+            
+            if (telefono == null || telefono.isEmpty()){
+               throw new ErrorServiceException("Debe indicar el teléfono"); 
+            }
+            
+            if (!clave.equals(claveVerificacion)){
+               throw new ErrorServiceException("La clave y su verificación no son iguales");  
+            }
+            
+        } catch (ErrorServiceException e) {
+            throw e;
+        } catch (Exception ex){
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de Sistemas");
+        }
+    }
+    
+    public Usuario crearUsuario(String nombre, String apellido, String correoElectronico, String telefono, String cuenta, String clave, String claveVerificacion)throws ErrorServiceException{
+        
+        try{
+            
+            validar(nombre, apellido, correoElectronico, telefono, cuenta, clave, claveVerificacion);
             
             try{
-                // Si Existe el Usuario
-                dao.buscarUsuarioPorCuenta(usuarioCuenta);
-                throw new ErrorServiceException("Ya existe el usuario");
-            }catch(ErrorServiceException ex){}
-            // -----------------------------------------------------------------
+                dao.buscarUsuarioPorCuenta(cuenta);
+                throw new ErrorServiceException("Ya existe un usuario con la cuenta indicada");
+            } catch (NoResultDAOException ex) {}
             
-            // Creacion de Usuario
             Usuario usuario = new Usuario();
             usuario.setId(UUID.randomUUID().toString());
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
             usuario.setCorreoElectronico(correoElectronico);
-            usuario.setUsuario(usuarioCuenta);
+            usuario.setTelefono(telefono);
+            usuario.setUsuario(cuenta);
             usuario.setClave(clave);
             usuario.setEliminado(false);
             
             dao.guardarUsuario(usuario);
             
+            return usuario;
+            
         }catch(ErrorServiceException e){
-            throw e;}
-        catch(Exception e){
+            throw e;
+        }catch(Exception e){
           e.printStackTrace();
           throw new ErrorServiceException("Error de sistema");  
         }
-        
     }
     
-    public void modificarUsuario(String idUsuario, String nombre,String apellido, String correoElectronico, String telefono, String usuarioCuenta, String clave, String claveVerificacion) throws ErrorServiceException{
+    public void modificarUsuario(String idUsuario, String nombre, String apellido, String correoElectronico, String telefono, String cuenta, String clave, String claveVerificacion)throws ErrorServiceException{
+        
         try{
-             validateUserInput(nombre, apellido, telefono, correoElectronico, clave, claveVerificacion);
+            
+            Usuario usuario = dao.buscarUsuario(idUsuario);
+
+            validar(nombre, apellido, correoElectronico, telefono, cuenta, clave, claveVerificacion);
             
             try{
-                // Si Existe el Usuario
-                dao.buscarUsuarioPorCuenta(usuarioCuenta);
-                throw new ErrorServiceException("Ya existe el usuario");
-            }catch(ErrorServiceException ex){}
-            // -----------------------------------------------------------------
-            
-            // Actualizacion de Usuario
-            Usuario usuario = dao.buscarUsuario(idUsuario);
+                dao.buscarUsuarioPorCuenta(cuenta);
+                throw new ErrorServiceException("Ya existe un usuario con la cuenta indicada");
+            } catch (NoResultDAOException ex) {}
             
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
             usuario.setCorreoElectronico(correoElectronico);
             usuario.setTelefono(telefono);
-            usuario.setUsuario(usuarioCuenta);
+            usuario.setUsuario(cuenta);
             usuario.setClave(clave);
             usuario.setEliminado(false);
             
@@ -88,6 +122,7 @@ public class UsuarioServiceBean {
           throw new ErrorServiceException("Error de sistema");  
         }
     }
+    
     public void eliminarUsuario(String idUsuario) throws ErrorServiceException {
 
         try {
@@ -109,7 +144,7 @@ public class UsuarioServiceBean {
 
         try {
             
-            if (id == null) {
+            if (id == null || id.trim().isEmpty()) {
                 throw new ErrorServiceException("Debe indicar el usuario");
             }
 
@@ -129,35 +164,33 @@ public class UsuarioServiceBean {
         }
     }
     
-    public void modificarClave(String idUsuario, String nuevaClave, String verificacionNuevaClave)throws ErrorServiceException {
-        
-        try{
+    public Usuario buscarUsuarioPorCuenta(String cuenta) throws ErrorServiceException, NoResultDAOException {
+
+        try {
             
-            Usuario usuario = buscarUsuario(idUsuario);
-            
-            if (nuevaClave == null || nuevaClave.isEmpty()){
-               throw new ErrorServiceException("Debe indicar la clave"); 
+            if (cuenta == null || cuenta.trim().isEmpty()) {
+                throw new ErrorServiceException("Debe indicar la cuenta");
             }
+
+            Usuario usuario = dao.buscarUsuarioPorCuenta(cuenta);
             
-            if (verificacionNuevaClave == null || verificacionNuevaClave.isEmpty()){
-               throw new ErrorServiceException("Debe indicar la verificación de la clave"); 
+            if (usuario.isEliminado()){
+                throw new NoResultDAOException("No se encuentra el usuario indicado");
             }
-            
-            if (!nuevaClave.equals(verificacionNuevaClave)){
-               throw new ErrorServiceException("La clave y su verificación no son iguales");  
-            }
-            
-            usuario.setClave(nuevaClave);
-            
-            dao.actualizarUsuario(usuario);
+
+            return usuario;
             
         } catch (ErrorServiceException ex) {  
             throw ex;
-        } catch (Exception ex) {
+        }catch (NoResultDAOException | ErrorDAOException ex){
+            throw new NoResultDAOException("No se encontro el usuario indicado");
+        }catch (Exception ex) {
             ex.printStackTrace();
             throw new ErrorServiceException("Error de sistema");
         }
     }
+    
+   
     
     public Collection<Usuario> listarUsuarioActivo()throws ErrorServiceException{
         
@@ -170,24 +203,6 @@ public class UsuarioServiceBean {
             throw new ErrorServiceException("Error de sistema");
         }
     }
-    
-    private void validateUserInput(String nombre, String apellido, String telefono, String correoElectronico, String clave, String claveVerificacion) throws ErrorServiceException {
-    if (nombre == null || nombre.isEmpty()) {
-        throw new ErrorServiceException("El Nombre no puede ser vacío");
-    }
-    if (apellido == null || apellido.isEmpty()) {
-        throw new ErrorServiceException("El Apellido no puede ser vacío");
-    }
-    if (telefono == null || telefono.isEmpty()) {
-        throw new ErrorServiceException("El Telefono no puede ser vacío");
-    }
-    if (correoElectronico == null || correoElectronico.isEmpty()) {
-        throw new ErrorServiceException("El Correo Electrónico no puede ser vacío");
-    }
-    if (!clave.equals(claveVerificacion)) {
-        throw new ErrorServiceException("Ambas claves deben coincidir");
-    }
-}
     
     public Usuario login (String cuenta, String clave)throws ErrorServiceException{
         
@@ -204,8 +219,8 @@ public class UsuarioServiceBean {
             Usuario usuario = null;
             try{
                 usuario = dao.buscarUsuarioPorCuentaYClave(cuenta, clave);
-            }catch(NoResultDAOException e){
-                throw new ErrorServiceException("Usuario o Clave incorrecto");
+            }catch(NoResultDAOException e){  
+               throw new ErrorServiceException("Usuario o Clave incorrecto");
             }
             
             if (usuario.getPerfil() == null){
@@ -222,5 +237,22 @@ public class UsuarioServiceBean {
         }
     }
     
+    public void asignarPerfil(String idUsuario, String idPerfil)throws ErrorServiceException{
+        
+        try{
+            
+            Usuario usuario = buscarUsuario(idUsuario);
+            Perfil perfil = perfilService.buscarPerfil(idPerfil);
+            
+            usuario.setPerfil(perfil);
+            dao.actualizarUsuario(usuario);
+            
+        } catch (ErrorServiceException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de sistema");
+        }
+    }
     
 }

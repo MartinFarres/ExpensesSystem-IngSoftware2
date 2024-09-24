@@ -22,6 +22,16 @@ public class IndexNavigationController {
     {
         return "listExpensa";
     }
+    public String navegarInquilino()
+    {
+        return "listInquilino";
+    }
+    
+    public String navergarNacionalidad()
+    {
+        return "listNacionalidad";
+    }
+            
     
 }
 
