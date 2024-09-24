@@ -31,44 +31,46 @@ import javax.faces.model.SelectItem;
 @ViewScoped
 public class InquilinoEditController {
 
-    private @EJB InquilinoServiceBean inquilinoService;
-    private @EJB NacionalidadServiceBean nacionalidadService;
+    private @EJB
+    InquilinoServiceBean inquilinoService;
+    private @EJB
+    NacionalidadServiceBean nacionalidadService;
 
     private Inquilino inquilino;
     private CasoDeUsoType casoDeUso;
     private boolean campoDesactivado;
-    
-    private Collection<SelectItem> nacionalidades=new ArrayList();
-    private Collection<SelectItem> tiposDocumentos=new ArrayList();
-    private Collection<SelectItem> sexos=new ArrayList();
-    
+
+    private Collection<SelectItem> nacionalidades = new ArrayList();
+    private Collection<SelectItem> tiposDocumentos = new ArrayList();
+    private Collection<SelectItem> sexos = new ArrayList();
+
     @PostConstruct
     public void init() {
         //Se obtiene el caso de uso  
-        casoDeUso = (CasoDeUsoType)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("CASO_DE_USO");
-        
+        casoDeUso = (CasoDeUsoType) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("CASO_DE_USO");
+
         // Cuando el caso de uso es alta, crea la expensa
-        if (casoDeUso == CasoDeUsoType.ALTA)
+        if (casoDeUso == CasoDeUsoType.ALTA) {
             inquilino = new Inquilino();
-        else
-            // Obtiene la expensa a traves del controlador de sesion
-            inquilino = (Inquilino)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("INQUILINO");
-        
+            inquilino.setNacionalidad(new Nacionalidad());
+        } else // Obtiene la expensa a traves del controlador de sesion
+        {
+            inquilino = (Inquilino) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("INQUILINO");
+        }
+
         // Los campos se desactiva en en caso de uso de consulta
         campoDesactivado = casoDeUso == CasoDeUsoType.CONSULTAR;
-        
-        
+
         cargarComboNacionalidad();
         cargarComboSexo();
         cargarComboTipoDocumento();
     }
-    
+
     public String aceptar() {
-        try{
-            
+        try {
+
             // Dependiendo del caso de uso hace distintas acciones
-            switch (casoDeUso)
-            {
+            switch (casoDeUso) {
 
                 case ALTA:
                     inquilinoService.crearInquilino(
@@ -83,7 +85,7 @@ public class InquilinoEditController {
                             inquilino.getNacionalidad().getId());
                     Message.show("Inquilino creado exitosamente", MessageType.NOTIFICACION);
                     break;
-                    
+
                 case MODIFICAR:
                     inquilinoService.modificarInquilino(
                             inquilino.getId(),
@@ -98,22 +100,21 @@ public class InquilinoEditController {
                             inquilino.getNacionalidad().getId());
                     Message.show("Inquilino modificado exitosamente", MessageType.NOTIFICACION);
                     break;
-                
+
                 case CONSULTAR:
                     break;
             }
 
             return "listInquilino";
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             Message.show(e.getMessage(), MessageType.ERROR);
             return null;
         }
     }
-    
-    public String cancelar()
-    {
+
+    public String cancelar() {
         return "listInquilino";
     }
 
@@ -165,55 +166,54 @@ public class InquilinoEditController {
         this.sexos = sexos;
     }
 
-        private void cargarComboSexo() {
-        
-       try{  
-           
-         sexos = new ArrayList<>();
-         sexos.add(new SelectItem(null, "Seleccione..."));
-         sexos.add(new SelectItem(Sexo.FEMENINO, "FEMENINO"));
-         sexos.add(new SelectItem(Sexo.MASCULINO, "MASCULINO"));
-         sexos.add(new SelectItem(Sexo.OTRO, "OTRO"));
-        
-       }catch(Exception e){
-         Message.errorSystem();  
-       }  
+    private void cargarComboSexo() {
+
+        try {
+
+            sexos = new ArrayList<>();
+            sexos.add(new SelectItem(null, "Seleccione..."));
+            sexos.add(new SelectItem(Sexo.FEMENINO, "FEMENINO"));
+            sexos.add(new SelectItem(Sexo.MASCULINO, "MASCULINO"));
+            sexos.add(new SelectItem(Sexo.OTRO, "OTRO"));
+
+        } catch (Exception e) {
+            Message.errorSystem();
+        }
     }
-    
+
     private void cargarComboTipoDocumento() {
-        
-       try{  
-           
-         tiposDocumentos = new ArrayList<>();
-         tiposDocumentos.add(new SelectItem(null, "Seleccione..."));
-         tiposDocumentos= new ArrayList<>();
-         tiposDocumentos.add(new SelectItem(null, "Seleccione..."));
-         tiposDocumentos.add(new SelectItem(TipoDocumento.DOCUMENTO_UNICO, "DNI"));
-         tiposDocumentos.add(new SelectItem(TipoDocumento.PASAPORTE, "PASAPORTE"));
-         tiposDocumentos.add(new SelectItem(TipoDocumento.CERTIFICADO_MIGRATORIO, "CERTIFICADO MIGRATORIO"));
-         tiposDocumentos.add(new SelectItem(TipoDocumento.LIBRETA_CIVICA, "LIBRETA CIVICA"));
-         tiposDocumentos.add(new SelectItem(TipoDocumento.LIBRETA_DE_ENROLAMIENTO, "LIBRETA DE ENROLAMIENTO"));
-         tiposDocumentos.add(new SelectItem(TipoDocumento.EN_TRAMITE_RECIEN_NACIDO, "EN TRAMITE RECIEN NACIDO"));
-         tiposDocumentos.add(new SelectItem(TipoDocumento.SIN_INFORMACION, "SIN INFORMACION"));
-        
-       }catch(Exception e){
-         Message.errorSystem();  
-       }  
+
+        try {
+
+            tiposDocumentos = new ArrayList<>();
+            tiposDocumentos.add(new SelectItem(null, "Seleccione..."));
+            tiposDocumentos = new ArrayList<>();
+            tiposDocumentos.add(new SelectItem(null, "Seleccione..."));
+            tiposDocumentos.add(new SelectItem(TipoDocumento.DOCUMENTO_UNICO, "DNI"));
+            tiposDocumentos.add(new SelectItem(TipoDocumento.PASAPORTE, "PASAPORTE"));
+            tiposDocumentos.add(new SelectItem(TipoDocumento.CERTIFICADO_MIGRATORIO, "CERTIFICADO MIGRATORIO"));
+            tiposDocumentos.add(new SelectItem(TipoDocumento.LIBRETA_CIVICA, "LIBRETA CIVICA"));
+            tiposDocumentos.add(new SelectItem(TipoDocumento.LIBRETA_DE_ENROLAMIENTO, "LIBRETA DE ENROLAMIENTO"));
+            tiposDocumentos.add(new SelectItem(TipoDocumento.EN_TRAMITE_RECIEN_NACIDO, "EN TRAMITE RECIEN NACIDO"));
+            tiposDocumentos.add(new SelectItem(TipoDocumento.SIN_INFORMACION, "SIN INFORMACION"));
+
+        } catch (Exception e) {
+            Message.errorSystem();
+        }
     }
-    
-    public void cargarComboNacionalidad(){
-      try{  
-        
+
+    public void cargarComboNacionalidad() {
+        try {
+
             nacionalidades = new ArrayList<>();
             nacionalidades.add(new SelectItem(null, "Seleccione..."));
-            for(Nacionalidad nacionalidad: nacionalidadService.listarNacionalidadActiva()){
-              nacionalidades.add(new SelectItem(nacionalidad.getId(), nacionalidad.getNombre()));
+            for (Nacionalidad nacionalidad : nacionalidadService.listarNacionalidadActiva()) {
+                nacionalidades.add(new SelectItem(nacionalidad.getId(), nacionalidad.getNombre()));
             }
-                
-      }catch(Exception e){
-        Message.show(e.getMessage(), MessageType.ERROR);
-      }
+
+        } catch (Exception e) {
+            Message.show(e.getMessage(), MessageType.ERROR);
+        }
     }
-    
-    
+
 }

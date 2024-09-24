@@ -60,4 +60,21 @@
         </navigation-case>
     </navigation-rule>
     
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listNacionalidad</from-outcome>
+            <to-view-id>/admin/nacionalidad/listNacionalidad.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>editNacionalidad</from-outcome>
+            <to-view-id>/admin/nacionalidad/editNacionalidad.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
 </faces-config>

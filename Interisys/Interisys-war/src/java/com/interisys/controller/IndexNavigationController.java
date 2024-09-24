@@ -26,6 +26,11 @@ public class IndexNavigationController {
     {
         return "listInquilino";
     }
+    
+    public String navergarNacionalidad()
+    {
+        return "listNacionalidad";
+    }
             
     
 }
