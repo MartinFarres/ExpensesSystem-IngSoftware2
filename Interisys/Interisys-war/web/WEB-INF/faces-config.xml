@@ -59,6 +59,22 @@
         </navigation-case>
     </navigation-rule>
 
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>editDepartamento</from-outcome>
+            <to-view-id>/admin/departamento/editDepartamento.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listDepartamento</from-outcome>
+            <to-view-id>/admin/departamento/listDepartamento.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
 <!--permite configurar la navegabilidad
 que tendrán las distintas pantallas de la aplicación.-->
 

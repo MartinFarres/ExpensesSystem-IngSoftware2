@@ -22,6 +22,15 @@ public class IndexNavigationController {
     {
         return "listExpensa";
     }
+        public String navegarProvincia()
+    {
+        return "listProvincia";
+    }
+        public String navegarDepartamento()
+    {
+        return "listDepartamento";
+    }
+    
     
 }
 

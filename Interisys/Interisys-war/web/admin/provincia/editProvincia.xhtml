@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+    
+    <ui:define name="content">
+        <div class="botoneraAMB ShowOnDesktop Responsive">
+            <p:breadCrumb styleClass="navegacion">
+                <p:menuitem value="Menu principal" url="/admin/index.xhtml" />
+                <p:menuitem value="Provincias" url="/admin/provincia/listProvincia.xhtml" />
+                <p:menuitem value="#{provinciaEditController.casoDeUso} Provincia" url="#" />
+            </p:breadCrumb>                
+
+        </div>
+
+        <div class="EmptyBox90"></div>
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent ">
+                <div class="Card ShadowEffect HeiAutoOnMobile Wid90">
+                    EDIT PROVINCIA
+                    <p:separator/>
+                    
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Nombre:"/>
+                    <div class="EmptyBox1"></div>
+                    <p:inputText id="idNombre"  value="#{provinciaEditController.nombre}" type="text"   styleClass="Wid90" disabled="#{provinciaEditController.campoDesactivado}"/>
+                    
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="País:"/>
+                    <div class="EmptyBox1"></div>                                                                                                     
+                    <p:selectOneMenu id="pais" styleClass="Wid80" 
+                                     value="#{provinciaEditController.idPais}" 
+                                     disabled="#{provinciaEditController.campoDesactivado}">
+                        <f:selectItems value="#{provinciaEditController.paises}" />
+                    </p:selectOneMenu> 
+
+                </div>
+            </div>
+        </div>
+        <div class="EmptyBox30"></div>
+        <div class="Container100 ShowOnMobile">
+            <div class="ContainerIndent ">
+                <div class="Card Wid90 HeiAutoOnMobile">
+                    <div class="Fright">
+                        <p:commandButton value="Aceptar"  action="#{provinciaEditController.aceptar()}" /> 
+                        <p:commandButton value="Cancelar" action="#{provinciaEditController.cancelar()}" />                                
+                    </div>
+                </div>
+            </div>        
+        </div> 
+
+    </ui:define>
+
+</ui:composition>
+    
+<!--Los archivos JSF (.xhtml) permiten incorporar los 
+componentes visuales que dibujara la pantalla en el cliente web (browser)--> 
+
+</html>
