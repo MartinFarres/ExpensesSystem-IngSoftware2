@@ -27,68 +27,93 @@ public class PerfilServiceBean {
     
     private @EJB DAOPerfilBean dao;
     
-    public void crearPerfil(String nombre, String detalle, Collection<SubMenu> submenues) throws ErrorServiceException{
+    public void validar(String nombre, String detalle, Collection<SubMenu> submenues)throws ErrorServiceException {
+        
         try{
             
-            validateUserInput(nombre, detalle, submenues);
+            if (nombre == null || nombre.trim().isEmpty()) {
+                throw new ErrorServiceException("Debe indicar el nombre");
+            }
             
-            try{
-                // Si Existe el Perfil
-                dao.buscarPerfilPorNombre(nombre);
-                throw new ErrorServiceException("Ya existe el perfil");
-            }catch(ErrorServiceException ex){}
-            // -----------------------------------------------------------------
+            if (detalle == null || detalle.trim().isEmpty()) {
+                throw new ErrorServiceException("Debe indicar el detalle");
+            }
+
+            if (submenues == null || submenues.isEmpty()) {
+                throw new ErrorServiceException("Debe indicar los submenues");
+            }
             
-            // Creacion de Perfil
-            Perfil perfil = new Perfil();
-            perfil.setNombre(nombre);
-            perfil.setDetalle(detalle);
-            perfil.setEliminado(false);
-            perfil.setSubmenu(submenues);
-            
-            dao.guardarPerfil(perfil);
-            
-        }catch(ErrorServiceException e){
-            throw e;}
-        catch(Exception e){
-          e.printStackTrace();
-          throw new ErrorServiceException("Error de sistema");  
+        } catch (ErrorServiceException e) {
+            throw e;
+        } catch (Exception ex){
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de Sistemas");
         }
-        
     }
     
-    public void modificarPerfil(String nombre, String detalle, Collection<SubMenu> submenues) throws ErrorServiceException{
-        try{
-             validateUserInput(nombre, detalle, submenues);
-            
-            try{
-                // Si Existe el Perfil
-                dao.buscarPerfilPorNombre(nombre);
-                throw new ErrorServiceException("Ya existe el perfil");
-            }catch(ErrorServiceException ex){}
-            // -----------------------------------------------------------------
-            
-            // Actualizacion de Perfil
-            Perfil perfil = new Perfil();
-            
-            perfil.setNombre(nombre);
-            perfil.setDetalle(detalle);
-            perfil.setEliminado(false);
-            perfil.setSubmenu(submenues);
-            
-            dao.actualizarPerfil(perfil);
-            
-        }catch(ErrorServiceException e){
-            throw e;
-        }catch(Exception e){
-          e.printStackTrace();
-          throw new ErrorServiceException("Error de sistema");  
-        }
-    }
-    public void eliminarPerfil(String idPerfil) throws ErrorServiceException {
-
+    public Perfil crearPerfil(String nombre, String detalle, Collection<SubMenu> submenues) throws ErrorServiceException {
+        
         try {
             
+            validar(nombre, detalle, submenues);
+
+            try {
+               dao.buscarPerfilPorNombre(nombre);
+               throw new ErrorServiceException("Existe una perfil con el nombre indicado");
+            } catch (NoResultDAOException ex) {}
+
+            Perfil perfil = new Perfil();
+            perfil.setId(UUID.randomUUID().toString());
+            perfil.setNombre(nombre);
+            perfil.setDetalle(detalle);
+            perfil.setSubmenu(submenues);
+            perfil.setEliminado(false);
+
+            dao.actualizarPerfil(perfil);
+            
+            return perfil;
+
+        } catch (ErrorServiceException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de sistema");
+        }
+    }
+
+    public void modificarPerfil(String idPerfil, String nombre, String detalle, Collection<SubMenu> submenues) throws ErrorServiceException {
+        try {
+
+            Perfil perfil = buscarPerfil(idPerfil);
+            
+            validar(nombre, detalle, submenues);
+
+            try {
+               Perfil perfilAux = dao.buscarPerfilPorNombre(nombre);
+               if (!perfilAux.getId().equals(idPerfil)){
+                throw new ErrorServiceException("Existe una perfil con el nombre indicado");
+               } 
+            } catch (NoResultDAOException ex) {}
+
+            perfil.setNombre(nombre);
+            perfil.setDetalle(detalle);
+            perfil.setSubmenu(submenues);
+            perfil.setEliminado(false);
+
+            dao.actualizarPerfil(perfil);
+
+        } catch (ErrorServiceException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de sistema");
+        }
+
+    }
+
+    public void eliminarPerfil(String idPerfil) throws ErrorServiceException {
+        try {
+
             Perfil perfil = buscarPerfil(idPerfil);
             perfil.setEliminado(true);
             dao.actualizarPerfil(perfil);
@@ -101,31 +126,31 @@ public class PerfilServiceBean {
         }
 
     }
-    
-    public Perfil buscarPerfil(String id) throws ErrorServiceException {
+
+    public Perfil buscarPerfil(String idPerfil) throws ErrorServiceException {
 
         try {
-            
-            if (id == null) {
-                throw new ErrorServiceException("Debe indicar el perfil");
+
+            if (idPerfil == null || idPerfil.trim().isEmpty()) {
+                throw new ErrorServiceException("Debe indicar un Perfil");
             }
 
-            Perfil perfil = dao.buscarPerfil(id);
+            Perfil perfil = dao.buscarPerfil(idPerfil);
             
             if (perfil.isEliminado()){
-                throw new ErrorServiceException("No se encuentra el perfil indicado");
+               throw new ErrorServiceException("No existe el perfil indicado"); 
             }
 
             return perfil;
             
-        } catch (ErrorServiceException ex) {  
+        } catch (ErrorServiceException ex) {
             throw ex;
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new ErrorServiceException("Error de sistema");
         }
     }
-    
+
     public Perfil buscarPerfilPorNombre(String nombre) throws ErrorServiceException {
 
         try {
@@ -143,7 +168,8 @@ public class PerfilServiceBean {
             throw new ErrorServiceException("Error de sistema");
         }
     }
-    
+
+
     public Collection<Perfil> listarPerfilActivo() throws ErrorServiceException {
 
         try {
@@ -154,18 +180,6 @@ public class PerfilServiceBean {
             ex.printStackTrace();
             throw new ErrorServiceException("Error de sistema");
         }
-    }
-    
-    private void validateUserInput(String nombre, String detalle, Collection<SubMenu> submenues) throws ErrorServiceException {
-    if (nombre == null || nombre.isEmpty()) {
-        throw new ErrorServiceException("El Nombre no puede ser vacío");
-    }
-    if (detalle == null || detalle.isEmpty()) {
-        throw new ErrorServiceException("El Detalle no puede ser vacío");
-    }
-    if (submenues == null || submenues.isEmpty()) {
-        throw new ErrorServiceException("El menu no puede ser vacío");
-    }
     }
 }
     
