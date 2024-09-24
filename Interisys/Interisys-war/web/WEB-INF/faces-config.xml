@@ -91,5 +91,22 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
-   
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listInmueble</from-outcome>
+            <to-view-id>/admin/inmueble/listInmueble.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>editInmueble</from-outcome>
+            <to-view-id>/admin/inmueble/editInmueble.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
 </faces-config>
