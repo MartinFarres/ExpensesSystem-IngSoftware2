@@ -22,6 +22,11 @@ public class IndexNavigationController {
     {
         return "listExpensa";
     }
+    public String navegarInquilino()
+    {
+        return "listInquilino";
+    }
+            
     
 }
 

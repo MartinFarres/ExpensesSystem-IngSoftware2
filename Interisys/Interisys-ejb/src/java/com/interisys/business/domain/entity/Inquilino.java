@@ -20,9 +20,19 @@ public class Inquilino extends Persona implements Serializable {
     @ManyToOne
     private Nacionalidad nacionalidad;
     @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechaNacimiento;
+    
     private Sexo sexo;
     private TipoDocumento tipoDocumento;
     private String documento;
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
 
 
     public String getDocumento() {
