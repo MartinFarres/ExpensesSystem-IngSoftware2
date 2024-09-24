@@ -6,7 +6,6 @@
 package com.interisys.business.persistence;
 
 import com.interisys.business.domain.entity.Inmueble;
-import com.interisys.business.domain.entity.Pais;
 import java.util.Collection;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;

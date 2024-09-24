@@ -9,7 +9,6 @@ import com.interisys.business.domain.entity.Menu;
 import com.interisys.business.domain.entity.Perfil;
 import com.interisys.business.domain.entity.Usuario;
 import com.interisys.business.logic.ErrorServiceException;
-import com.interisys.business.logic.InitAplicacionServiceBean;
 import com.interisys.business.logic.MenuServiceBean;
 import com.interisys.business.logic.PerfilServiceBean;
 import com.interisys.business.logic.SubMenuServiceBean;
@@ -34,7 +33,6 @@ public class LoginController implements Serializable {
     //Servicios Capa de Negocio
     private @EJB UsuarioServiceBean usuarioService;
     private @EJB PerfilServiceBean perfilService;
-    private @EJB InitAplicacionServiceBean inicioAplicacionService;
     private @EJB SubMenuServiceBean submenuService;
     private @EJB MenuServiceBean menuService;
 
