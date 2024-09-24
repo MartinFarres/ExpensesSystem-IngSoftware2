@@ -29,7 +29,7 @@ public class IndexNavigationController {
     
     public String navergarNacionalidad()
     {
-        return "editNacionalidad";
+        return "listNacionalidad";
     }
             
     
