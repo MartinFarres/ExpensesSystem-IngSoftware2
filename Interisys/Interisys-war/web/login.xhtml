@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pm="http://primefaces.org/mobile">
+    <h:head>
+        <title>Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="./resources/custom/css/login.css"/>
+    </h:head>
+    <h:body style="background-color: #4169E1">
+        <div class="login-wrap">
+            <div class="card-login">
+                <div style="padding:10px; margin-bottom: 10px">
+                    <text class="login-title">Sistema Consorcio</text>
+                </div>
+                <h:form id="formLogin">
+                    <div style="font-size: 10px">
+                        <p:messages id="msj" showDetail="true"/>
+                    </div>
+                    <p:inputText class="card-login-input" type="text" placeholder="Usuario" value="#{loginController.user}"/>
+                    <p:inputText class="card-login-input" type="password" placeholder="Contraseña" value="#{loginController.password}"/>
+                    <p:commandButton style="margin-top: 10px" id="btnIngresar" value="INGRESAR" action="#{loginController.login()}" update="msj"/>
+                       
+                </h:form>
+                    
+                
+            </div>
+        </div>        
+        <footer>
+            <text style="color:#153184; font-size: 18px ">@InteriSys</text>
+        </footer>
+    </h:body>
+  
+</html>

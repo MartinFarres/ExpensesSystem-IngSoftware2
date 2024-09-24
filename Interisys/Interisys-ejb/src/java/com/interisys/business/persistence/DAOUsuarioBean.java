@@ -24,7 +24,7 @@ import javax.persistence.PersistenceContext;
 @LocalBean
 public class DAOUsuarioBean {
 
-   @PersistenceContext private EntityManager em;
+    @PersistenceContext private EntityManager em;
    
    public void guardarUsuario(Usuario usuario){
        em.persist(usuario);

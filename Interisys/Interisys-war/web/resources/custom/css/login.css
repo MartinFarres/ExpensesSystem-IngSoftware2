@@ -1,0 +1,72 @@
+body footer {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 55px;
+    left: -15px;
+}
+
+
+.login-wrap {
+    width: 420px;
+    padding: 8% 0 0;
+    margin: auto;
+    background-color: #4169E1
+}
+
+
+.login-title {
+    margin: auto 10px;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.card-login {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 360px;
+    padding: 20px 45px 35px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    border-radius: 7px
+}
+
+.card-login-input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border: 1px solid lightgray;
+  transition: border 0.5s ease, border-radius 0.5s ease;
+}
+
+.card-login-input:focus{
+    border: 1px solid #4169E1;
+    border-radius: 8px
+}
+
+.card-login button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4169E1;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: background 0.5 ease;
+  transition: background-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.card-login button:hover,.card-login button:active,.card-login button:focus {
+  background-color: #0000FF;
+}
