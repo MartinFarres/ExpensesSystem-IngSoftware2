@@ -52,33 +52,29 @@ public class DAOProvinciaBean {
      } 
    }
    
-   public Provincia buscarProvinciaPorNombre(String nombre) throws NoResultDAOException, ErrorDAOException{
-       
-      try{ 
-         
-       if (nombre.length() > 255){
-          throw new ErrorDAOException("La longitud del nombre debe ser menor o igual que 255 caracteres");  
-       }   
+   public Provincia buscarProvinciaPorPaisYNombre (String idPais, String nombre) throws NoResultDAOException, ErrorDAOException{
+     
+      try{
           
        return (Provincia) em.createQuery("SELECT p "
                                   + "  FROM Provincia p"
-                                  + " WHERE p.nombre = :nombre"
+                                  + " WHERE p.pais.id = :idPais"
+                                  + "   AND p.nombre = :nombre"
                                   + "   AND p.eliminado = FALSE").
+                                  setParameter("idPais", idPais).
                                   setParameter("nombre", nombre).
                                   getSingleResult();
        
       } catch (NoResultException ex) {
             throw new NoResultDAOException("No se encontró información");
-      } catch (ErrorDAOException ex) {
-            throw ex;
       } catch (Exception ex) {
             ex.printStackTrace();
             throw new ErrorDAOException("Error de sistema");
-      }  
+      } 
    }
    
-   public Collection<Provincia> listarProvinciaActivo()throws ErrorDAOException{
-       
+   public Collection<Provincia> listarProvinciaActiva()throws ErrorDAOException{
+     
       try{
           
        return em.createQuery("SELECT p "
@@ -89,7 +85,24 @@ public class DAOProvinciaBean {
       } catch (Exception ex) {
             ex.printStackTrace();
             throw new ErrorDAOException("Error de sistema");
-      } 
+      }  
+   }
+   
+   public Collection<Provincia> listarProvinciaActiva(String idPais)throws ErrorDAOException{
+      
+      try{
+       return em.createQuery("SELECT p "
+                           + "  FROM Provincia p"
+                           + " WHERE p.eliminado = FALSE"
+                           + "   AND p.pais.id = :idPais").
+                           setParameter("idPais", idPais).
+                           getResultList();
+       
+
+      } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorDAOException("Error de sistema");
+      }
    }
    
 }
