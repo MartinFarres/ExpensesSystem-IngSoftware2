@@ -43,4 +43,21 @@
         </navigation-case>
     </navigation-rule>
     
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listInquilino</from-outcome>
+            <to-view-id>/admin/inquilino/listInquilino.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>editInquilino</from-outcome>
+            <to-view-id>/admin/inquilino/editInquilino.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
 </faces-config>
