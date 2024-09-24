@@ -14,12 +14,16 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.UUID;
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
 
 /**
  *
  * @author martin
  */
+@Stateless
+@LocalBean
 public class MenuServiceBean {
     
     private @EJB DAOMenuBean dao;
@@ -82,7 +86,7 @@ public class MenuServiceBean {
         }
     }
     
-    public void modificarMenu(String idMenu, String nombre, String icon, int orden) throws ErrorServiceException {
+    public void modificarMenu(String idMenu, String nombre, int orden) throws ErrorServiceException {
 
         try {
 

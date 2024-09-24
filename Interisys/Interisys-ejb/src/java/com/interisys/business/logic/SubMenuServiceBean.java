@@ -28,7 +28,7 @@ public class SubMenuServiceBean {
     private @EJB DAOSubMenuBean dao;
     private @EJB MenuServiceBean  menuService;
     
-    public void validar(Menu menu, String nombre, String url, String icon, int orden)throws ErrorServiceException {
+    public void validar(Menu menu, String nombre, String url, int orden)throws ErrorServiceException {
         
         try{
             
@@ -52,13 +52,13 @@ public class SubMenuServiceBean {
         }
     }
     
-    public void crearSubMenu(String idMenu, String nombre, String url, String icon, int orden) throws ErrorServiceException {
+    public void crearSubMenu(String idMenu, String nombre, String url, int orden) throws ErrorServiceException {
 
         try {
 
             Menu menu = menuService.buscarMenu(idMenu);
             
-            validar(menu, nombre, url, icon, orden);
+            validar(menu, nombre, url, orden);
 
             try {
                 dao.buscarSubMenuPorNombre(nombre);
@@ -75,7 +75,6 @@ public class SubMenuServiceBean {
             subMenu.setId(UUID.randomUUID().toString());
             subMenu.setNombre(nombre);
             subMenu.setUrl(url);
-            subMenu.setIcon(icon);
             subMenu.setOrden(orden);
 
             //Se agrega el submenu a la lista existente
@@ -95,7 +94,7 @@ public class SubMenuServiceBean {
         }
     }
 
-    public void modificarSubMenu(String idMenu, String idSubMenu, String nombre, String url, String icon, int orden) throws ErrorServiceException {
+    public void modificarSubMenu(String idMenu, String idSubMenu, String nombre, String url,  int orden) throws ErrorServiceException {
 
         try {
 
@@ -103,7 +102,7 @@ public class SubMenuServiceBean {
 
             SubMenu subMenu = buscarSubMenu(idSubMenu);
             
-            validar(menu, nombre, url, icon, orden);
+            validar(menu, nombre, url, orden);
             
             try {
                 SubMenu subMenuAux = dao.buscarSubMenuPorOrden(subMenu.getId(), nombre);
@@ -121,7 +120,6 @@ public class SubMenuServiceBean {
 
             subMenu.setNombre(nombre);
             subMenu.setUrl(url);
-            subMenu.setIcon(icon);
             subMenu.setOrden(orden);
             
             dao.actualizarSubMenu(subMenu);
