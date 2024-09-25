@@ -10,7 +10,6 @@
         </resource-bundle>
     </application>
 
-
     <navigation-rule>
         <navigation-case>
             <from-outcome>index</from-outcome>
@@ -61,6 +60,22 @@
 
     <navigation-rule>
         <navigation-case>
+            <from-outcome>editDepartamento</from-outcome>
+            <to-view-id>/admin/departamento/editDepartamento.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listDepartamento</from-outcome>
+            <to-view-id>/admin/departamento/listDepartamento.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
             <from-outcome>listInquilino</from-outcome>
             <to-view-id>/admin/inquilino/listInquilino.jsf</to-view-id>
             <redirect/>
@@ -74,7 +89,6 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
-    
 
     <navigation-rule>
         <navigation-case>
@@ -83,7 +97,7 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
-
+    
     <navigation-rule>
         <navigation-case>
             <from-outcome>editNacionalidad</from-outcome>
@@ -99,7 +113,6 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
-    
     
     <navigation-rule>
         <navigation-case>
