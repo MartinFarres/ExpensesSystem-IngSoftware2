@@ -1,7 +1,7 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates 
- * and open the template in the editor. 
+ * and open the template in the editor.
  */
 package com.interisys.controller;
 
@@ -36,6 +36,10 @@ public class IndexNavigationController {
         return "listInquilino";
     }
     
+    public String navegarPropietario() {
+        return "listPropietario";
+    }
+    
     public String navegarNacionalidad() {
         return "listNacionalidad";
     }
@@ -43,6 +47,11 @@ public class IndexNavigationController {
     public String navegarInmueble() {
         return "listInmueble";
     }
+    
+    public String navegarExpensaInmueble() {
+        return "listExpensaInmueble";
+    }
 }
+
 
 
