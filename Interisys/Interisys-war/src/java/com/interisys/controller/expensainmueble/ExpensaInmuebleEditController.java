@@ -129,7 +129,15 @@ public class ExpensaInmuebleEditController {
             expensas = new ArrayList<>();
             expensas.add(new SelectItem(null, "Seleccione..."));
             for(Expensa expensa: expensaService.listarExpensasActivo()){
-              expensas.add(new SelectItem(expensa.getId(), "Importe Actual $:" + expensa.getImporte()));
+                if (expensa.getFechaHasta() != null)
+                {
+                    expensas.add(new SelectItem(expensa.getId(), "Importe anterior $:" + expensa.getImporte()));
+                }
+                else
+                {                                    
+                    expensas.add(new SelectItem(expensa.getId(), "Importe Actual $:" + expensa.getImporte()));
+                }
+
             }
                 
       }catch(Exception e){

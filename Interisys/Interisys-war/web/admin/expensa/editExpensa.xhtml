@@ -28,11 +28,6 @@
                     <p:calendar id="idFechaDesde" value="#{expensaEditController.expensa.fechaDesde}" locale="es" showOn="button"  navigator="true" pattern="dd/MM/yyyy"  mindate="01/01/1920" effect="drop" styleClass="Wid80" disabled="#{expensaEditController.campoDesactivado}"/> 
                     
                     <div class="EmptyBox10"></div>
-                    <p:outputLabel value="Fecha Hasta:"/>
-                    <div class="EmptyBox1"></div>
-                    <p:calendar id="idFechaHasta" value="#{expensaEditController.expensa.fechaHasta}" locale="es" showOn="button"  navigator="true" pattern="dd/MM/yyyy"  mindate="01/01/1920" effect="drop" styleClass="Wid80" disabled="#{expensaEditController.campoDesactivado}"/> 
-
-                    <div class="EmptyBox10"></div>
                     <p:outputLabel value="Importe:"/>
                     <div class="EmptyBox1"></div>
                     <p:inputText id="idImporte"  value="#{expensaEditController.expensa.importe}" type="text"   styleClass="Wid90" disabled="#{expensaEditController.campoDesactivado}"/>

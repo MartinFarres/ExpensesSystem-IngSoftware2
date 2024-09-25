@@ -47,7 +47,7 @@ public class DAOExpensaBean {
        return em.find(Expensa.class, id);
    }
    
-   public Collection<Expensa> listarExpensaActivo()throws ErrorDAOException{
+   public Collection<Expensa> listarExpensaActivo() throws ErrorDAOException{
        
       try{
           
@@ -61,5 +61,17 @@ public class DAOExpensaBean {
             throw new ErrorDAOException("Error de sistema: " + ex.toString());
       } 
    }
+   
+    public Expensa buscarExpensaActual() throws ErrorDAOException {
+        try {
+            return (Expensa) em.createQuery("SELECT e "
+                              + " FROM Expensa e "
+                              + " WHERE e.fechaHasta IS NULL")
+                              .getSingleResult();
+        } catch (Exception ex) {
+            throw new ErrorDAOException("Error de sistema: " + ex.toString());
+        }
+    }
+
    
 }
