@@ -108,6 +108,24 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listPropietario</from-outcome>
+            <to-view-id>/admin/propietario/listPropietario.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>editPropietario</from-outcome>
+            <to-view-id>/admin/propietario/editPropietario.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
 
     <navigation-rule>
         <navigation-case>

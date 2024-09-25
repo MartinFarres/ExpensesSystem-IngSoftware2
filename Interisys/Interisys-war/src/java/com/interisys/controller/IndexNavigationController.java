@@ -26,6 +26,10 @@ public class IndexNavigationController {
     {
         return "listInquilino";
     }
+        public String navegarPropietario()
+    {
+        return "listPropietario";
+    }
     
     public String navergarNacionalidad()
     {

@@ -24,8 +24,10 @@ import javax.faces.model.SelectItem;
 @ViewScoped
 public class PropietarioEditController {
 
-    private @EJB PropietarioServiceBean propietarioService;
-    private @EJB DireccionServiceBean direccionService;
+    private @EJB 
+    PropietarioServiceBean propietarioService;
+    private @EJB 
+    DireccionServiceBean direccionService;
 
     private Propietario propietario;
     private CasoDeUsoType casoDeUso;
@@ -41,6 +43,7 @@ public class PropietarioEditController {
         // Crear nuevo propietario o cargar el existente según el caso de uso
         if (casoDeUso == CasoDeUsoType.ALTA) {
             propietario = new Propietario();
+            propietario.setDireccion(new Direccion());
         } else {
             propietario = (Propietario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("PROPIETARIO");
         }
