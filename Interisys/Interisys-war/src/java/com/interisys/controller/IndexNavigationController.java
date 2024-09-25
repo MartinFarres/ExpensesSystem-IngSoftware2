@@ -32,6 +32,9 @@ public class IndexNavigationController {
         return "listDepartamento";
     }
     
+    public String navegarLocalidad() {
+        return "listLocalidad";
+    }
     public String navegarInquilino() {
         return "listInquilino";
     }
