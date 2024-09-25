@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+
+    <ui:define name="content">
+        <div class="botoneraAMB ShowOnDesktop Responsive">
+            <p:breadCrumb styleClass="navegacion">
+                <p:menuitem value="Menu principal" url="/admin/index.xhtml" />
+                <p:menuitem value="Inmuebles" url="/admin/inmueble/listInmueble.xhtml" />
+                <p:menuitem value="#{inmuebleEditController.casoDeUso} Inmueble" url="#" />
+            </p:breadCrumb>              
+        </div>
+
+        <div class="EmptyBox90"></div>
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent ">
+                <div class="Card ShadowEffect HeiAutoOnMobile Wid90">
+                    EDIT INMUEBLE
+                    <p:separator/>
+
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Propietario:"/>
+                    <div class="EmptyBox1"></div> 
+                    <p:selectOneMenu id="propietario" value="#{inmuebleEditController.inmueble.propietario.id}" styleClass="Wid80" disabled="#{inmuebleEditController.campoDesactivado}">
+                        <f:selectItems  value="#{inmuebleEditController.propietarios}" />
+                    </p:selectOneMenu>
+                    
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Inquilino:"/>
+                    <div class="EmptyBox1"></div> 
+                    <p:selectOneMenu id="inquilino" value="#{inmuebleEditController.inmueble.inquilino.id}" styleClass="Wid80" disabled="#{inmuebleEditController.campoDesactivado}">
+                        <f:selectItems  value="#{inmuebleEditController.inquilinos}" />
+                    </p:selectOneMenu>
+                    
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Piso:"/>
+                    <div class="EmptyBox1"></div>
+                    <p:inputText id="piso"  value="#{inmuebleEditController.inmueble.piso}" type="text"   styleClass="Wid90" disabled="#{inmuebleEditController.campoDesactivado}"/>
+                    
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Puerta:"/>
+                    <div class="EmptyBox1"></div>
+                    <p:inputText id="puerta"  value="#{inmuebleEditController.inmueble.puerta}" type="text"   styleClass="Wid90" disabled="#{inmuebleEditController.campoDesactivado}"/>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="EmptyBox30"></div>
+        <div class="Container100 ShowOnMobile">
+            <div class="ContainerIndent ">
+                <div class="Card Wid90 HeiAutoOnMobile">
+                    <div class="Fright">
+                        <p:commandButton value="Aceptar"  action="#{inmuebleEditController.aceptar()}"/> 
+                        <p:commandButton value="Cancelar" action="#{inmuebleEditController.cancelar()}" />                                
+                    </div>
+                </div>
+            </div>        
+        </div> 
+
+    </ui:define>
+
+</ui:composition> 
