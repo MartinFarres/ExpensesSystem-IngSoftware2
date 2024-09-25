@@ -44,35 +44,12 @@
                     <p:inputText id="telefono" value="#{propietarioEditController.propietario.telefono}" styleClass="Wid90" type="number" disabled="#{propietarioEditController.campoDesactivado}"/> 
                     
                     <div class="EmptyBox10"></div>
-                    <p:outputLabel value="Fecha Nacimiento:"/>
-                    <div class="EmptyBox1"></div>
-                    <p:calendar value="#{propietarioEditController.propietario.fechaNacimiento}" locale="es" showOn="button" navigator="true" pattern="dd/MM/yyyy" mindate="01/01/1920" effect="drop" styleClass="Wid80" disabled="#{propietarioEditController.campoDesactivado}"/> 
-                                            
-                    <div class="EmptyBox10"></div>
-                    <p:outputLabel value="Tipo Documento:"/>
-                    <div class="EmptyBox1"></div> 
-                    <p:selectOneMenu id="tipoDocumento" value="#{propietarioEditController.propietario.tipoDocumento}" styleClass="Wid80" disabled="#{propietarioEditController.campoDesactivado}">
-                        <f:selectItems value="#{propietarioEditController.tiposDocumentos}" />
-                    </p:selectOneMenu>
+                        <p:outputLabel value="Direccion:"/>
+                        <div class="EmptyBox1"></div>                                                                                                     
+                        <p:selectOneMenu id="localidad" styleClass="Wid80" value="#{propietarioEditController.propietario.direccion.id}" disabled="#{propietarioEditController.campoDesactivado}">
+                            <f:selectItems  value="#{propietarioEditController.direcciones}" />
+                        </p:selectOneMenu>
                     
-                    <div class="EmptyBox10"></div>
-                    <p:outputLabel value="Documento:"/>
-                    <div class="EmptyBox1"></div>                     
-                    <p:inputText id="documento" value="#{propietarioEditController.propietario.documento}" styleClass="Wid90" type="number" disabled="#{propietarioEditController.campoDesactivado}"/> 
-                    
-                    <div class="EmptyBox10"></div>
-                    <p:outputLabel value="Sexo:"/>
-                    <div class="EmptyBox1"></div> 
-                    <p:selectOneMenu id="sexo" value="#{propietarioEditController.propietario.sexo}" styleClass="Wid80" disabled="#{propietarioEditController.campoDesactivado}">
-                        <f:selectItems value="#{propietarioEditController.sexos}" />
-                    </p:selectOneMenu>
-                    
-                    <div class="EmptyBox10"></div>
-                    <p:outputLabel value="Nacionalidad:"/>
-                    <div class="EmptyBox1"></div> 
-                    <p:selectOneMenu id="nacionalidad" value="#{propietarioEditController.propietario.nacionalidad.id}" styleClass="Wid80" disabled="#{propietarioEditController.campoDesactivado}">
-                        <f:selectItems value="#{propietarioEditController.nacionalidades}" />
-                    </p:selectOneMenu>
                     
                 </div>
             </div>
