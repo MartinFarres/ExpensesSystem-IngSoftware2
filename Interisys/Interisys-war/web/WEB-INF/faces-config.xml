@@ -109,4 +109,21 @@
         </navigation-case>
     </navigation-rule>
 
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listExpensaInmueble</from-outcome>
+            <to-view-id>/admin/expensaInmueble/listExpensaInmueble.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>editExpensaInmueble</from-outcome>
+            <to-view-id>/admin/expensaInmueble/editExpensaInmueble.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
 </faces-config>
