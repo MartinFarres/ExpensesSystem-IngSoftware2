@@ -106,7 +106,7 @@ public String aceptar() {
         try {
             direcciones = new ArrayList<>();
             direcciones.add(new SelectItem(null, "Seleccione..."));
-            for (Direccion direccion : direccionService.listarDirecciones()) {
+            for (Direccion direccion : direccionService.listarDireccionActiva()) {
                 direcciones.add(new SelectItem(direccion.getId(), direccion.toString()));  // O la representación adecuada
             }
         } catch (Exception e) {

@@ -7,9 +7,12 @@ package com.interisys.business.logic;
 
 import com.interisys.business.domain.entity.Expensa;
 import com.interisys.business.persistence.DAOExpensaBean;
+import com.interisys.business.persistence.ErrorDAOException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -24,33 +27,49 @@ import javax.ejb.Stateless;
 public class ExpensaServiceBean {
     private @EJB DAOExpensaBean dao;
 
-    public void crearExpensa(Date fechaDesde, Date fechaHasta, double importeExpesan)throws ErrorServiceException {
+    public void crearExpensa(Date fechaDesde, double importeExpensa)throws ErrorServiceException {
         
         try{
             
             if (fechaDesde == null)
                throw new ErrorServiceException("Debe indicar la fecha inicio de vigencia"); 
-            if (fechaHasta == null)
-               throw new ErrorServiceException("Debe indicar la fecha final de vigencia"); 
-            if (importeExpesan  <= 0.0){
+            if (importeExpensa  <= 0.0){
                 throw new ErrorServiceException("El importe de la expensa debe ser mayor a cero"); 
             }
             
             Expensa expensa = new Expensa();
             expensa.setId(UUID.randomUUID().toString());
             expensa.setFechaDesde(fechaDesde);
-            expensa.setFechaHasta(fechaHasta);
 
-            expensa.setImporte(importeExpesan);
+            expensa.setImporte(importeExpensa);
             expensa.setEliminado(false);
             
-            dao.guardarExpensa(expensa);
+            // Antes de crear la expensa, caduca la anterior
+            caducarExpensaAnterior();
             
+            // Crea la nueva expensa
+            dao.guardarExpensa(expensa);            
         } catch (ErrorServiceException e) {
             throw e;
         } catch (Exception ex){
             throw new ErrorServiceException("Error de Sistemas: " + ex.toString());
         }
+    }
+    
+    private void caducarExpensaAnterior()
+    {
+        // Busca la ultima expensa, y le pone la `fechaHasta` en la fecha de hoy
+        try {
+               Expensa expensa = dao.buscarExpensaActual();
+               modificarExpensa(
+                       expensa.getId(),
+                       expensa.getFechaDesde(),
+                       new Date(),              // Fecha actual
+                       expensa.getImporte());
+        } catch (ErrorDAOException | ErrorServiceException ex) {
+            Logger.getLogger(ExpensaServiceBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
     public void modificarExpensa(String idExpensa, Date fechaDesde, Date fechaHasta, double importeExpesan)throws ErrorServiceException {
