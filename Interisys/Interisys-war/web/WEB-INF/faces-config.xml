@@ -156,5 +156,21 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
-
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listLocalidad</from-outcome>
+            <to-view-id>/admin/localidad/listLocalidad.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>editELocalidad</from-outcome>
+            <to-view-id>/admin/localidad/editLocalidad.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
