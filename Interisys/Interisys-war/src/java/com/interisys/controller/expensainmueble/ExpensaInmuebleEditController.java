@@ -8,6 +8,7 @@ package com.interisys.controller.expensainmueble;
 import com.interisys.business.domain.entity.Expensa;
 import com.interisys.business.domain.entity.ExpensaInmueble;
 import com.interisys.business.domain.entity.Inmueble;
+import com.interisys.business.logic.ErrorServiceException;
 import com.interisys.business.logic.ExpensaInmuebleServiceBean;
 import com.interisys.business.logic.ExpensaServiceBean;
 import com.interisys.business.logic.InmuebleServiceBean;
@@ -23,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -79,8 +81,7 @@ public class ExpensaInmuebleEditController {
                     expensaInmuebleService.crearExpensaInmueble(
                             expensaInmueble.getExpensa().getId(),
                             expensaInmueble.getInmueble().getId(),
-                            expensaInmueble.getPeriodo(),
-                            expensaInmueble.getFechaVencimiento());
+                            expensaInmueble.getPeriodo());
 
                     Message.show("ExpensaInmueble creada exitosamente", MessageType.NOTIFICACION);
                     break;
@@ -111,7 +112,7 @@ public class ExpensaInmuebleEditController {
     public String cancelar() {
         return "listExpensaInmueble";
     }
-
+   
     private void cargaComboInmueble() {
         try {
 
@@ -136,7 +137,7 @@ public class ExpensaInmuebleEditController {
             expensas.add(new SelectItem(null, "Seleccione..."));
             for (Expensa expensa : expensaService.listarExpensasActivo()) {
                 if (expensa.getFechaHasta() != null) {
-                    expensas.add(new SelectItem(expensa.getId(), "Importe anterior $:" + expensa.getImporte()));
+                    expensas.add(new SelectItem(expensa.getId(), expensa.getFechaDesde().toString() + " $:" + expensa.getImporte()));
                 } else {
                     expensas.add(new SelectItem(expensa.getId(), "Importe Actual $:" + expensa.getImporte()));
                 }

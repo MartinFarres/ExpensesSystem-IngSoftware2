@@ -33,7 +33,7 @@ public class ExpensaInmuebleServiceBean {
     private @EJB
     DAOExpensaInmuebleBean dao;
 
-    public void crearExpensaInmueble(String idExpensa, String idInmueble, Date periodo, Date fechaVencimiento) throws ErrorServiceException {
+    public void crearExpensaInmueble(String idExpensa, String idInmueble, Date periodo) throws ErrorServiceException {
 
         try {
 
@@ -50,7 +50,7 @@ public class ExpensaInmuebleServiceBean {
             } catch (ErrorServiceException e) {
                 throw new ErrorServiceException("Debe indicar el imnuble y la expensa que desea generar");
             }
-            
+
             // Tira error si ya existe una expensaInmueble en el mismo periodo
             try {
                 dao.buscarExpensaInmueble(idExpensa, idInmueble, periodo);
@@ -167,6 +167,34 @@ public class ExpensaInmuebleServiceBean {
 
         } catch (Exception ex) {
             throw new ErrorServiceException("Error de sistema: " + ex.toString());
+        }
+    }
+
+    public void crearExpesaInmueble() throws ErrorServiceException {
+
+        try {
+            Collection<Inmueble> inmuebles = inmuebleService.listarInmuebleActivo();
+            Expensa expensa = expensaService.obtenerExpensaActual();
+            Date fechaActual = new Date();
+            
+            // Crea la expensaInmueble para cada uno de los inmueble con la expensa actual
+            for (Inmueble i : inmuebles)
+            {
+                
+                // Si existe la expensa para este periodo, entonces tira error,
+                // pero si no existe entonces la genera sin problemas
+                try
+                {
+                    crearExpensaInmueble(expensa.getId(), i.getId(), fechaActual);
+                }
+                catch (ErrorServiceException ex)
+                {}
+            }
+
+        } catch (ErrorServiceException e) {
+            throw e;
+        } catch (Exception ex) {
+            throw new ErrorServiceException("Error de Sistemas`: " + ex.toString());
         }
     }
 }

@@ -21,6 +21,15 @@ and open the template in the editor.
             </p:breadCrumb>                
         </div>
 
+        <div class="EmptyBox30"></div>
+        <div class="Container100 ShowOnMobile">
+            <div class="ContainerIndent ">
+                <div class="Card Wid90 HeiAutoOnMobile">
+
+                </div>
+            </div>        
+        </div>
+        
         <h:panelGroup>
             <div class="EmptyBox70"></div>
             <div class="Container100 Responsive100">
@@ -36,6 +45,7 @@ and open the template in the editor.
                             <div class="EmptyBox20"></div>
                             <p:commandButton id="nuevo" icon="fa fa-plus" styleClass="Fleft" action="#{expensaInmuebleListController.alta()}"/>
                             <p:tooltip id="toolTipExpensaInmuebleNuevo" for="nuevo" value="Alta" position="top"/>
+                            <p:commandButton value="Generar expensas"  action="#{expensaInmuebleListController.generarExpensas()}"/> 
                         </div>
 
                         <div class="EmptyBox10"></div>
