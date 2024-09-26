@@ -105,14 +105,14 @@ public String aceptar() {
     }
 
     // Método para cargar direcciones desde el servicio
-    private void cargarComboDireccion() {
-        try {
-            direcciones = new ArrayList<>();
-            direcciones.add(new SelectItem(null, "Seleccione..."));
-            for (Direccion direccion : direccionService.listarDireccionActiva()) {
-                direcciones.add(new SelectItem(direccion.getId(), direccion.toString()));  // O la representación adecuada
-            }
-        } catch (Exception e) {
+    public void cargarComboDireccion() {
+        try {  
+        direcciones = new ArrayList<SelectItem>();
+        direcciones.add(new SelectItem(null, "Seleccione..."));
+        for (Direccion direccion : direccionService.listarDireccionActiva()) {
+            String descripcion = direccion.getCalle() + " " + direccion.getNumeracion() + ", " + direccion.getBarrio() + ", " + direccion.getLocalidad().getNombre();
+            direcciones.add(new SelectItem(direccion.getId(), descripcion));}   
+        }catch (Exception e) {
             Message.show(e.getMessage(), MessageType.ERROR);
         }
     }
