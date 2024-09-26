@@ -96,7 +96,7 @@ public class InmuebleListController {
         }
     }
             
-    public void baja(Inmueble inmueble) {
+    public String baja(Inmueble inmueble) {
         
         try{
         
@@ -109,6 +109,7 @@ public class InmuebleListController {
             e.printStackTrace();
             Message.show(e.getMessage(), MessageType.ERROR);
         }
+        return "listInmueble";
     }
 
     public Collection<Inmueble> getInmuebles() {
