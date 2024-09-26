@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100 Responsive100">
+
+            <div class="EmptyBox20"/>
+            <!--Seleccionador de inmuebles-->
+            <h:panelGroup id="panelBusqueda" rendered="true">
+
+                <div class="ContainerIndent " >
+                    <div class="Card ShadowEffect HeiAutoOnMobile">
+
+                        <div class="Card ShadowEffect HeiAutoOnMobile">
+                            <h2 class="CardTopic">
+                                <i class="icon-hotel68 Fs20 Fleft MarRight10"></i>
+                                Búsqueda Propietario / Inqulino
+                            </h2>  
+                            <p:separator/> 
+                            <!--Opción para filtrar-->
+                            <div class="Container25 Responsive100">
+                                <div class="EmptyBox10"></div>
+                                <p:outputLabel value="Apellido / Dni:"/>
+                                <div class="EmptyBox1"></div>
+                                <p:inputText id="apellidoDni" 
+                                             value="#{administracionExpensaController.filtro}" 
+                                             type="text"  
+                                             styleClass="Wid80" >
+                                    <p:ajax event="keydown" update="@form" onstart="if (event.keyCode != 13) { return false; }" 
+                                            listener="#{administracionExpensaController.buscar()}"/>
+                                </p:inputText>
+                            </div>
+
+                            <div class="Container25 Responsive100">
+
+                                <div class="EmptyBox10"></div>
+                                <p:commandButton id="btnBuscar" value="Buscar" action="#{administracionExpensaController.buscar()}" update="@parent, panelBusqueda, tablaBusqueda"/>
+                            </div> 
+
+                        </div>
+
+                        <!--Tabla con los inmuebles-->
+                        <div class="EmptyBox10"></div>
+                        <div class="Container100 Responsive100">
+                            <div class="EmptyBox20"></div>
+                            <p:dataTable id="tablaBusqueda"
+                                         var="variable" 
+                                         value="#{administracionExpensaController.inmuebles}"   
+                                         selectionMode="single"
+                                         rowKey="#{variable.id}"
+                                         selection="#{administracionExpensaController.inmueble}"
+                                         paginator="true"  
+                                         rows="5"                          
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15"
+                                         emptyMessage="Sin resultados">
+
+                                <p:ajax event="rowSelect" listener="#{administracionExpensaController.actualzarExpensaRecibo()}"/>
+                                <p:column headerText="Piso">
+                                    #{variable.piso}
+                                </p:column>
+
+                                <p:column headerText="Puerta">
+                                    #{variable.puerta}
+                                </p:column>
+
+                                <p:column headerText="Estado">
+                                    #{variable.estado}
+                                </p:column>
+
+                            </p:dataTable>
+                        </div> 
+                    </div>
+                </div>        
+            </h:panelGroup>
+
+            <div class="EmptyBox10"/>
+
+            <h:panelGroup id="panelGeneralInformacion">
+                <div class="Container100 Responsive100">
+                    <div class="ContainerIndent " >
+                        <div class="Card ShadowEffect HeiAutoOnMobile">
+                            <h2 class="CardTopic">
+                                <i class="icon-hotel68 Fs20 Fleft MarRight10"></i>
+                                Propietario / Inquilino
+                            </h2>      
+                            <p:separator/>
+
+                            <div class="EmptyBox10"/>
+
+                            <div class="Container100 Responsive100">
+
+                                <div class="Container33 Responsive100">
+                                    <div class="EmptyBox30"/>
+                                    <b class="FontBold">Piso: </b> <b class="FontLight">#{administracionExpensaController.inmueble.piso}</b>                                        
+                                    <div class="EmptyBox10"/>
+                                    <b class="FontBold">Puerta: </b> <b class="FontLight">#{administracionExpensaController.inmueble.puerta}</b>
+                                    <div class="EmptyBox10"/>
+                                    <b class="FontBold">Estado: </b> <b class="FontLight">#{administracionExpensaController.inmueble.estado}</b>
+                                </div>
+
+                                <div class="Container33 Responsive100">
+                                    <div class="EmptyBox30"/>
+                                    <b class="FontBold">Apellido/Nombre Propietario: </b> <b class="FontLight">#{administracionExpensaController.inmueble.propietario.nombreApellido()}</b>
+                                    <div class="EmptyBox10"/>
+                                    <b class="FontBold">Teléfono: </b> <b class="FontLight">#{administracionExpensaController.inmueble.propietario.telefono == null ? 'Sin Información' : administracionExpensaController.inmueble.propietario.telefono}</b>
+                                    <div class="EmptyBox10"/>
+                                    <b class="FontBold">Correo Electrónico: </b> <b class="FontLight">#{administracionExpensaController.inmueble.propietario.correoElectronico == null ? 'Sin Información' : administracionExpensaController.inmueble.propietario.correoElectronico}</b>
+                                    <div class="EmptyBox10"/>
+                                    <b class="FontBold">Habita Consorcio: </b> <b class="FontLight">#{administracionExpensaController.inmueble.propietario.habitaConsorcio == true ? 'SI' : 'NO'}</b>
+                                </div>
+
+                                <div class="Container33 Responsive100">
+                                    <div class="EmptyBox30"/>
+                                    <b class="FontBold">Apellido/Nombre Propietario: </b> <b class="FontLight">#{administracionExpensaController.inmueble.inquilino == null ? 'Sin Inquilino' : administracionExpensaController.inmueble.inquilino.nombreApellido()}</b>
+                                    <div class="EmptyBox10"/>
+                                    <b class="FontBold">Teléfono: </b> <b class="FontLight">#{administracionExpensaController.inmueble.inquilino == null ? 'Sin Información' : administracionExpensaController.inmueble.propietario.telefono}</b>
+                                    <div class="EmptyBox10"/>
+                                    <b class="FontBold">Correo Electrónico: </b> <b class="FontLight">#{administracionExpensaController.inmueble.inquilino == null  ? 'Sin Información' : administracionExpensaController.inmueble.propietario.correoElectronico}</b>                                      
+                                </div>
+
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </h:panelGroup>
+
+            <!--Muestra las expensas del inmueble seleccionado-->
+            <div class="EmptyBox10"></div> 
+            <div class="Container100 Responsive100">
+
+                <p:fieldset legend="Expensas" toggleable="true" toggleSpeed="500"  collapsed="true">
+                    <h:panelGroup id="panelExpensaInmueble">
+                        <div class="Container100 Responsive100">
+                            <div class="EmptyBox20"></div>                                
+                            <p:dataTable id ="tablaExpensaInmueble" 
+                                         var="variableExpensaInmueble" 
+                                         value="#{administracionExpensaController.expensasInmueble}" 
+                                         style="padding-bottom: 30px"
+                                         reflow="true"
+                                         paginator="true"  
+                                         rows="5"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15"
+                                         emptyMessage="Sin Novedades">
+
+                                <p:column width="50">
+                                    <p:commandButton  icon="fa fa-ellipsis-v" styleClass="Fright GrayButton" id="menuExpensa"/>
+                                    <p:slideMenu overlay="true" my="left top" at="left top" trigger="menuExpensa" style="height: 100px">
+                                        <p:menuitem value="Enviar WhatsApp" icon="fa fa-whatsapp Green" action="#{administracionExpensaController.abrirWhatsApp(variableExpensaInmueble)}"/>
+                                        <p:menuitem value="Pagar" icon="fa fa-dollar BoldGrayBack" action="#{administracionExpensaController.abrirPopUpPagoExpensa(variableExpensaInmueble)}"/>
+                                    </p:slideMenu>
+                                </p:column>
+
+                                <p:column headerText="Estado" filterBy="#{variableExpensaInmueble.estado}"  filterMatchMode="contains">
+                                    #{variableExpensaInmueble.estado}
+                                </p:column> 
+
+                                <p:column headerText="$ Importe" filterBy="#{variableExpensaInmueble.expensa.importe}"  filterMatchMode="contains">
+                                    #{variableExpensaInmueble.expensa.importe}
+                                </p:column> 
+
+                                <p:column headerText="Periodo">
+                                    #{variableExpensaInmueble.periodo}
+                                </p:column> 
+
+                            </p:dataTable>                                
+                        </div>
+                    </h:panelGroup> 
+                </p:fieldset>
+
+                <!--Muestra loss recibos del inmueble seleccionado-->
+                <div class="EmptyBox30"></div> 
+                <p:fieldset legend="Recibos" toggleable="true" toggleSpeed="500"  collapsed="true">
+                    <h:panelGroup id="panelRecibo">
+                        <div class="Container100 Responsive100">
+                            <div class="EmptyBox20"></div>                                
+                            <p:dataTable id ="tablaRecibo" 
+                                         var="variableRecibo" 
+                                         value="#{administracionExpensaController.recibos}" 
+                                         style="padding-bottom: 30px"
+                                         reflow="true"
+                                         paginator="true"  
+                                         rows="5"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15"
+                                         emptyMessage="Sin Novedades">
+
+                                <p:column width="50">
+                                    <p:commandButton  icon="fa fa-ellipsis-v" styleClass="Fright GrayButton" id="menuReciboPago"/>
+                                    <p:slideMenu overlay="true" my="left top" at="left top" trigger="menuReciboPago" style="height: 50px">
+                                        <p:menuitem value="Enviar Email" icon="fa fa-paper-plane BoldGrayBack" action="#{administracionExpensaController.enviarReciboPago(variableRecibo)}"/>
+                                    </p:slideMenu>
+                                </p:column>
+
+                                <p:column headerText="$ Pago" filterBy="#{variableRecibo.total}"  filterMatchMode="contains">
+                                    #{variableRecibo.total}
+                                </p:column> 
+
+                                <p:column headerText="Estado"  filterBy="#{variableRecibo.estado}"  filterMatchMode="contains">
+                                    #{variableRecibo.estado}
+                                </p:column> 
+
+                                <p:column headerText="Forma de pago" filterBy="#{variableRecibo.formaDePago}"  filterMatchMode="contains">
+                                    #{variableRecibo.formaDePago}
+                                </p:column> 
+
+                            </p:dataTable>                                
+                        </div>
+                    </h:panelGroup> 
+                </p:fieldset>
+            </div>
+        </div>
+
+        <p:dialog id="dlgLinkWhatsApp"
+                  widgetVar="dlgLinkWhatsApp" 
+                  header="WhatsApp"  
+                  modal="true"
+                  width="30%"
+                  resizable="false"
+                  responsive="true">
+
+            <h:panelGroup id="panelLinkWhatsApp"> 
+                <p:outputPanel id="panelDetalleLinkWhatsApp">  
+                    <div class="EmptyBox1"></div>
+                    <h:commandLink value="#{administracionExpensaController.linkWhatsApp == null ? 'SIN INFORMACIÓN' : 'Click Aquí para abrir WhatsApp'}" action="#{administracionExpensaController.irWhatsApp()}" target="_blank"/>
+                </p:outputPanel> 
+            </h:panelGroup> 
+            <div class="Fright">
+                <p:commandButton value="Cerrar" styleClass="ui-confirmdialog-no"  icon="ui-icon-close" onclick="PF('dlgLinkWhatsApp').hide()"/>                
+            </div>
+        </p:dialog>
+
+        <p:dialog widgetVar="dlgPagoExpensa"
+                  id="dlgPagoExpensa"     
+                  header="Pago Expensa"  
+                  modal="true" 
+                  draggable="false"
+                  responsive="true"
+                  width="80%"
+                  resizable="false">
+
+            <div class="Container100 Responsive100">
+                <div class="ContainerIndent " >
+                    <div class="Card ShadowEffect HeiAutoOnMobile">
+                        <div class="Container100 Responsive100">
+                            <h:panelGroup id="panelPagoExpensa">
+
+                                <div class="EmptyBox10"></div>
+                                <p:outputLabel value="Forma de Pago:"/>
+                                <div class="EmptyBox1"></div>                                                                                                     
+                                <p:selectOneMenu id="formaDePago" styleClass="Wid80" value="#{administracionExpensaController.formaDePago}">
+                                    <f:selectItems  value="#{administracionExpensaController.formasDePago}" />
+                                </p:selectOneMenu> 
+
+                                <div class="EmptyBox10"></div>
+                                <p:outputLabel value="Observación:"/>
+                                <div class="EmptyBox1"></div>                                                                       
+                                <p:inputTextarea value="#{administracionExpensaController.observacionPago}" styleClass="Wid90"/>
+
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                </div> 
+                <div class="Fright">
+                    <p:commandButton value="Aceptar" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{administracionExpensaController.aceptarPagoExpensa()}" />
+                    <p:commandButton value="Cancelar" styleClass="ui-confirmdialog-no"  icon="ui-icon-close" onclick="PF('dlgPagoExpensa').hide()"/>
+                </div>
+            </div>  
+        </p:dialog>
+
+    </ui:define>
+</ui:composition> 
+

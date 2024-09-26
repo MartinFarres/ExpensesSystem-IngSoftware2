@@ -165,4 +165,11 @@ public class InmuebleServiceBean {
             throw new ErrorServiceException("Error de Sistemas al lisar inmuebles activos: " + ex.toString());
         }
     }
+    public Collection<Inmueble> listarInmuebleConFiltro(String filtro) throws ErrorServiceException {
+        try {
+            return dao.listarInmuebleFiltro(filtro);
+        } catch (Exception ex) {
+            throw new ErrorServiceException("Error de Sistemas al lisar inmuebles activos: " + ex.toString());
+        }
+    }
 }
