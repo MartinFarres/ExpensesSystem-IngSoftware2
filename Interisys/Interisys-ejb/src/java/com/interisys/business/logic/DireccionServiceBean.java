@@ -25,7 +25,7 @@ public class DireccionServiceBean {
     @EJB LocalidadServiceBean localidadService;
     @EJB DAODireccionBean dao;
     
-    public Direccion crearDireccion (String idLocalidad, String calle, String numeracion, String barrio, String pisoCasa, String puertaManzana, String ubicacionCoordenadaX, String ubicacionCoordenadaY, String observacion)throws ErrorServiceException {
+    public void crearDireccion (String idLocalidad, String calle, String numeracion, String barrio, String pisoCasa, String puertaManzana, String ubicacionCoordenadaX, String ubicacionCoordenadaY, String observacion)throws ErrorServiceException {
         
         try{
             
@@ -72,8 +72,8 @@ public class DireccionServiceBean {
             direccion.setObservacion(observacion == null ? "": observacion);
             direccion.setEliminado(false);
             
-            return direccion;
-                    
+            dao.guardarDireccion(direccion);
+            
         } catch (ErrorServiceException e) {
             throw e;
         } catch (Exception ex){
@@ -82,7 +82,7 @@ public class DireccionServiceBean {
         }
     }
     
-    public Direccion modificarDireccion (String idDireccion, String idLocalidad, String calle, String numeracion, String barrio, String pisoCasa, String puertaManzana, String ubicacionCoordenadaX, String ubicacionCoordenadaY, String observacion)throws ErrorServiceException {
+    public void modificarDireccion (String idDireccion, String idLocalidad, String calle, String numeracion, String barrio, String pisoCasa, String puertaManzana, String ubicacionCoordenadaX, String ubicacionCoordenadaY, String observacion)throws ErrorServiceException {
         
         try{
             
@@ -127,7 +127,7 @@ public class DireccionServiceBean {
             direccion.setUbicacionCoordenadaY(ubicacionCoordenadaY);
             direccion.setObservacion(observacion == null ? "": observacion);
             
-            return direccion;
+            dao.actualizarDireccion(direccion);
                     
         } catch (ErrorServiceException e) {
             throw e;

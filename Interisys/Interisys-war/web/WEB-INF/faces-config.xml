@@ -76,7 +76,6 @@
     
     <navigation-rule>
         <navigation-case>
-
             <from-outcome>editCuentaCorreo</from-outcome>
             <to-view-id>/admin/cuentaCorreo/editCuentaCorreo.jsf</to-view-id>
             <redirect/>
@@ -107,7 +106,8 @@
         </navigation-case>
     </navigation-rule>
 
-
+     <navigation-rule>
+        <navigation-case>
             <from-outcome>listInquilino</from-outcome>
             <to-view-id>/admin/inquilino/listInquilino.jsf</to-view-id>
             <redirect/>
@@ -201,8 +201,25 @@
     
     <navigation-rule>
         <navigation-case>
-            <from-outcome>editELocalidad</from-outcome>
+            <from-outcome>editLocalidad</from-outcome>
             <to-view-id>/admin/localidad/editLocalidad.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+        <navigation-rule>
+        <navigation-case>
+            <from-outcome>listDireccion</from-outcome>
+            <to-view-id>/admin/direccion/listDireccion.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>editDireccion</from-outcome>
+            <to-view-id>/admin/direccion/editDireccion.jsf</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+    
+    <ui:define name="content">
+        <div class="botoneraAMB ShowOnDesktop Responsive">
+            <p:breadCrumb styleClass="navegacion">
+                <p:menuitem value="Menu principal" url="/admin/index.xhtml" />
+                <p:menuitem value="Direcciones" url="/admin/direccion/listDireccion.xhtml" />
+                <p:menuitem value="#{direccionEditController.casoDeUso} Direccion" url="#" /> 
+            </p:breadCrumb>                
+        </div>
+
+        <div class="EmptyBox90"></div>
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent ">
+                <div class="Card ShadowEffect HeiAutoOnMobile Wid90">
+                    EDITAR DIRECCION 
+                    <p:separator/>
+
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Calle:"/>
+                    <div class="EmptyBox1"></div>
+                    <p:inputText id="idCalle" value="#{direccionEditController.calle}" type="text" styleClass="Wid90" disabled="#{direccionEditController.campoDesactivado}"/> 
+
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Numeración:"/>
+                    <div class="EmptyBox1"></div>
+                    <p:inputText id="idNumeracion" value="#{direccionEditController.numeracion}" type="text" styleClass="Wid90" disabled="#{direccionEditController.campoDesactivado}"/>
+
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Barrio:"/>
+                    <div class="EmptyBox1"></div>
+                    <p:inputText id="idBarrio" value="#{direccionEditController.barrio}" type="text" styleClass="Wid90" disabled="#{direccionEditController.campoDesactivado}"/>
+
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Piso/Casa:"/>
+                    <div class="EmptyBox1"></div>
+                    <p:inputText id="idPisoCasa" value="#{direccionEditController.pisoCasa}" type="text" styleClass="Wid90" disabled="#{direccionEditController.campoDesactivado}"/>
+
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Puerta / Manzana:"/>
+                    <div class="EmptyBox1"></div>
+                    <p:inputText id="idPuertaManzana" value="#{direccionEditController.puertaManzana}" type="text" styleClass="Wid90" disabled="#{direccionEditController.campoDesactivado}"/>
+
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Ubicación Coordenada X:"/>
+                    <div class="EmptyBox1"></div>
+                    <p:inputText id="idUbicacionCoordenadaX" value="#{direccionEditController.ubicacionCoordenadaX}" type="text" styleClass="Wid90" disabled="#{direccionEditController.campoDesactivado}"/>
+
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Ubicación Coordenada Y:"/>
+                    <div class="EmptyBox1"></div>
+                    <p:inputText id="idUbicacionCoordenadaY" value="#{direccionEditController.ubicacionCoordenadaY}" type="text" styleClass="Wid90" disabled="#{direccionEditController.campoDesactivado}"/>
+
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Observación:"/>
+                    <div class="EmptyBox1"></div>
+                    <p:inputText id="idObservacion" value="#{direccionEditController.observacion}" type="text" styleClass="Wid90" disabled="#{direccionEditController.campoDesactivado}"/>
+
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Localidad"/> 
+                    <div class="EmptyBox1"></div>                                                                                                     
+                    <p:selectOneMenu id="localidad" styleClass="Wid80"  
+                                     value="#{direccionEditController.idLocalidad}"  
+                                     disabled="#{direccionEditController.campoDesactivado}">
+                        <f:selectItems value="#{direccionEditController.localidades}" /> 
+                    </p:selectOneMenu> 
+
+                </div>
+            </div>
+        </div>
+        <div class="EmptyBox30"></div>
+        <div class="Container100 ShowOnMobile">
+            <div class="ContainerIndent ">
+                <div class="Card Wid90 HeiAutoOnMobile">
+                    <div class="Fright">
+                        <p:commandButton value="Aceptar" action="#{direccionEditController.aceptar()}" /> 
+                        <p:commandButton value="Cancelar" action="#{direccionEditController.cancelar()}" /> 
+                    </div>
+                </div>
+            </div>        
+        </div> 
+
+    </ui:define>
+
+</ui:composition>
+
+<!--Los archivos JSF (.xhtml) permiten incorporar los 
+componentes visuales que dibujara la pantalla en el cliente web (browser)--> 
+
+</html>
