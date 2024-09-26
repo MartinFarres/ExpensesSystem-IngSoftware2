@@ -110,7 +110,7 @@ public class InquilinoListController {
         }
     }
             
-    public void baja(Inquilino inquilino) {
+    public String baja(Inquilino inquilino) {
         
         try{
         
@@ -123,6 +123,7 @@ public class InquilinoListController {
             e.printStackTrace();
             Message.show(e.getMessage(), MessageType.ERROR);
         }
+        return "listInquilino";
     }
 
     private void guardarInquilinoSession(CasoDeUsoType casoDeUso, Inquilino inquilino){
