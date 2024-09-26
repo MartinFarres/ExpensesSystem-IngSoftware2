@@ -6,6 +6,7 @@
 package com.interisys.controller.expensainmueble;
 
 import com.interisys.business.domain.entity.ExpensaInmueble;
+import com.interisys.business.logic.ErrorServiceException;
 import com.interisys.business.logic.ExpensaInmuebleServiceBean;
 import com.interisys.controller.Message;
 import com.interisys.controller.enumeration.CasoDeUsoType;
@@ -73,6 +74,18 @@ public class ExpensaInmuebleListController {
             e.printStackTrace();
             Message.show(e.getMessage(), MessageType.ERROR);
             return null;
+        }
+    }
+
+    public void generarExpensas()
+    {
+        try {
+            expensaService.crearExpesaInmueble();
+            RequestContext.getCurrentInstance().update("formPpal:panelTablaExpensaInmueble");
+            RequestContext.getCurrentInstance().update("formPpal:tablaExpensaInmueble");
+        } catch (ErrorServiceException e) {
+            e.printStackTrace();
+            Message.show(e.getMessage(), MessageType.ERROR);
         }
     }
     

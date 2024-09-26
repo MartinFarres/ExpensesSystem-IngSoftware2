@@ -79,7 +79,7 @@ public class InmuebleEditController {
             {
                 case ALTA:
                     inmuebleService.crearInmueble(
-                            inmueble.getPropietario().getId(), 
+                            inmueble.getPropietario() == null ? null : inmueble.getPropietario().getId(), 
                             inmueble.getInquilino().getId(), 
                             inmueble.getPiso(), 
                             inmueble.getPuerta());
@@ -87,7 +87,7 @@ public class InmuebleEditController {
                 case MODIFICAR:
                     inmuebleService.modificarInmueble(
                             inmueble.getId(),
-                            inmueble.getPropietario().getId(), 
+                            inmueble.getPropietario() == null ? null : inmueble.getPropietario().getId(), 
                             inmueble.getInquilino().getId(), 
                             inmueble.getPiso(), 
                             inmueble.getPuerta());

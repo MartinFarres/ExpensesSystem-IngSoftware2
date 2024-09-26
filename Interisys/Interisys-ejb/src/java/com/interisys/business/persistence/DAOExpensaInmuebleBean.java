@@ -52,16 +52,18 @@ public class DAOExpensaInmuebleBean {
    {
        try{
            
-           return (ExpensaInmueble) em.createQuery("SELECT ei "
-                                                 + "  FROM ExpensaInmueble ei"
-                                                 + " WHERE ei.expensa.id = :idExpensa"
-                                                 + "   AND ei.inmueble.id = :idInmueble"
-                                                 + "   AND ei.periodo = :periodo"
-                                                 + "   AND ei.eliminado = FALSE").
-                                                 setParameter("idExpensa", idExpensa).
-                                                 setParameter("idInmueble", idInmueble).
-                                                 setParameter("periodo", periodo).
-                                                 getSingleResult();
+            return (ExpensaInmueble) em.createQuery("SELECT ei "
+                                                    + " FROM ExpensaInmueble ei"
+                                                    + " WHERE ei.expensa.id = :idExpensa"
+                                                    + " AND ei.inmueble.id = :idInmueble"
+                                                    + " AND ei.periodo = :periodo"
+                                                    + " AND ei.eliminado = FALSE")
+                                        .setParameter("idExpensa", idExpensa)
+                                        .setParameter("idInmueble", idInmueble)
+                                        .setParameter("periodo", periodo)
+                                        .setHint("javax.persistence.cache.storeMode", "REFRESH")
+                                        .getSingleResult();
+
            
        } catch (NoResultException ex) {
             throw new NoResultDAOException("No se encontró información");
