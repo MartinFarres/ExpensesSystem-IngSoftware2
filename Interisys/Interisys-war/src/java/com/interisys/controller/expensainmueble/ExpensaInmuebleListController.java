@@ -77,16 +77,16 @@ public class ExpensaInmuebleListController {
         }
     }
 
-    public void generarExpensas()
+    public String generarExpensas()
     {
         try {
             expensaService.crearExpesaInmueble();
-            RequestContext.getCurrentInstance().update("formPpal:panelTablaExpensaInmueble");
-            RequestContext.getCurrentInstance().update("formPpal:tablaExpensaInmueble");
         } catch (ErrorServiceException e) {
             e.printStackTrace();
             Message.show(e.getMessage(), MessageType.ERROR);
         }
+        return "listExpensaInmueble";
+
     }
     
     public String consultar(ExpensaInmueble expensa) {
@@ -117,7 +117,7 @@ public class ExpensaInmuebleListController {
         }
     }
             
-    public void baja(ExpensaInmueble expensa) {
+    public String baja(ExpensaInmueble expensa) {
         
         try{
         
@@ -130,6 +130,9 @@ public class ExpensaInmuebleListController {
             e.printStackTrace();
             Message.show(e.getMessage(), MessageType.ERROR);
         }
+        
+        return "listExpensaInmueble";
+
     }
 
     public ExpensaInmuebleServiceBean getExpensaInmuebleService() {

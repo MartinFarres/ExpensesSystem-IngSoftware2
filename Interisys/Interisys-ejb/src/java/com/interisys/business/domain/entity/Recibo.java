@@ -5,6 +5,7 @@
  */
 package com.interisys.business.domain.entity;
 
+import com.interisys.business.domain.enumeration.EstadoRecibo;
 import com.interisys.business.domain.enumeration.FormaDePago;
 import java.io.Serializable;
 import java.util.Date;
@@ -29,6 +30,10 @@ public class Recibo implements Serializable {
 
     private FormaDePago formaDePago;
 
+    private String observacion;
+
+    private EstadoRecibo estado;
+
     private boolean eliminado;
 
     public String getId() {
@@ -37,6 +42,14 @@ public class Recibo implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public EstadoRecibo getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoRecibo estado) {
+        this.estado = estado;
     }
 
     public Date getFechaPago() {
@@ -69,6 +82,14 @@ public class Recibo implements Serializable {
 
     public void setEliminado(boolean eliminado) {
         this.eliminado = eliminado;
+    }
+
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
     }
 
     @Override

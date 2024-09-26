@@ -90,7 +90,7 @@
         </navigation-case>
     </navigation-rule>
     
-        <navigation-rule>
+    <navigation-rule>
         <navigation-case>
             <from-outcome>editConsorcio</from-outcome>
             <to-view-id>/admin/consorcio/editConsorcio.jsf</to-view-id>
@@ -106,7 +106,7 @@
         </navigation-case>
     </navigation-rule>
 
-     <navigation-rule>
+    <navigation-rule>
         <navigation-case>
             <from-outcome>listInquilino</from-outcome>
             <to-view-id>/admin/inquilino/listInquilino.jsf</to-view-id>
@@ -207,7 +207,7 @@
         </navigation-case>
     </navigation-rule>
     
-        <navigation-rule>
+    <navigation-rule>
         <navigation-case>
             <from-outcome>listDireccion</from-outcome>
             <to-view-id>/admin/direccion/listDireccion.jsf</to-view-id>
@@ -226,6 +226,7 @@
     
     <navigation-rule>
         <navigation-case>
+
             <from-outcome>listUsuarioUsuarios</from-outcome>
             <to-view-id>/admin/usuario/listUsuarios.jsf</to-view-id>
             <redirect/>
@@ -249,4 +250,12 @@
     </navigation-rule>
     
     
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>administracionExpensa</from-outcome>
+            <to-view-id>/admin/expensa/administracionExpensa.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
 </faces-config>

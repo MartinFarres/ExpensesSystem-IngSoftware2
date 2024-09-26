@@ -23,7 +23,9 @@
                     <p:menu>
                         <p:submenu label="Expensa">
                             <p:menuitem value="Expensas" action="#{indexNavigationController.navegarExpensa()}" />
+                            <p:menuitem value="Administración" action="#{indexNavigationController.navegarAdministracionExpensa()}" />
                         </p:submenu>
+
                         <p:submenu label="Dirección">
                             <p:menuitem value="Paises" action="#{indexNavigationController.navegarPais()}" />                
                             <p:menuitem value="Provincias" action="#{indexNavigationController.navegarProvincia()}"/>
@@ -39,7 +41,7 @@
                         </p:submenu>      
                         <p:submenu label="Persona">
                             <p:menuitem value="Nacionalidad" action="#{indexNavigationController.navegarNacionalidad()}" />                            
-                             <p:menuitem value="Propietario" action="#{indexNavigationController.navegarPropietario()}" />                           
+                            <p:menuitem value="Propietario" action="#{indexNavigationController.navegarPropietario()}" />                           
                             <p:menuitem value="Inquilino" action="#{indexNavigationController.navegarInquilino()}" />
                         </p:submenu>
                         <p:submenu label="Usuario">
@@ -50,7 +52,6 @@
                         <p:submenu label="Inmueble">
                             <p:menuitem value="Inmueble" action="#{indexNavigationController.navegarInmueble()}" />   
                             <p:menuitem value="ExpensaInmueble" action="#{indexNavigationController.navegarExpensaInmueble()}" />   
-
                         </p:submenu>
                     </p:menu>
                 </h:form>
@@ -60,12 +61,16 @@
 
         <div class="main-content">
             <ui:include src="topBar.xhtml" />
-            <h:form class="content">
-                <h:panelGroup>
+            <h:form id="formPpal" class="content">
+
+
+                <div id="layout-portlets-cover">
+                    <div class="col-lg-12" style="z-index: 9999">
+                        <p:growl id="msj" autoUpdate="true" showDetail="true" />
+                    </div>
                     <ui:insert name="content">
-                        <h:outputText value="Default Content" />
                     </ui:insert>
-                </h:panelGroup>
+                </div>
             </h:form>
             <ui:include src="footer.xhtml" />
         </div>

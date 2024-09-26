@@ -87,7 +87,7 @@ public class ExpensaEditController {
     }
     
     public String cancelar() {
-        return "index";
+        return "listExpensa";
     }
 
     public boolean isCampoDesactivado() {

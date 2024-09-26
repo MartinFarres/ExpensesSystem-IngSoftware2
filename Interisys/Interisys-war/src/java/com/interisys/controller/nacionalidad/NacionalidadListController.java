@@ -5,9 +5,7 @@
  */
 package com.interisys.controller.nacionalidad;
 
-import com.interisys.business.domain.entity.Expensa;
 import com.interisys.business.domain.entity.Nacionalidad;
-import com.interisys.business.logic.ExpensaServiceBean;
 import com.interisys.business.logic.NacionalidadServiceBean;
 import com.interisys.controller.Message;
 import com.interisys.controller.enumeration.CasoDeUsoType;
@@ -104,7 +102,7 @@ public class NacionalidadListController {
         }
     }
             
-    public void baja(Nacionalidad nacionalidad) {
+    public String baja(Nacionalidad nacionalidad) {
         
         try{
         
@@ -117,6 +115,8 @@ public class NacionalidadListController {
             e.printStackTrace();
             Message.show(e.getMessage(), MessageType.ERROR);
         }
+        return "listNacionalidad";
+
     }
 
     private void guardarNacionalidadSession(CasoDeUsoType casoDeUso, Nacionalidad nacionalidad){

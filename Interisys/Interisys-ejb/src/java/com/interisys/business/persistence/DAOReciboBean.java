@@ -22,44 +22,60 @@ import javax.persistence.PersistenceContext;
 @LocalBean
 public class DAOReciboBean {
 
-    @PersistenceContext(unitName="Interisys-ejbPU") private EntityManager em;
-   
-   public void guardarRecibo(Recibo recibo)throws ErrorDAOException{
-      try{   
-       em.persist(recibo);
-      } catch (Exception ex) {
+    @PersistenceContext(unitName = "Interisys-ejbPU")
+    private EntityManager em;
+
+    public void guardarRecibo(Recibo recibo) throws ErrorDAOException {
+        try {
+            em.persist(recibo);
+        } catch (Exception ex) {
             throw new ErrorDAOException("Error de sistema al guardar Recibo " + ex.toString());
-      } 
-   }
-   
-   public void actualizarRecibo(Recibo recibo)throws ErrorDAOException{
-     
-      try{  
-       em.setFlushMode(FlushModeType.COMMIT);
-       em.merge(recibo);
-       em.flush();
-      } catch (Exception ex) {
+        }
+    }
+
+    public void actualizarRecibo(Recibo recibo) throws ErrorDAOException {
+
+        try {
+            em.setFlushMode(FlushModeType.COMMIT);
+            em.merge(recibo);
+            em.flush();
+        } catch (Exception ex) {
             throw new ErrorDAOException("Error de sistema al actualizar Recibo " + ex.toString());
-      }
-   }
-   
-   public Recibo buscarRecibo(String id) throws NoResultException{
-       return em.find(Recibo.class, id);
-   }
-   
-   public Collection<Recibo> listarReciboActivo()throws ErrorDAOException{
-       
-      try{
-          
-       return em.createQuery("SELECT e "
-                           + " FROM Recibo r"
-                           + " WHERE r.eliminado = FALSE"
-                           + " ORDER BY r.fechaPago DESC").
-                           getResultList();
-       
-      } catch (Exception ex) {
+        }
+    }
+
+    public Recibo buscarRecibo(String id) throws NoResultException {
+        return em.find(Recibo.class, id);
+    }
+
+    public Collection<Recibo> listarReciboActivo() throws ErrorDAOException {
+
+        try {
+
+            return em.createQuery("SELECT e "
+                    + " FROM Recibo r"
+                    + " WHERE r.eliminado = FALSE"
+                    + " ORDER BY r.fechaPago DESC").
+                    getResultList();
+
+        } catch (Exception ex) {
             throw new ErrorDAOException("Error de sistema al listar recibos activos " + ex.toString());
-      } 
-   }
-   
+        }
+    }
+
+    public Collection<Recibo> listarReciboDeInmueble(String idInmueble) throws ErrorDAOException {
+
+        try {
+
+         return em.createQuery("SELECT DISTINCT(dr.recibo) "
+                             + "  FROM DetalleRecibo dr"
+                             + " WHERE dr.expensaInmueble.inmueble.id = :idInmueble"
+                             + "   AND dr.eliminado = FALSE").
+                             setParameter("idInmueble", idInmueble).
+                             getResultList();
+
+        } catch (Exception ex) {
+            throw new ErrorDAOException("Error de sistema al listar recibos activos de inmueble " + ex.toString());
+        }
+    }
 }
