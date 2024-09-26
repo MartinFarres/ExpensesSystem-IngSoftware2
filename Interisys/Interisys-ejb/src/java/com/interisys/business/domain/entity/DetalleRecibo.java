@@ -70,8 +70,6 @@ public class DetalleRecibo implements Serializable {
         this.eliminado = eliminado;
     }
 
-    
-    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -73,6 +73,11 @@ public class IndexNavigationController {
     public String navegarExpensaInmueble() {
         return "listExpensaInmueble";
     }
+    
+    public String navegarAdministracionExpensa()
+    {
+        return "administracionExpensa";
+    }
 }
 
 

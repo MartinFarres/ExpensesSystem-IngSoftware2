@@ -9,6 +9,7 @@ import com.interisys.business.domain.entity.Expensa;
 import com.interisys.business.domain.entity.ExpensaInmueble;
 import com.interisys.business.domain.entity.Inmueble;
 import com.interisys.business.domain.enumeration.EstadoExpensaInmueble;
+import com.interisys.business.domain.enumeration.FormaDePago;
 import com.interisys.business.persistence.DAOExpensaInmuebleBean;
 import com.interisys.business.persistence.NoResultDAOException;
 import java.util.Collection;
@@ -30,6 +31,10 @@ public class ExpensaInmuebleServiceBean {
     InmuebleServiceBean inmuebleService;
     private @EJB
     ExpensaServiceBean expensaService;
+    
+    private @EJB
+    ReciboServiceBean reciboService;
+    
     private @EJB
     DAOExpensaInmuebleBean dao;
 
@@ -155,7 +160,7 @@ public class ExpensaInmuebleServiceBean {
         } catch (ErrorServiceException ex) {
             throw ex;
         } catch (Exception ex) {
-            throw new ErrorServiceException("Error de sistema: " + ex.toString());
+            throw new ErrorServiceException("Error de sistema. No se pudo encontrar la ExpensaInmueble: " + ex.toString());
         }
     }
 
@@ -170,31 +175,58 @@ public class ExpensaInmuebleServiceBean {
         }
     }
 
+    public Collection<ExpensaInmueble> listarExpensaInmuebleDeInmueble(String idInmueble) throws ErrorServiceException {
+        try {
+
+            return dao.listarExpensaInmuebleDeInmueble(idInmueble);
+
+        } catch (Exception ex) {
+            throw new ErrorServiceException("Error de sistema: " + ex.toString());
+        }
+    }
+
     public void crearExpesaInmueble() throws ErrorServiceException {
 
         try {
             Collection<Inmueble> inmuebles = inmuebleService.listarInmuebleActivo();
             Expensa expensa = expensaService.obtenerExpensaActual();
             Date fechaActual = new Date();
-            
+
             // Crea la expensaInmueble para cada uno de los inmueble con la expensa actual
-            for (Inmueble i : inmuebles)
-            {
-                
+            for (Inmueble i : inmuebles) {
+
                 // Si existe la expensa para este periodo, entonces tira error,
                 // pero si no existe entonces la genera sin problemas
-                try
-                {
+                try {
                     crearExpensaInmueble(expensa.getId(), i.getId(), fechaActual);
+                } catch (ErrorServiceException ex) {
                 }
-                catch (ErrorServiceException ex)
-                {}
             }
 
         } catch (ErrorServiceException e) {
             throw e;
         } catch (Exception ex) {
             throw new ErrorServiceException("Error de Sistemas`: " + ex.toString());
+        }
+    }
+
+    public void pagarExpensaInmueble(String id, FormaDePago formaPago, String observacion) throws ErrorServiceException {
+        try {
+
+            ExpensaInmueble expensaInmueble = buscarExpensaInmueble(id);
+
+            if (formaPago == null) {
+                throw new ErrorServiceException("Debe indicar la forma de pago");
+            }
+
+            expensaInmueble.setEstado(EstadoExpensaInmueble.PAGADO);
+            dao.actualizarExpensaInmueble(expensaInmueble);
+
+            reciboService.crearRecibo(expensaInmueble.getId(), formaPago, observacion);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de sistema: " + ex.toString());
         }
     }
 }

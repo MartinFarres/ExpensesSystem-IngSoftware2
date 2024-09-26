@@ -13,6 +13,7 @@ import com.interisys.business.persistence.DAOExpensaInmuebleBean;
 import com.interisys.business.persistence.DAOReciboBean;
 import java.util.Collection;
 import java.util.UUID;
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
@@ -21,125 +22,125 @@ import javax.persistence.NoResultException;
  *
  * @author franc
  */
-
 @Stateless
 @LocalBean
 public class DetalleReciboServiceBean {
-    private DAODetalleReciboBean dao;
-    private DAOExpensaInmuebleBean daoExpensaInmueble;
-    private DAOReciboBean daoRecibo;
 
-    public void crearDetalleRecibo(double subtotal, String idExpensaInmueble, String idRecibo)throws ErrorServiceException {
-        
-        try{
+    private @EJB
+    DAODetalleReciboBean dao;
+    private @EJB
+    DAOExpensaInmuebleBean daoExpensaInmueble;
+    private @EJB
+    DAOReciboBean daoRecibo;
+
+    public void crearDetalleRecibo(double subtotal, String idExpensaInmueble, String idRecibo) throws ErrorServiceException {
+
+        try {
             // Valida los paramtros
-            if (subtotal <= 0)
-                throw new ErrorServiceException("Debe indicar una subtotal positivo"); 
+            if (subtotal <= 0) {
+                throw new ErrorServiceException("Debe indicar una subtotal positivo");
+            }
 
-            if (idExpensaInmueble == null || idExpensaInmueble.isEmpty())
-                throw new ErrorServiceException("Debe indicar la expensa del inmueble"); 
+            if (idExpensaInmueble == null || idExpensaInmueble.isEmpty()) {
+                throw new ErrorServiceException("Debe indicar la expensa del inmueble");
+            }
 
-            if (idRecibo == null || idRecibo.isEmpty())
-                throw new ErrorServiceException("Debe indicar el recibo"); 
-            
+            if (idRecibo == null || idRecibo.isEmpty()) {
+                throw new ErrorServiceException("Debe indicar el recibo");
+            }
+
             // Busca las entidades
             ExpensaInmueble expensaInmueble = null;
-            try
-            {            
+            try {
                 expensaInmueble = daoExpensaInmueble.buscarExpensaInmueble(idExpensaInmueble);
-            }catch(NoResultException ex){
-                throw new ErrorServiceException("No se pudo encontrar la expensa de inmueble de ID: " + idExpensaInmueble); 
+            } catch (NoResultException ex) {
+                throw new ErrorServiceException("No se pudo encontrar la expensa de inmueble de ID: " + idExpensaInmueble);
             }
 
             Recibo recibo = null;
-            try
-            {            
+            try {
                 recibo = daoRecibo.buscarRecibo(idRecibo);
-            }catch(NoResultException ex){
-                throw new ErrorServiceException("No se pudo encontrar el recibo de ID: " + idRecibo); 
+            } catch (NoResultException ex) {
+                throw new ErrorServiceException("No se pudo encontrar el recibo de ID: " + idRecibo);
             }
-            
+
             // Setea los atributos
             DetalleRecibo detalle = new DetalleRecibo();
             detalle.setId(UUID.randomUUID().toString());
             detalle.setSubtotal(subtotal);
             detalle.setExpensaInmueble(expensaInmueble);
             detalle.setRecibo(recibo);
-            recibo.setEliminado(false);
-            
+            detalle.setEliminado(false);
+
             dao.guardarDetalleRecibo(detalle);
-            
-        } catch (ErrorServiceException e) {
-            throw e;
-        } catch (Exception ex){
-            throw new ErrorServiceException("Error de Sistemas: " + ex.toString());
+
+        } catch (Exception ex) {
+            throw new ErrorServiceException("Error de Sistemas no se pudo crear el detalle: " + ex.toString());
         }
     }
-    
-    public void modificarDetalleRecibo(String idDetalle, double subtotal, String idExpensaInmueble, String idRecibo)throws ErrorServiceException {
-        
-        try{
-            
-            if (subtotal <= 0)
-                throw new ErrorServiceException("Debe indicar una subtotal positivo"); 
 
-            if (idExpensaInmueble == null || idExpensaInmueble.isEmpty())
-                throw new ErrorServiceException("Debe indicar la expensa del inmueble"); 
+    public void modificarDetalleRecibo(String idDetalle, double subtotal, String idExpensaInmueble, String idRecibo) throws ErrorServiceException {
 
-            if (idRecibo == null || idRecibo.isEmpty())
-                throw new ErrorServiceException("Debe indicar el recibo"); 
-            
-            if (idDetalle == null || idDetalle.isEmpty())
-                throw new ErrorServiceException("Debe indicar el detalle"); 
-               
-            
+        try {
+
+            if (subtotal <= 0) {
+                throw new ErrorServiceException("Debe indicar una subtotal positivo");
+            }
+
+            if (idExpensaInmueble == null || idExpensaInmueble.isEmpty()) {
+                throw new ErrorServiceException("Debe indicar la expensa del inmueble");
+            }
+
+            if (idRecibo == null || idRecibo.isEmpty()) {
+                throw new ErrorServiceException("Debe indicar el recibo");
+            }
+
+            if (idDetalle == null || idDetalle.isEmpty()) {
+                throw new ErrorServiceException("Debe indicar el detalle");
+            }
+
             // Busca el detalle
             DetalleRecibo detalle = null;
-            try
-            {            
+            try {
                 detalle = dao.buscarDetalleRecibo(idDetalle);
-            }catch(NoResultException ex){
-                throw new ErrorServiceException("No se pudo encontrar el detalle de ID: " + idDetalle); 
-            }
-            
-            
-            // Busca la expensa del inmueble
-            ExpensaInmueble expensaInmueble = null;
-            try
-            {            
-                expensaInmueble = daoExpensaInmueble.buscarExpensaInmueble(idExpensaInmueble);
-            }catch(NoResultException ex){
-                throw new ErrorServiceException("No se pudo encontrar la expensa de inmueble de ID: " + idExpensaInmueble); 
+            } catch (NoResultException ex) {
+                throw new ErrorServiceException("No se pudo encontrar el detalle de ID: " + idDetalle);
             }
 
-            
+            // Busca la expensa del inmueble
+            ExpensaInmueble expensaInmueble = null;
+            try {
+                expensaInmueble = daoExpensaInmueble.buscarExpensaInmueble(idExpensaInmueble);
+            } catch (NoResultException ex) {
+                throw new ErrorServiceException("No se pudo encontrar la expensa de inmueble de ID: " + idExpensaInmueble);
+            }
+
             // Busca el recibo
             Recibo recibo = null;
-            try
-            {            
+            try {
                 recibo = daoRecibo.buscarRecibo(idRecibo);
-            }catch(NoResultException ex){
-                throw new ErrorServiceException("No se pudo encontrar el recibo de ID: " + idRecibo); 
+            } catch (NoResultException ex) {
+                throw new ErrorServiceException("No se pudo encontrar el recibo de ID: " + idRecibo);
             }
-            
+
             // Modifica los atributos del objeto y persiste
             detalle.setSubtotal(subtotal);
             detalle.setExpensaInmueble(expensaInmueble);
             detalle.setRecibo(recibo);
             recibo.setEliminado(false);
             dao.actualizarDetalleRecibo(detalle);
-            
+
         } catch (ErrorServiceException e) {
             throw e;
-        } catch (Exception ex){
+        } catch (Exception ex) {
             throw new ErrorServiceException("Error de Sistemas: " + ex.toString());
         }
     }
-    
+
     public void eliminarDetalleRecibo(String idDetalle) throws ErrorServiceException {
 
         try {
-            
+
             DetalleRecibo detalle = buscarDetalleRecibo(idDetalle);
             detalle.setEliminado(true);
             dao.actualizarDetalleRecibo(detalle);
@@ -150,47 +151,45 @@ public class DetalleReciboServiceBean {
             throw new ErrorServiceException("Error de sistema: " + ex.toString());
         }
     }
-    
+
     public DetalleRecibo buscarDetalleRecibo(String idDetalle) throws ErrorServiceException {
 
         try {
-            
-            if (idDetalle == null || idDetalle.isEmpty()){
-               throw new ErrorServiceException("Debe indicar el recibo");  
+
+            if (idDetalle == null || idDetalle.isEmpty()) {
+                throw new ErrorServiceException("Debe indicar el recibo");
             }
-            
+
             DetalleRecibo detalle = dao.buscarDetalleRecibo(idDetalle);
-            
-            if (detalle.isEliminado()){
+
+            if (detalle.isEliminado()) {
                 throw new ErrorServiceException("No se encuentra el recibo indicado");
             }
 
             return detalle;
-            
-        } catch (ErrorServiceException ex) {  
+
+        } catch (ErrorServiceException ex) {
             throw ex;
         } catch (Exception ex) {
             throw new ErrorServiceException("Error de sistema: " + ex.toString());
         }
     }
-    
-    
-    public Collection<DetalleRecibo> listarDetalleReciboActivo(String idRecibo)throws ErrorServiceException {
-        
-        try{
+
+    public Collection<DetalleRecibo> listarDetalleReciboActivo(String idRecibo) throws ErrorServiceException {
+
+        try {
             // Busca el recibo
             Recibo recibo = null;
-            try
-            {            
+            try {
                 recibo = daoRecibo.buscarRecibo(idRecibo);
-            }catch(NoResultException ex){
-                throw new ErrorServiceException("No se pudo encontrar el recibo de ID: " + idRecibo); 
+            } catch (NoResultException ex) {
+                throw new ErrorServiceException("No se pudo encontrar el recibo de ID: " + idRecibo);
             }
-            
+
             // Busca los detalles de ese recibo
             return dao.listarDetalleReciboActivo(recibo);
         } catch (Exception ex) {
             throw new ErrorServiceException("Error de sistema: " + ex.toString());
         }
-    }   
+    }
 }

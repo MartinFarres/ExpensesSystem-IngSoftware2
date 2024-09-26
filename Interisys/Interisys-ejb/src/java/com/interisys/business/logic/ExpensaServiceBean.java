@@ -11,8 +11,6 @@ import com.interisys.business.persistence.ErrorDAOException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -56,7 +54,7 @@ public class ExpensaServiceBean {
         }
     }
        
-    private void caducarExpensaAnterior() throws ErrorServiceException
+    private void caducarExpensaAnterior()
     {
         // Busca la ultima expensa, y le pone la `fechaHasta` en la fecha de hoy
         try {
@@ -67,7 +65,7 @@ public class ExpensaServiceBean {
                        new Date(),              // Fecha actual
                        expensa.getImporte());
         } catch (ErrorServiceException ex) {
-            throw new ErrorServiceException("Error de Sistemas: " + ex.toString());
+//             Si no la encuentra no pasa nada
         }
         
     }
