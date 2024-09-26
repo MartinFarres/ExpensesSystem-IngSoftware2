@@ -55,7 +55,6 @@ public class ExpensaEditController {
                 case ALTA:
                     expensaService.crearExpensa(
                             expensa.getFechaDesde(), 
-                            expensa.getFechaHasta(), 
                             expensa.getImporte());
                     Message.show("Expensa creada exitosamente", MessageType.NOTIFICACION);
                     break;

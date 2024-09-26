@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+
+    <ui:define name="content">
+        <div class="botoneraAMB ShowOnDesktop Responsive">
+            <p:breadCrumb styleClass="navegacion">
+                <p:menuitem value="Menu principal" url="/admin/index.xhtml" />
+                <p:menuitem value="Expensa / Inmueble" url="/admin/expensaInmueble/listExpensaInmueble.xhtml" />
+                <p:menuitem value="#{expensaInmuebleEditController.casoDeUso} Expensa / Inmueble" url="#" />
+            </p:breadCrumb>                
+        </div>
+
+        <div class="EmptyBox90"></div>
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent ">
+                <div class="Card ShadowEffect HeiAutoOnMobile Wid90">
+                    EDIT EXPENSA / INMUEBLE
+                    <p:separator/>
+
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Inmueble:"/>
+                    <div class="EmptyBox1"></div> 
+                    <p:selectOneMenu id="inmueble" value="#{expensaInmuebleEditController.expensaInmueble.inmueble.id}" styleClass="Wid80" disabled="#{expensaInmuebleEditController.campoDesactivado}">
+                        <f:selectItems  value="#{expensaInmuebleEditController.inmuebles}" />
+                    </p:selectOneMenu>
+                    
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Expensa:"/>
+                    <div class="EmptyBox1"></div> 
+                    <p:selectOneMenu id="expensa" value="#{expensaInmuebleEditController.expensaInmueble.expensa.id}" styleClass="Wid80" disabled="#{expensaInmuebleEditController.campoDesactivado}">
+                        <f:selectItems  value="#{expensaInmuebleEditController.expensas}" />
+                    </p:selectOneMenu>
+                    
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Periodo:"/>
+                    <div class="EmptyBox1"></div>
+                    <p:calendar id="idFechaHasta" value="#{expensaInmuebleEditController.expensaInmueble.periodo}" locale="es" showOn="button"  navigator="true" pattern="dd/MM/yyyy"  mindate="01/01/1920" effect="drop" styleClass="Wid80" disabled="#{expensaEditController.campoDesactivado}"/> 
+
+   
+                </div>
+            </div>
+        </div>
+
+        <div class="EmptyBox30"></div>
+        <div class="Container100 ShowOnMobile">
+            <div class="ContainerIndent ">
+                <div class="Card Wid90 HeiAutoOnMobile">
+                    <div class="Fright">
+                        <p:commandButton value="Aceptar"  action="#{expensaInmuebleEditController.aceptar()}"/> 
+                        <p:commandButton value="Cancelar" action="#{expensaInmuebleEditController.cancelar()}" />                                
+                    </div>
+                </div>
+            </div>        
+        </div> 
+
+    </ui:define>
+
+</ui:composition> 

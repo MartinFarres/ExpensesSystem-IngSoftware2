@@ -10,7 +10,6 @@
         </resource-bundle>
     </application>
 
-
     <navigation-rule>
         <navigation-case>
             <from-outcome>index</from-outcome>
@@ -77,6 +76,7 @@
     
     <navigation-rule>
         <navigation-case>
+
             <from-outcome>editCuentaCorreo</from-outcome>
             <to-view-id>/admin/cuentaCorreo/editCuentaCorreo.jsf</to-view-id>
             <redirect/>
@@ -108,7 +108,86 @@
     </navigation-rule>
 
 
-<!--permite configurar la navegabilidad
-que tendrán las distintas pantallas de la aplicación.-->
+            <from-outcome>listInquilino</from-outcome>
+            <to-view-id>/admin/inquilino/listInquilino.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>editInquilino</from-outcome>
+            <to-view-id>/admin/inquilino/editInquilino.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listNacionalidad</from-outcome>
+            <to-view-id>/admin/nacionalidad/listNacionalidad.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>editNacionalidad</from-outcome>
+            <to-view-id>/admin/nacionalidad/editNacionalidad.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listInmueble</from-outcome>
+            <to-view-id>/admin/inmueble/listInmueble.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>editInmueble</from-outcome>
+            <to-view-id>/admin/inmueble/editInmueble.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listPropietario</from-outcome>
+            <to-view-id>/admin/propietario/listPropietario.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>editPropietario</from-outcome>
+            <to-view-id>/admin/propietario/editPropietario.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listExpensaInmueble</from-outcome>
+            <to-view-id>/admin/expensaInmueble/listExpensaInmueble.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>editExpensaInmueble</from-outcome>
+            <to-view-id>/admin/expensaInmueble/editExpensaInmueble.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
 
 </faces-config>

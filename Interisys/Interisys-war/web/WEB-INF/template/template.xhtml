@@ -29,10 +29,22 @@
                             <p:menuitem value="Provincias" action="#{indexNavigationController.navegarProvincia()}"/>
                             <p:menuitem value="Departamentos" action="#{indexNavigationController.navegarDepartamento()}" />
                             <p:menuitem value="Localidades" action="#{indexNavigationController.navegarLocalidad()}" />
+
                         </p:submenu> 
                         <p:submenu label="Consorcio">
                             <p:menuitem value="Consorcio" action="#{indexNavigationController.navegarConsorcio()}" />
                             <p:menuitem value="Cuenta Correo" action="#{indexNavigationController.navegarCuentaCorreo()}" /> 
+
+                        </p:submenu>      
+                        <p:submenu label="Persona">
+                            <p:menuitem value="Nacionalidad" action="#{indexNavigationController.navergarNacionalidad()}" />                            
+                             <p:menuitem value="Propietario" action="#{indexNavigationController.navegarPropietario()}" />                           
+                            <p:menuitem value="Inquilino" action="#{indexNavigationController.navegarInquilino()}" />
+                        </p:submenu>
+                        <p:submenu label="Inmueble">
+                            <p:menuitem value="Inmueble" action="#{indexNavigationController.navergarInmueble()}" />   
+                            <p:menuitem value="ExpensaInmueble" action="#{indexNavigationController.navegarExpensaInmueble()}" />   
+
                         </p:submenu>
                     </p:menu>
                 </h:form>

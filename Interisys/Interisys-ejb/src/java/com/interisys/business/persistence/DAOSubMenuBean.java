@@ -105,7 +105,7 @@ public class DAOSubMenuBean {
       } 
    }
    
-   public Collection<SubMenu> listarSubMenuActivo ()throws ErrorDAOException{
+   public Collection<SubMenu> listarSubMenuActivo () throws ErrorDAOException{
        
       try{
           

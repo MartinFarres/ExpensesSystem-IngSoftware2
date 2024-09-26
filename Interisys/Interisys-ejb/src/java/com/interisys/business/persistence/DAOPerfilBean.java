@@ -23,42 +23,69 @@ import javax.persistence.PersistenceContext;
 public class DAOPerfilBean {
     @PersistenceContext private EntityManager em;
     
-    public void guardarPerfil(Perfil perfil) throws ErrorDAOException{
-        try{
-            em.persist(perfil);
-        }catch(Exception ex){
-            ex.printStackTrace();
-            throw new ErrorDAOException("Error de Sistema");
-        }
-    }
-    
-    public void actualizarPerfil(Perfil perfil) throws ErrorDAOException{
-        try{
-            em.setFlushMode(FlushModeType.COMMIT);
-            em.merge(perfil);
-            em.flush();
-        }catch(Exception ex){
+    public void guardarPerfil(Perfil pperfil)throws ErrorDAOException{
+      try{ 
+       em.persist(pperfil);
+      } catch (Exception ex) {
+        ex.printStackTrace();
+        throw new ErrorDAOException("Error de sistema");
+      }  
+   }
+   
+   public void actualizarPerfil(Perfil pperfil)throws ErrorDAOException{
+      try{ 
+       em.setFlushMode(FlushModeType.COMMIT);
+       em.merge(pperfil);
+       em.flush();
+      } catch (Exception ex) {
+        ex.printStackTrace();
+        throw new ErrorDAOException("Error de sistema");
+      }  
+   }
+   
+   public Perfil buscarPerfil(String id) throws NoResultException{
+       return em.find(Perfil.class, id);
+   }
+   
+   public Perfil buscarPerfilPorNombre (String nombre) throws NoResultDAOException, ErrorDAOException{
+       
+      try{ 
+          
+       return (Perfil) em.createQuery("SELECT p "
+                                           + "  FROM Perfil p"
+                                           + " WHERE p.nombre = :nombre"
+                                           + "   AND p.eliminado = FALSE").
+                                           setParameter("nombre", nombre).
+                                           getSingleResult();
+       
+      } catch (NoResultException ex) {
+            throw new NoResultDAOException("No se encontró información");
+      } catch (Exception ex) {
             ex.printStackTrace();
             throw new ErrorDAOException("Error de sistema");
-        }
-    }
-    
-    public Perfil buscarPerfil(String id) throws NoResultException{
-        return em.find(Perfil.class, id);
-    }
-    
-    public Perfil buscarPerfilPorNombre(String nombre) throws NoResultException, NoResultDAOException, ErrorDAOException{
-        try{
-            return (Perfil) em.createQuery("SELECT p" + " FROM Perfil p" + " WHERE p.nombre = :nombre" + " AND p.eliminado = FALSE").setParameter("nombre", nombre).getSingleResult();
-        }catch(NoResultException ex){
-            throw new NoResultDAOException("No se encontro informacion");
-        }catch(Exception ex){
+      }  
+   }
+   
+   public Perfil buscarPerfilPorUsuario (String idUsuario) throws NoResultDAOException, ErrorDAOException{
+       
+      try{ 
+          
+       return (Perfil) em.createQuery("SELECT p "
+                                           + "  FROM Perfil p"
+                                           + " WHERE p.usuario.id = :idUsuario"
+                                           + "   AND p.eliminado = FALSE").
+                                           setParameter("idUsuario", idUsuario).
+                                           getSingleResult();
+       
+      } catch (NoResultException ex) {
+            throw new NoResultDAOException("No se encontró información");
+      } catch (Exception ex) {
             ex.printStackTrace();
             throw new ErrorDAOException("Error de sistema");
-        }
-    }
-    
-    public Collection<Perfil> listarPerfilActivo()throws ErrorDAOException{
+      }  
+   }
+   
+   public Collection<Perfil> listarPerfilActivo()throws ErrorDAOException{
        
       try{
           
@@ -72,5 +99,4 @@ public class DAOPerfilBean {
             throw new ErrorDAOException("Error de sistema");
       } 
    }
-    
 }
