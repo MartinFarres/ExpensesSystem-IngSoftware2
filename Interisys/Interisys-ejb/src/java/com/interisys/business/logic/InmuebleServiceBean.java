@@ -37,7 +37,7 @@ public class InmuebleServiceBean {
             }
             
             if (idInquilino == null || idInquilino.isEmpty()){
-               throw new ErrorServiceException("Debe indicar el piso");  
+               throw new ErrorServiceException("Debe indicar el inquilino");  
             }
                        
             if (piso == null || piso.trim().isEmpty()){
@@ -64,7 +64,7 @@ public class InmuebleServiceBean {
             Inmueble inmueble = new Inmueble();
             inmueble.setId(UUID.randomUUID().toString());
             inmueble.setInquilino(inquilino);
-            inmueble.setPropietario(null);
+            inmueble.setPropietario(propietario);
             inmueble.setEstado((inquilino == null ? (propietario.isHabitaConsorcio() ? EstadoInmueble.HABITADO : EstadoInmueble.DESOCUPADO) : EstadoInmueble.HABITADO));
             inmueble.setPiso(piso);
             inmueble.setPuerta(puerta);
