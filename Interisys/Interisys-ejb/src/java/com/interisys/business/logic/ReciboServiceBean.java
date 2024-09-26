@@ -5,8 +5,11 @@
  */
 package com.interisys.business.logic;
 
+import com.interisys.business.domain.entity.CuentaCorreo;
 import com.interisys.business.domain.entity.DetalleRecibo;
 import com.interisys.business.domain.entity.ExpensaInmueble;
+import com.interisys.business.domain.entity.Inquilino;
+import com.interisys.business.domain.entity.Propietario;
 import com.interisys.business.domain.entity.Recibo;
 import com.interisys.business.domain.enumeration.EstadoRecibo;
 import com.interisys.business.domain.enumeration.FormaDePago;
@@ -17,6 +20,8 @@ import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.mail.Message;
+import javax.mail.Session;
 
 /**
  *
@@ -143,7 +148,72 @@ public class ReciboServiceBean {
         }
     }
 
-    public void enviarRecibo(String idRecibo) {
-        // TODO Completar
+
+    private CuentaCorreo correoOrigen;
+    private Propietario propietario;
+    private Inquilino inquilino;
+    private String tituloCorreo;
+    private String contenidoMensaje;
+    private String destinatario;
+    
+    private DetalleReciboServiceBean serviceDetalle;
+    private CuentaCorreoServiceBean serviceCuentaCorreo;
+    private GestionMailServiceBean serviceGestionMail;
+    
+    public void enviarRecibo(String idRecibo, String path) throws ErrorServiceException {
+        /*
+        contenidoMensaje: cuerpo del mensaje en HTML.
+        pathArchivoAdjunto: ruta al archivo que se desea adjuntar (puede ser null si no hay adjunto).
+        */
+        try{
+            
+            Collection<DetalleRecibo> detalles = serviceDetalle.listarDetalleReciboActivo(idRecibo);
+            //obtengo el primer detalle
+            if (!detalles.isEmpty()) {
+                DetalleRecibo detalle = detalles.iterator().next(); 
+           
+                correoOrigen = serviceCuentaCorreo.buscarCuentaCorreoActiva();
+                propietario = detalle.getExpensaInmueble().getInmueble().getPropietario();
+                inquilino = detalle.getExpensaInmueble().getInmueble().getInquilino();
+                tituloCorreo = "Envío de recibo expensa";
+                contenidoMensaje = "A continuación dejamos registro del recibo en un archivo PDF. Gracias!";
+            }
+   
+            //NO SE ENVIAN IMAGENES //String imagen = "<img src=\"cid:image\">";  
+            /*el CID se utiliza para incrustar imágenes dentro del contenido HTML del correo de manera 
+            que se muestren directamente en el cuerpo del mensaje en lugar de ser enlaces externos*/
+            StringBuilder html = new StringBuilder(); //crear estructura básica de HTML
+            //tabla con estilos CSS 
+            html.append("<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=us-ascii\"></head><body>");
+            html.append("<table style=\"font-family: Verdana,sans-serif; font-size: 13px; color: #0C1C29; width: 750px\"> <tbody>");
+            html.append("<tr>");
+            html.append("<td align=\"left\" style=\"background-color: #0011fb; color: #FFFFFF; font-size:1.2em; font-weight: bold; padding: 0\"> " + "OSPELSYM." + "  </td>");
+            html.append("</tr>");
+            html.append("<tr><td>&nbsp;</td></tr>");
+            html.append("<tr><td>&nbsp;</td></tr>");
+            html.append("<tr>");
+            html.append("<td align=\"left\">");
+            html.append(contenidoMensaje + "</td>"); //mensaje
+            html.append("</tr>");
+            html.append("<tr><td>&nbsp;</td></tr>");
+            html.append("<tr><td>&nbsp;</td></tr>");
+            
+            
+            if (inquilino == null) {
+                destinatario = propietario.getCorreoElectronico();
+            } else {
+                destinatario = inquilino.getCorreoElectronico();
+            }
+               //,pathArchivoAdjunto
+            serviceGestionMail.enviarEmailHTML(destinatario, html.toString(), correoOrigen.getSmtp(), correoOrigen.getPuerto(), correoOrigen.getCorreo(), correoOrigen.getClave(), correoOrigen.isTls(), "CONSORCIO", tituloCorreo, path);
+            
+        } catch (ErrorServiceException ex) {  
+            throw ex;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de Sistemas");
+        }
     }
+
+    
 }

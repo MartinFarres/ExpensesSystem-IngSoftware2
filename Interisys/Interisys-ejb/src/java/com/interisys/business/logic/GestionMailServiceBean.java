@@ -1,7 +1,9 @@
 package com.interisys.business.logic;
 
 import com.interisys.business.domain.entity.CuentaCorreo;
-import com.interisys.business.logic.ErrorServiceException;
+import com.interisys.business.domain.entity.DetalleRecibo;
+import com.interisys.business.domain.entity.Inquilino;
+import com.interisys.business.domain.entity.Propietario;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -34,14 +36,37 @@ public class GestionMailServiceBean {
     private Message mensaje;
     private Collection contenidoRelacionado; //imagenes embebidas o archivos adjuntos
     private Collection adjuntos;
+    private CuentaCorreo correoOrigen;
+    private Propietario propietario;
+    private Inquilino inquilino;
+    private String tituloCorreo;
+    private String contenidoMensaje;
+    private String destinatario;
     
-    public void enviarMail (CuentaCorreo correoOrigen, String destinatario, String tituloCorreo, String contenidoMensaje, String pathArchivoAdjunto)throws ErrorServiceException {
+    
+    
+    private DetalleReciboServiceBean serviceDetalle;
+    private CuentaCorreoServiceBean serviceCuentaCorreo;
+    
+    public void enviarMail (String idRecibo, String path)throws ErrorServiceException {
         /*
         contenidoMensaje: cuerpo del mensaje en HTML.
         pathArchivoAdjunto: ruta al archivo que se desea adjuntar (puede ser null si no hay adjunto).
         */
         try{
-                           
+            
+            Collection<DetalleRecibo> detalles = serviceDetalle.listarDetalleReciboActivo(idRecibo);
+            //obtengo el primer detalle
+            if (!detalles.isEmpty()) {
+                DetalleRecibo detalle = detalles.iterator().next(); 
+           
+                correoOrigen = serviceCuentaCorreo.buscarCuentaCorreoActiva();
+                propietario = detalle.getExpensaInmueble().getInmueble().getPropietario();
+                inquilino = detalle.getExpensaInmueble().getInmueble().getInquilino();
+                tituloCorreo = "Envío de recibo expensa";
+                contenidoMensaje = "A continuación dejamos registro del recibo en un archivo PDF. Gracias!";
+            }
+   
             //NO SE ENVIAN IMAGENES //String imagen = "<img src=\"cid:image\">";  
             /*el CID se utiliza para incrustar imágenes dentro del contenido HTML del correo de manera 
             que se muestren directamente en el cuerpo del mensaje en lugar de ser enlaces externos*/
@@ -60,11 +85,15 @@ public class GestionMailServiceBean {
             html.append("</tr>");
             html.append("<tr><td>&nbsp;</td></tr>");
             html.append("<tr><td>&nbsp;</td></tr>");
-              
-            Collection<String> destinatarios = new ArrayList(); ///////////  ES UN SOLO DESTINATARIO
-            destinatarios.add(destinatario);
             
-            enviarEmailHTML(destinatarios, html.toString(), correoOrigen.getSmtp(), correoOrigen.getPuerto(), correoOrigen.getCorreo(), correoOrigen.getClave(), correoOrigen.isTls(), "CONSORCIO", tituloCorreo,pathArchivoAdjunto);
+            
+            if (inquilino == null) {
+                destinatario = propietario.getCorreoElectronico();
+            } else {
+                destinatario = inquilino.getCorreoElectronico();
+            }
+               //,pathArchivoAdjunto
+            enviarEmailHTML(destinatario, html.toString(), correoOrigen.getSmtp(), correoOrigen.getPuerto(), correoOrigen.getCorreo(), correoOrigen.getClave(), correoOrigen.isTls(), "CONSORCIO", tituloCorreo, path);
             
         } catch (ErrorServiceException ex) {  
             throw ex;
@@ -75,7 +104,7 @@ public class GestionMailServiceBean {
     }
     
     @Asynchronous //el método se ejecuta de manera asíncrona, permitiendo que el método llamante continúe sin esperar a que finalice.
-    private void enviarEmailHTML(Collection<String> destinatarios, String html, String servidorIPAux, String servidorPuertoAux, String correoConfiguracionAux, String claveConfiguracionAux, boolean protocoloTLSAux, String bandejaEntrada, String asunto, String pathArchivo) throws ErrorServiceException {
+    public void enviarEmailHTML(String destinatario, String html, String servidorIPAux, String servidorPuertoAux, String correoConfiguracionAux, String claveConfiguracionAux, boolean protocoloTLSAux, String bandejaEntrada, String asunto, String pathArchivo) throws ErrorServiceException {
 
         try {
 
@@ -100,9 +129,9 @@ public class GestionMailServiceBean {
             message.setFrom(new InternetAddress(correoConfiguracion, bandejaEntrada));
 
             // A quien va dirigido
-            for (String destinatario : destinatarios){
-             message.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
-            }  
+
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
+
             message.setSubject(asunto);
            
             //armar partes

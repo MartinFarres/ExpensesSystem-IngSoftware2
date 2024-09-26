@@ -186,7 +186,7 @@ public class AdministracionExpensaController {
         
         try{
            
-             reciboPagoService.enviarRecibo(recibo.getId());
+             reciboPagoService.enviarRecibo(recibo.getId(), "C:\\");
              Message.show("El recibo se envió correctamente", MessageType.NOTIFICACION);
              
         } catch (Exception e) {
