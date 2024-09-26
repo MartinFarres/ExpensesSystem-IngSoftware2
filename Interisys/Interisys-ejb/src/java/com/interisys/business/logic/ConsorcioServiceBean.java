@@ -7,11 +7,15 @@ import com.interisys.business.persistence.NoResultDAOException;
 import java.util.Collection;
 import java.util.UUID;
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author spaul
  */
+@Stateless
+@LocalBean
 public class ConsorcioServiceBean {
     
     @EJB DireccionServiceBean direccionService;

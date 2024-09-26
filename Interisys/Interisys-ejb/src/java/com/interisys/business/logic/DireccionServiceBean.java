@@ -11,11 +11,15 @@ import com.interisys.business.persistence.DAODireccionBean;
 import java.util.Collection;
 import java.util.UUID;
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author spaul
  */
+@Stateless
+@LocalBean
 public class DireccionServiceBean {
     
     @EJB LocalidadServiceBean localidadService;
