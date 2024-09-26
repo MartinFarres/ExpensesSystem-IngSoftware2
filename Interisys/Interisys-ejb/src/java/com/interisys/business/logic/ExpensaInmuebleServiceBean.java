@@ -12,9 +12,12 @@ import com.interisys.business.domain.enumeration.EstadoExpensaInmueble;
 import com.interisys.business.domain.enumeration.FormaDePago;
 import com.interisys.business.persistence.DAOExpensaInmuebleBean;
 import com.interisys.business.persistence.NoResultDAOException;
+import com.interisys.business.util.UtilFechaBean;
 import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -31,10 +34,10 @@ public class ExpensaInmuebleServiceBean {
     InmuebleServiceBean inmuebleService;
     private @EJB
     ExpensaServiceBean expensaService;
-    
+
     private @EJB
     ReciboServiceBean reciboService;
-    
+
     private @EJB
     DAOExpensaInmuebleBean dao;
 
@@ -161,6 +164,20 @@ public class ExpensaInmuebleServiceBean {
             throw ex;
         } catch (Exception ex) {
             throw new ErrorServiceException("Error de sistema. No se pudo encontrar la ExpensaInmueble: " + ex.toString());
+        }
+    }
+
+    public String crearMensajeNotificacion(String idExpensaInmueble) throws ErrorServiceException {
+        try {
+            ExpensaInmueble expenesaInmueble = buscarExpensaInmueble(idExpensaInmueble);
+
+            String mensaje = "Hola, informamos que ya se encuentra disponible la expensa correspondiente al mes " + UtilFechaBean.Mes.values()[expenesaInmueble.getPeriodo().getMonth()] + ". El importe por pagar es $" + expenesaInmueble.getExpensa().getImporte();
+            return mensaje;
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de sistema al crear el mensaje de notificacion: " + ex.toString());
+
         }
     }
 
