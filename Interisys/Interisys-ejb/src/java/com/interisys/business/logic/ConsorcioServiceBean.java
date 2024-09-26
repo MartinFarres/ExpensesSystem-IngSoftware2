@@ -21,9 +21,11 @@ public class ConsorcioServiceBean {
     @EJB DireccionServiceBean direccionService;
     @EJB DAOConsorcioBean dao;
     
-    public void crearConsorcio(Direccion direccion, String nombre) throws ErrorServiceException {
+    public void crearConsorcio(String idDireccion, String nombre) throws ErrorServiceException {
 
         try {
+            
+            Direccion direccion = direccionService.buscarDireccion(idDireccion);
 
             if (nombre == null || nombre.isEmpty()) {
                 throw new ErrorServiceException("Debe indicar el nombre");
@@ -97,11 +99,12 @@ public class ConsorcioServiceBean {
     
     }
     
-    public void modificarConsorcio(String idConsorcio, String nombre, Direccion direccion) throws ErrorServiceException {
+    public void modificarConsorcio(String idConsorcio, String nombre, String idDireccion) throws ErrorServiceException {
 
         try {
 
             Consorcio consorcio = buscarConsorcio(idConsorcio);
+            Direccion direccion = direccionService.buscarDireccion(idDireccion);
 
             if (nombre == null || nombre.isEmpty()) {
                 throw new ErrorServiceException("Debe indicar el nombre");

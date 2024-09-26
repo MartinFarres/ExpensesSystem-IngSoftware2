@@ -40,7 +40,7 @@ public class ConsorcioEditController {
     // el controlador de sesión.
     private CasoDeUsoType casoDeUso;
     private boolean campoDesactivado;
-    private Direccion direccion;
+    private String idDireccion;
     private String nombre;
 
     public CasoDeUsoType getCasoDeUso() {
@@ -62,7 +62,7 @@ public class ConsorcioEditController {
             if (casoDeUso.equals("ALTA")) {
                 cargarComboDireccion();
             } else if (casoDeUso.equals("CONSULTAR") || casoDeUso.equals("MODIFICAR")) {
-                direccion = consorcio.getDireccion();
+                idDireccion = consorcio.getDireccion().getId();
                 nombre = consorcio.getNombre();
                 cargarComboDireccion();
                 
@@ -82,14 +82,15 @@ public class ConsorcioEditController {
         return consorcio;
     }
 
-    public Direccion getDireccion() {
-        return direccion;
+    public String getIdDireccion() {
+        return idDireccion;
     }
-    
 
-    public void setDireccion(Direccion direccion) {
-        this.direccion = direccion;
+    public void setIdDireccion(String idDireccion) {
+        this.idDireccion = idDireccion;
     }
+
+
 
     public String getNombre() {
         return nombre;
@@ -124,7 +125,7 @@ public class ConsorcioEditController {
             // Dependiendo del caso de uso hace distintas acciones
             switch (casoDeUso) {
                 case ALTA:
-                    consorcioService.crearConsorcio(direccion, nombre);
+                    consorcioService.crearConsorcio(idDireccion, nombre);
                     Message.show("Consorcio creado exitosamente", MessageType.NOTIFICACION);
                     break;
                     
@@ -132,7 +133,7 @@ public class ConsorcioEditController {
                     consorcioService.modificarConsorcio(
                             consorcio.getId(),
                             nombre,
-                            direccion);
+                            idDireccion);
                     Message.show("Consorcio modificado exitosamente", MessageType.NOTIFICACION);
                     break;
                 
@@ -154,7 +155,7 @@ public class ConsorcioEditController {
         direcciones = new ArrayList<SelectItem>();
         direcciones.add(new SelectItem(null, "Seleccione..."));
         for (Direccion direccion : direccionService.listarDireccionActiva()) {
-            String descripcion = direccion.getCalle() + " " + direccion.getNumeracion() + ", " + direccion.getBarrio() + ", " + direccion.getLocalidad().getNombre();
+            String descripcion = direccion.getCalle() + ", " + direccion.getNumeracion() + ", " + direccion.getBarrio() + ", " + direccion.getLocalidad().getNombre();
             direcciones.add(new SelectItem(direccion.getId(), descripcion));}   
         }catch (Exception e) {
             Message.show(e.getMessage(), MessageType.ERROR);
