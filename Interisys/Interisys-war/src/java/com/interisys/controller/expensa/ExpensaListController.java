@@ -102,7 +102,7 @@ public class ExpensaListController {
         }
     }
             
-    public void baja(Expensa expensa) {
+    public String baja(Expensa expensa) {
         
         try{
         
@@ -115,6 +115,7 @@ public class ExpensaListController {
             e.printStackTrace();
             Message.show(e.getMessage(), MessageType.ERROR);
         }
+        return "listExpensa";
     }
 
     public ExpensaServiceBean getExpensaService() {
