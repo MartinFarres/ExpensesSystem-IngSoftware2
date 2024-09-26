@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.interisys.controller;
+package com.interisys.controller.expensa;
 
 import com.interisys.controller.enumeration.MessageType;
 import com.interisys.business.domain.entity.Expensa;
 import com.interisys.business.logic.ExpensaServiceBean;
+import com.interisys.controller.Message;
 import com.interisys.controller.enumeration.CasoDeUsoType;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -35,7 +37,10 @@ public class ExpensaEditController {
         
         // Cuando el caso de uso es alta, crea la expensa
         if (casoDeUso == CasoDeUsoType.ALTA)
+        {            
             expensa = new Expensa();
+            expensa.setFechaDesde(new Date());
+        }
         else
             // Obtiene la expensa a traves del controlador de sesion
             expensa = (Expensa)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("EXPENSA");

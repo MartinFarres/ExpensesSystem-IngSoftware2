@@ -55,21 +55,33 @@ public class ExpensaServiceBean {
             throw new ErrorServiceException("Error de Sistemas: " + ex.toString());
         }
     }
-    
-    private void caducarExpensaAnterior()
+       
+    private void caducarExpensaAnterior() throws ErrorServiceException
     {
         // Busca la ultima expensa, y le pone la `fechaHasta` en la fecha de hoy
         try {
-               Expensa expensa = dao.buscarExpensaActual();
+               Expensa expensa = obtenerExpensaActual();
                modificarExpensa(
                        expensa.getId(),
                        expensa.getFechaDesde(),
                        new Date(),              // Fecha actual
                        expensa.getImporte());
-        } catch (ErrorDAOException | ErrorServiceException ex) {
-            Logger.getLogger(ExpensaServiceBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ErrorServiceException ex) {
+            throw new ErrorServiceException("Error de Sistemas: " + ex.toString());
         }
         
+    }
+    
+    public Expensa obtenerExpensaActual() throws ErrorServiceException
+    {
+        
+        try{
+            Expensa expensa = dao.buscarExpensaActual();
+            return expensa;
+        } catch(ErrorDAOException ex)
+        {
+            throw new ErrorServiceException("Error de Sistemas al buscar la expensa actual: " + ex.toString());
+        }
     }
     
     public void modificarExpensa(String idExpensa, Date fechaDesde, Date fechaHasta, double importeExpesan)throws ErrorServiceException {
