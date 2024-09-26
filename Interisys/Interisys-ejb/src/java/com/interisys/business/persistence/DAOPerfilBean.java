@@ -23,19 +23,19 @@ import javax.persistence.PersistenceContext;
 public class DAOPerfilBean {
     @PersistenceContext private EntityManager em;
     
-    public void guardarPerfil(Perfil pperfil)throws ErrorDAOException{
+    public void guardarPerfil(Perfil perfil)throws ErrorDAOException{
       try{ 
-       em.persist(pperfil);
+       em.persist(perfil);
       } catch (Exception ex) {
         ex.printStackTrace();
         throw new ErrorDAOException("Error de sistema");
       }  
    }
    
-   public void actualizarPerfil(Perfil pperfil)throws ErrorDAOException{
+   public void actualizarPerfil(Perfil perfil)throws ErrorDAOException{
       try{ 
        em.setFlushMode(FlushModeType.COMMIT);
-       em.merge(pperfil);
+       em.merge(perfil);
        em.flush();
       } catch (Exception ex) {
         ex.printStackTrace();

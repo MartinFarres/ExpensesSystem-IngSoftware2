@@ -5,10 +5,8 @@
  */
 package com.interisys.business.logic;
 
-import com.interisys.business.domain.entity.Menu;
 import com.interisys.business.domain.entity.Perfil;
 import com.interisys.business.domain.entity.SubMenu;
-import com.interisys.business.domain.entity.Usuario;
 import com.interisys.business.persistence.DAOPerfilBean;
 import com.interisys.business.persistence.NoResultDAOException;
 import java.util.Collection;
@@ -81,6 +79,7 @@ public class PerfilServiceBean {
         }
     }
 
+    
     public void modificarPerfil(String idPerfil, String nombre, String detalle, Collection<SubMenu> submenues) throws ErrorServiceException {
         try {
 
@@ -110,6 +109,7 @@ public class PerfilServiceBean {
         }
 
     }
+    
 
     public void eliminarPerfil(String idPerfil) throws ErrorServiceException {
         try {

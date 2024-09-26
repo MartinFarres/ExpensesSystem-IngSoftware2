@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+
+    <ui:define name="content">
+
+        <div class="botoneraAMB ShowOnDesktop Responsive">
+            <p:breadCrumb styleClass="navegacion">
+                <p:menuitem value="Menu principal" url="/admin/index.xhtml" />
+                <p:menuitem value="Usuarios" url="#" />
+            </p:breadCrumb>                
+        </div>
+
+        <h:panelGroup>
+            <div class="EmptyBox70"></div>
+            <div class="Container100 Responsive100">
+                <div class="ContainerIndent " >
+                    <div class="Card ShadowEffect HeiAutoOnMobile">
+                        <h2 class="CardTopic">
+                            <i class="fa fa-yelp Fs20 Fleft MarRight10"></i>
+                            Usuarios
+                        </h2>      
+                        <p:separator/>
+
+                        <div class="Container50 Responsive50">
+                            <div class="EmptyBox20"></div>
+                            <p:commandButton id="nuevo" icon="fa fa-plus" styleClass="Fleft" action="#{usuarioListController.alta()}"/>
+                            <p:tooltip id="toolTipExpensaNuevo" for="nuevo" value="Alta" position="top"/>
+                        </div>
+
+                        <div class="EmptyBox10"></div>
+                        <h:panelGroup id="panelTablaUsuario">
+                            <div class="Container100 Responsive100">  
+                                <p:dataTable id ="tablaUsuario" 
+                                             var="variable" 
+                                             value="#{usuarioListController.usuarios}" 
+                                             rows="10"
+                                             paginator="true"                              
+                                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                             rowsPerPageTemplate="5,10,15"                             
+                                             style="margin-top: 15px; padding-bottom: 30px">
+
+                                    <p:column width="50">
+                                        <p:commandButton  icon="fa fa-ellipsis-v" styleClass="Fright GrayButton" id="opcionTablaUsuarios"/>
+                                        <p:slideMenu overlay="true" my="left top" at="left top" trigger="opcionTablaUsuarios" style="height: 150px">
+                                            <p:menuitem value="Consultar" icon="fa fa-eye Green" action="#{usuarioListController.consultar(variable)}"/>
+                                            <p:menuitem value="Modificar" icon="fa fa-pencil-square-o Purple" action="#{usuarioListController.modificar(variable)}"/>
+                                            <p:menuitem value="Baja" icon="fa fa-trash Red" action="#{usuarioListController.baja(variable)}"/>
+                                        </p:slideMenu>
+                                    </p:column>
+
+                                    <p:column headerText="Nombre" width="400">
+                                        #{variable.nombre}
+                                    </p:column>
+                                    <p:column headerText="Apellido" width="400">
+                                        #{variable.apellido}
+                                    </p:column>
+                                    <p:column headerText="Usuario" width="400">
+                                        #{variable.usuario}
+                                    </p:column>
+                                    <p:column headerText="Telefono" width="400">
+                                        #{variable.telefono}
+                                    </p:column>
+                                    <p:column headerText="Email" width="400">
+                                        #{variable.correoElectronico}
+                                    </p:column>
+                                    
+                                    <p:column headerText="Perfil" width="400">
+                                        #{variable.perfil.nombre}
+                                    </p:column>
+                                    
+                                    
+                                </p:dataTable> 
+                            </div>    
+                        </h:panelGroup>
+                    </div>
+                </div>
+            </div>
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>  
+

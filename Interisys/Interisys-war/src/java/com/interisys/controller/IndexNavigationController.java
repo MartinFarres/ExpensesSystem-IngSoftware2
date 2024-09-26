@@ -73,6 +73,14 @@ public class IndexNavigationController {
     public String navegarExpensaInmueble() {
         return "listExpensaInmueble";
     }
+    
+    public String navegarUsuarioPerfiles() {
+        return "listUsuarioPerfiles";
+    }
+    
+    public String navegarUsuarioUsuarios(){
+        return "listUsuarioUsuarios";
+    }
 }
 
 

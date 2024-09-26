@@ -7,7 +7,6 @@ package com.interisys.business.domain.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -115,9 +114,7 @@ public class Perfil implements Serializable{
     public void setSubmenu(Collection<SubMenu> submenu) {
         this.submenu = submenu;
     }
+    
+   
 
-    
-    
-    
-    
 }

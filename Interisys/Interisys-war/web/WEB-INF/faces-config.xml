@@ -223,4 +223,30 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listUsuarioUsuarios</from-outcome>
+            <to-view-id>/admin/usuario/listUsuarios.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>editUsuario</from-outcome>
+            <to-view-id>/admin/usuario/editUsuario.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listUsuarioPerfiles</from-outcome>
+            <to-view-id>/admin/usuario/listPerfiles.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    
 </faces-config>
