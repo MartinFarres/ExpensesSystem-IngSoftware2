@@ -28,19 +28,19 @@ public class ReciboServiceBean {
 
     private @EJB
     DAOReciboBean dao;
-    
+
     private @EJB
     DetalleReciboServiceBean detalleService;
-    
+
     private @EJB
     ExpensaInmuebleServiceBean expensaInmuebleService;
-    
+
     public void crearRecibo(String idExpensaInmueble, FormaDePago formaDePago, String observacion) throws ErrorServiceException {
 
-        try{
-            
+        try {
+
             ExpensaInmueble expensaInmueble = expensaInmuebleService.buscarExpensaInmueble(idExpensaInmueble);
-            
+
             //Se crea el recibo
             Recibo recibo = new Recibo();
             recibo.setId(UUID.randomUUID().toString());
@@ -50,14 +50,14 @@ public class ReciboServiceBean {
             recibo.setTotal(expensaInmueble.getExpensa().getImporte());
             recibo.setEliminado(false);
             dao.guardarRecibo(recibo);
-            
+
             //Se crea el detalle y se vincula al recibo
             detalleService.crearDetalleRecibo(
-                    expensaInmueble.getExpensa().getImporte(), 
+                    expensaInmueble.getExpensa().getImporte(),
                     expensaInmueble.getId(),
                     recibo.getId());
-            
-        } catch (Exception ex){
+
+        } catch (Exception ex) {
             ex.printStackTrace();
             throw new ErrorServiceException("Error de Sistemas. No se pudo crear el recibo: " + ex.toString());
         }
@@ -143,4 +143,7 @@ public class ReciboServiceBean {
         }
     }
 
+    public void enviarRecibo(String idRecibo) {
+        // TODO Completar
+    }
 }

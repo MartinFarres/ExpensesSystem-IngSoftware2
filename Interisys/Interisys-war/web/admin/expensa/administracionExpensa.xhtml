@@ -206,7 +206,12 @@ and open the template in the editor.
                                 <p:column headerText="$ Pago" filterBy="#{variableRecibo.total}"  filterMatchMode="contains">
                                     #{variableRecibo.total}
                                 </p:column> 
-                                <p:column headerText="Forma de pago">
+
+                                <p:column headerText="Estado"  filterBy="#{variableRecibo.estado}"  filterMatchMode="contains">
+                                    #{variableRecibo.estado}
+                                </p:column> 
+
+                                <p:column headerText="Forma de pago" filterBy="#{variableRecibo.formaDePago}"  filterMatchMode="contains">
                                     #{variableRecibo.formaDePago}
                                 </p:column> 
 
