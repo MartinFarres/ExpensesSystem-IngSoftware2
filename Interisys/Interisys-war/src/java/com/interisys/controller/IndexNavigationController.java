@@ -27,16 +27,32 @@ public class IndexNavigationController {
     public String navegarProvincia() {
         return "listProvincia";
     }
-    
-    public String navegarDepartamento() {
+
+    public String navegarDepartamento()
+            
+    {
         return "listDepartamento";
     }
+    
+    public String navegarCuentaCorreo()
+    {
+        return "listCuentaCorreo";
+    }
+    
+    public String navegarConsorcio()
+    {
+        return "listConsorcio";
+        
+    }
+
     
     public String navegarLocalidad() {
         return "listLocalidad";
     }
+
     public String navegarInquilino() {
         return "listInquilino";
+
     }
     
     public String navegarPropietario() {

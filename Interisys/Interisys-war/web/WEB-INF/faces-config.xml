@@ -76,11 +76,44 @@
     
     <navigation-rule>
         <navigation-case>
+
+            <from-outcome>editCuentaCorreo</from-outcome>
+            <to-view-id>/admin/cuentaCorreo/editCuentaCorreo.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listCuentaCorreo</from-outcome>
+            <to-view-id>/admin/cuentaCorreo/listCuentaCorreo.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+        <navigation-rule>
+        <navigation-case>
+            <from-outcome>editConsorcio</from-outcome>
+            <to-view-id>/admin/consorcio/editConsorcio.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>listConsorcio</from-outcome>
+            <to-view-id>/admin/consorcio/listConsorcio.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+
             <from-outcome>listInquilino</from-outcome>
             <to-view-id>/admin/inquilino/listInquilino.jsf</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
+
 
     <navigation-rule>
         <navigation-case>
