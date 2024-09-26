@@ -10,6 +10,7 @@ import com.interisys.business.domain.entity.ExpensaInmueble;
 import com.interisys.business.domain.entity.Inmueble;
 import com.interisys.business.domain.enumeration.EstadoExpensaInmueble;
 import com.interisys.business.persistence.DAOExpensaInmuebleBean;
+import com.interisys.business.persistence.NoResultDAOException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
@@ -49,11 +50,14 @@ public class ExpensaInmuebleServiceBean {
             } catch (ErrorServiceException e) {
                 throw new ErrorServiceException("Debe indicar el imnuble y la expensa que desea generar");
             }
-
+            
+            // Tira error si ya existe una expensaInmueble en el mismo periodo
             try {
                 dao.buscarExpensaInmueble(idExpensa, idInmueble, periodo);
                 throw new ErrorServiceException("Existe una expensa generada para el inmuble y el período indicado");
-            } catch (ErrorServiceException e) {
+            } catch (NoResultDAOException ex) {
+                // Si se entra aca, significa que todo esta bien, porque la 
+                // expensa no ha sido creada para este inmueble en este periodo
             }
 
             ExpensaInmueble expensaInmueble = new ExpensaInmueble();
@@ -104,13 +108,6 @@ public class ExpensaInmuebleServiceBean {
             if (estado == null) {
                 throw new ErrorServiceException("Debe indicar el estado");
             }
-
-            try {
-                dao.buscarExpensaInmueble(expensa.getId(), inmueble.getId(), periodo);
-                throw new ErrorServiceException("Existe una expensa generada para el inmuble y el período indicado");
-            } catch (ErrorServiceException e) {
-            }
-
             expensaInmueble.setEstado(estado);
             expensaInmueble.setPeriodo(periodo);
             expensaInmueble.setFechaVencimiento(fechaVencimiento);
@@ -119,10 +116,8 @@ public class ExpensaInmuebleServiceBean {
 
             dao.actualizarExpensaInmueble(expensaInmueble);
 
-        } catch (ErrorServiceException e) {
-            throw e;
         } catch (Exception ex) {
-            throw new ErrorServiceException("Error de Sistemas");
+            throw new ErrorServiceException("Error de Sistemas: " + ex.toString());
         }
     }
 
