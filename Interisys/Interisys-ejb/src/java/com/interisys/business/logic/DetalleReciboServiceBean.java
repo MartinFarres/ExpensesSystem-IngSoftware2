@@ -29,13 +29,10 @@ public class DetalleReciboServiceBean {
     private DAOExpensaInmuebleBean daoExpensaInmueble;
     private DAOReciboBean daoRecibo;
 
-    public void crearDetalleRecibo(int cantidad, double subtotal, String idExpensaInmueble, String idRecibo)throws ErrorServiceException {
+    public void crearDetalleRecibo(double subtotal, String idExpensaInmueble, String idRecibo)throws ErrorServiceException {
         
         try{
             // Valida los paramtros
-            if (cantidad <= 0)
-               throw new ErrorServiceException("Debe indicar una cantidad positiva"); 
-            
             if (subtotal <= 0)
                 throw new ErrorServiceException("Debe indicar una subtotal positivo"); 
 
@@ -65,7 +62,6 @@ public class DetalleReciboServiceBean {
             // Setea los atributos
             DetalleRecibo detalle = new DetalleRecibo();
             detalle.setId(UUID.randomUUID().toString());
-            detalle.setCantidad(cantidad);
             detalle.setSubtotal(subtotal);
             detalle.setExpensaInmueble(expensaInmueble);
             detalle.setRecibo(recibo);
@@ -80,13 +76,9 @@ public class DetalleReciboServiceBean {
         }
     }
     
-    public void modificarDetalleRecibo(String idDetalle, int cantidad, double subtotal, String idExpensaInmueble, String idRecibo)throws ErrorServiceException {
+    public void modificarDetalleRecibo(String idDetalle, double subtotal, String idExpensaInmueble, String idRecibo)throws ErrorServiceException {
         
         try{
-            
-           
-            if (cantidad <= 0)
-               throw new ErrorServiceException("Debe indicar una cantidad positiva"); 
             
             if (subtotal <= 0)
                 throw new ErrorServiceException("Debe indicar una subtotal positivo"); 
@@ -131,7 +123,6 @@ public class DetalleReciboServiceBean {
             }
             
             // Modifica los atributos del objeto y persiste
-            detalle.setCantidad(cantidad);
             detalle.setSubtotal(subtotal);
             detalle.setExpensaInmueble(expensaInmueble);
             detalle.setRecibo(recibo);

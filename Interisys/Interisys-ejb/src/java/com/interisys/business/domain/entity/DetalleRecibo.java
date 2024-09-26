@@ -19,8 +19,6 @@ public class DetalleRecibo implements Serializable {
     @Id
     private String id;
     
-    private int cantidad;
-    
     private double subtotal;
     
     
@@ -38,14 +36,6 @@ public class DetalleRecibo implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
     }
 
     public double getSubtotal() {
