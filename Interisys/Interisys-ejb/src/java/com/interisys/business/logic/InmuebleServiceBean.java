@@ -32,9 +32,9 @@ public class InmuebleServiceBean {
         
         try{
             
-            if (idPropietario == null || idPropietario.isEmpty()){
-               throw new ErrorServiceException("Debe indicar el inmueble");  
-            }
+//            if (idPropietario == null || idPropietario.isEmpty()){
+//               throw new ErrorServiceException("Debe indicar el propietario");  
+//            }
             
             if (idInquilino == null || idInquilino.isEmpty()){
                throw new ErrorServiceException("Debe indicar el piso");  
@@ -53,7 +53,7 @@ public class InmuebleServiceBean {
                 throw new ErrorServiceException("Existe un inmueble con el piso y puerta indicado");
             } catch (NoResultDAOException ex) {}
             
-            Propietario propietario = propietarioService.buscarPropietario(idPropietario);
+//            Propietario propietario = propietarioService.buscarPropietario(idPropietario);
             Inquilino inquilino = null;
             try
             {
@@ -64,8 +64,8 @@ public class InmuebleServiceBean {
             Inmueble inmueble = new Inmueble();
             inmueble.setId(UUID.randomUUID().toString());
             inmueble.setInquilino(inquilino);
-            inmueble.setPropietario(propietario);
-            inmueble.setEstado((inquilino == null ? (propietario.isHabitaConsorcio() ? EstadoInmueble.HABITADO : EstadoInmueble.DESOCUPADO) : EstadoInmueble.HABITADO));
+            inmueble.setPropietario(null);
+//            inmueble.setEstado((inquilino == null ? (propietario.isHabitaConsorcio() ? EstadoInmueble.HABITADO : EstadoInmueble.DESOCUPADO) : EstadoInmueble.HABITADO));
             inmueble.setEstado(EstadoInmueble.DESOCUPADO);
             inmueble.setPiso(piso);
             inmueble.setPuerta(puerta);

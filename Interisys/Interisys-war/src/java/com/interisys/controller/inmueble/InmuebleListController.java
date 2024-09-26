@@ -123,7 +123,7 @@ public class InmuebleListController {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         HttpSession session = (HttpSession) context.getSession(true);
         session.setAttribute("CASO_DE_USO", casoDeUso);  
-        session.setAttribute("NACIONALIDAD", inmueble);  
+        session.setAttribute("INMUEBLE", inmueble);  
     }
     
 }
