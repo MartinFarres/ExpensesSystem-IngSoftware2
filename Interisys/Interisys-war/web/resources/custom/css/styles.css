@@ -38,10 +38,6 @@ footer {
     padding: 15px; /* Padding inside the menu */
 }
 
-.menu-header {
-    margin-bottom: 20px; /* Space below the title */
-    text-align: center; /* Center the title */
-}
 
 .main-content {
     flex-grow: 1; /* Allow this area to grow and take up available space */
