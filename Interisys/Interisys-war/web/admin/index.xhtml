@@ -8,10 +8,27 @@
                 template="/WEB-INF/template/template.xhtml">
 
     <ui:define name="content">
+        <p:breadCrumb styleClass="navegacion">
+            <p:menuitem value="" url="/admin/index.xhtml" />
+            
+            
+        </p:breadCrumb>  
         <div class="cool-title">
-            <h1>Hola Interisys</h1>
+            <!-- Saludo personalizado con el nombre y apellido del usuario -->
+            <h1>Bienvenido, #{userSession.usuario.nombre}</h1>
+        </div>
+        <div style="flex: 1; display: flex; justify-content: center; margin-bottom: 30px ">
+            <!-- Mostrar la fecha actual -->
+            <h2> Hoy es #{userSession.today} </h2>
+            
+        </div>
+        <div style="flex: 1; display: flex; justify-content: center; margin-bottom: 30px ">
+            <!-- Mostrar la fecha actual -->
+            <h3> Te encuentras en el usuario #{userSession.usuario.usuario}</h3>
+            
         </div>
     </ui:define>
 
     <h:outputStylesheet name="custom/css/styles.css" />
 </ui:composition>
+

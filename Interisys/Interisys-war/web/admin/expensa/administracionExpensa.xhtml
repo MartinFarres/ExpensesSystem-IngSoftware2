@@ -12,6 +12,13 @@ and open the template in the editor.
                 template="/WEB-INF/template/template.xhtml">
 
     <ui:define name="content">
+        <div class="botoneraAMB ShowOnDesktop Responsive">
+            <p:breadCrumb styleClass="navegacion">
+                <p:menuitem value="Menu principal" url="/admin/index.xhtml" />
+                <p:menuitem value="Expensas" url="/admin/expensa/listExpensa.xhtml" />
+                <p:menuitem value="#{expensaEditController.casoDeUso} Expensa" url="#" />
+            </p:breadCrumb>                
+        </div>
         <div class="Container100 Responsive100">
 
             <div class="EmptyBox20"/>
@@ -23,10 +30,10 @@ and open the template in the editor.
 
                         <div class="Card ShadowEffect HeiAutoOnMobile">
                             <h2 class="CardTopic">
-                                <i class="icon-hotel68 Fs20 Fleft MarRight10"></i>
-                                Búsqueda de inmueble
-                            </h2>  
-                            <p:separator/> 
+                                <i class="fa fa-yelp Fs20 Fleft MarRight10"></i>
+                                Busqueda De Inmueble
+                            </h2>      
+                            <p:separator/>
                             <!--Opción para filtrar-->
                             <div class="Container25 Responsive100">
                                 <div class="EmptyBox10"></div>
