@@ -21,7 +21,6 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.mail.Message;
-import javax.mail.Session;
 
 /**
  *
@@ -177,7 +176,7 @@ public class ReciboServiceBean {
                 inquilino = detalle.getExpensaInmueble().getInmueble().getInquilino();
                 tituloCorreo = "Envío de recibo expensa";
                 contenidoMensaje = "A continuación dejamos registro del recibo en un archivo PDF. Gracias!";
-            }
+            } 
    
             //NO SE ENVIAN IMAGENES //String imagen = "<img src=\"cid:image\">";  
             /*el CID se utiliza para incrustar imágenes dentro del contenido HTML del correo de manera 
