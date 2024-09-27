@@ -103,19 +103,18 @@ public class AdministracionExpensaController {
     }
 
     public void abrirWhatsApp(ExpensaInmueble expensa) {
+        try {
+            if (expensa.getInmueble().getPropietario().getTelefono() != null && !expensa.getInmueble().getPropietario().getTelefono().trim().isEmpty()) {
+                linkWhatsApp = "https://api.whatsapp.com/send?phone=+549" + expensa.getInmueble().getPropietario().getTelefono() + "&text=" + expensaInmuebleService.crearMensajeNotificacion(expensa.getId());
+                RequestContext.getCurrentInstance().update("formPpal:panelLinkWhatsApp");
+                RequestContext.getCurrentInstance().update("formPpal:panelDetalleLinkWhatsApp");
+                RequestContext.getCurrentInstance().execute("PF('dlgLinkWhatsApp').show()");
+                System.out.println(linkWhatsApp);
+            }
 
-//        try {
-//
-//            if (expensa.getInmueble().getPropietario().getTelefono() != null && !expensa.getInmueble().getPropietario().getTelefono().trim().isEmpty()) {
-//                linkWhatsApp = "https://api.whatsapp.com/send?phone=+549" + expensa.getInmueble().getPropietario().getTelefono() + "&text=" + expensaInmuebleService.crearMensajeNotificacion(expensa.getId());
-//                RequestContext.getCurrentInstance().update("formPpal:panelLinkWhatsApp");
-//                RequestContext.getCurrentInstance().update("formPpal:panelDetalleLinkWhatsApp");
-//                RequestContext.getCurrentInstance().execute("PF('dlgLinkWhatsApp').show()");
-//            }
-//
-//        } catch (Exception e) {
-//            Message.show(e.getMessage(), MessageType.ERROR);
-//        }
+        } catch (Exception e) {
+            Message.show("Error al abrir whats app: " + e.getMessage(), MessageType.ERROR);
+        }
     }
 
     public void irWhatsApp() {
@@ -128,7 +127,7 @@ public class AdministracionExpensaController {
             externalContext.redirect(linkWhatsApp);
 
         } catch (Exception e) {
-            Message.show(e.getMessage(), MessageType.ERROR);
+            Message.show("Error al ir a WhatsApp: " + e.getMessage(), MessageType.ERROR);
         }
     }
 
@@ -182,17 +181,18 @@ public class AdministracionExpensaController {
         }
     }
 
-        public void enviarReciboPago (Recibo recibo){
+    public void enviarReciboPago (Recibo recibo){
         
         try{
            
              reciboPagoService.enviarRecibo(recibo.getId(), "C:\\");
              Message.show("El recibo se envió correctamente", MessageType.NOTIFICACION);
-             
+
         } catch (Exception e) {
             Message.show(e.getMessage(), MessageType.ERROR);
         }
     }
+
     
     public String getFiltro() {
         return filtro;

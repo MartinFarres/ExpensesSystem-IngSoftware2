@@ -6,8 +6,14 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title>Menu Example</title>
+        <title>Sistem Consorcio</title>
         <h:outputStylesheet name="custom/css/styles.css" />
+        <h:outputStylesheet name="rio-layout/css/rio-layout.css" />
+        <h:outputStylesheet name="rio-layout/css/core-layout.css" />
+        <h:outputStylesheet name="rio-layout/css/perfect-scrollbar.css" />
+        <h:outputStylesheet name="rio-layout/css/ripple-effect.css" />
+        <h:outputStylesheet name="rio-layout/css/font-awesome.css" />
+        
     </h:head>
 
     <h:body class="flex-container">
@@ -15,10 +21,13 @@
         <div class="layout-container">
             <div class="side-menu">
 
-                <div class="menu-header">
-                    <h2>Interisys</h2>
+                <div class="menu-header " style="padding-right: 25px">
+                    <h1 class="CardTopic" style="font-size: 25px">
+                    <i class="fa fa-yelp Fs20  "></i>
+                    INTERYSIS
+                    </h1>   
                 </div>
-
+                <p:separator/>
                 <h:form id="menuForm">
                     <p:menu>
                         <p:submenu label="Expensa">
@@ -44,6 +53,11 @@
                             <p:menuitem value="Propietario" action="#{indexNavigationController.navegarPropietario()}" />                           
                             <p:menuitem value="Inquilino" action="#{indexNavigationController.navegarInquilino()}" />
                         </p:submenu>
+                        <p:submenu label="Usuario">
+                            <p:menuitem value="Usuarios" action="#{indexNavigationController.navegarUsuarioUsuarios()}" />                            
+                            <p:menuitem value="Perfiles" action="#{indexNavigationController.navegarUsuarioPerfiles()}" />                           
+                            
+                        </p:submenu>
                         <p:submenu label="Inmueble">
                             <p:menuitem value="Inmueble" action="#{indexNavigationController.navegarInmueble()}" />   
                             <p:menuitem value="ExpensaInmueble" action="#{indexNavigationController.navegarExpensaInmueble()}" />   
@@ -59,7 +73,7 @@
             <h:form id="formPpal" class="content">
 
 
-                <div id="layout-portlets-cover">
+                <div style="display: block; vertical-align: top;padding: 70px 10px 30px 0.1%; margin-left: 20px">
                     <div class="col-lg-12" style="z-index: 9999">
                         <p:growl id="msj" autoUpdate="true" showDetail="true" />
                     </div>

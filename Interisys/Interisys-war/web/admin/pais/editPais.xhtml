@@ -14,11 +14,25 @@
     
     <ui:define name="title">Edit País</ui:define>
     <ui:define name="content">
-        <p:panelGrid columns="2">
-            <p:outputLabel for="countryName" value="Country Name:" />
-            <p:inputText id="countryName" value="#{paisEditController.pais.nombre}" />
-        </p:panelGrid>
-        <p:commandButton id="btnSave" value="Save" action="#{paisEditController.aceptar()}" />
+        <div class="botoneraAMB ShowOnDesktop Responsive">
+            <p:breadCrumb styleClass="navegacion">
+                <p:menuitem value="Menu principal" url="/admin/index.xhtml" />
+                <p:menuitem value="#{expensaEditController.casoDeUso} Edit Pais" url="#" />
+            </p:breadCrumb>                
+        </div>
+        <div class="Container100 Responsive100">
+            <h2 class="CardTopic">
+                <i class="fa fa-yelp Fs20 Fleft MarRight10"></i>
+                Edit Pais
+            </h2>      
+            <p:separator/>
+            <p:panelGrid columns="2" style="margin: 30px 10px ">
+                <p:outputLabel for="countryName" value="Country Name:" />
+                <p:inputText id="countryName" value="#{paisEditController.pais.nombre}" />
+            </p:panelGrid>
+            <div class="EmptyBox20"/>
+            <p:commandButton id="btnSave" value="Save" action="#{paisEditController.aceptar()}"  style="margin: 0px 10px 30px 10px "/>
+        </div>
     </ui:define>
 </ui:composition>
 

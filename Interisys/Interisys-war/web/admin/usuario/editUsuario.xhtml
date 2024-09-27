@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+
+    <ui:define name="content">
+        <div class="botoneraAMB ShowOnDesktop Responsive">
+            <p:breadCrumb styleClass="navegacion">
+                <p:menuitem value="Menu principal" url="/admin/index.xhtml" />
+                <p:menuitem value="Usuarios" url="/admin/usuario/listUsuarios.xhtml" />
+                <p:menuitem value="#{usuarioEditController.casoDeUso} Usuario" url="#" />
+            </p:breadCrumb>               
+        </div>
+
+        <div class="EmptyBox60"></div>
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent ">
+                <div class="Card ShadowEffect HeiAutoOnMobile Wid90">
+                    EDIT DATOS DEL USUARIO
+                    <p:separator/>
+                    
+                    <div class="EmptyBox10"></div>                   
+                    <p:outputLabel value="Nombre:"/>
+                    <div class="EmptyBox1"></div>                   
+                    <p:inputText id="nombre" value="#{usuarioEditController.usuario.nombre}"   type="text"  styleClass="Wid90" disabled="#{usuarioEditController.campoDesactivado}"/>
+                    
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Apellido:"/>
+                    <div class="EmptyBox1"></div>                   
+                    <p:inputText id="apellido"  value="#{usuarioEditController.usuario.apellido}" type="text"  styleClass="Wid90" disabled="#{usuarioEditController.campoDesactivado}"/>                        
+                    
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Usuario"/>
+                    <div class="EmptyBox1"></div>                   
+                    <p:inputText id="usuario"  value="#{usuarioEditController.usuario.usuario}" type="text"  styleClass="Wid90" disabled="#{usuarioEditController.campoDesactivado}"/>                        
+                    
+                    
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Correo Electrónico:"/>
+                    <div class="EmptyBox1"></div>                     
+                    <p:inputText id="email" value="#{usuarioEditController.usuario.correoElectronico}" styleClass="Wid90" type="email" disabled="#{usuarioEditController.campoDesactivado}"/>                                
+                    
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Teléfono:"/>
+                    <div class="EmptyBox1"></div>                     
+                    <p:inputText id="telefono" value="#{usuarioEditController.usuario.telefono}" styleClass="Wid90" type="number" disabled="#{usuarioEditController.campoDesactivado}"/> 
+                    
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Clave:"/>
+                    <div class="EmptyBox1"></div>
+                    <p:inputText id="clave" value="#{usuarioEditController.usuario.clave}" styleClass="Wid90" type="password" disabled="#{usuarioEditController.campoDesactivado}"/> 
+                    
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Clave Confirmacion:"/>
+                    <div class="EmptyBox1"></div>
+                    <p:inputText id="claveConfirmacion" value="#{usuarioEditController.claveConfirmacion}" styleClass="Wid90" type="password" disabled="#{usuarioEditController.campoDesactivado}"/> 
+                 
+                    
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Perfil"/>
+                    <div class="EmptyBox1"></div> 
+                    <p:selectOneMenu id="perfil" value="#{usuarioEditController.usuario.perfil.id}" styleClass="Wid80" disabled="#{usuarioEditController.campoDesactivado}">
+                        <f:selectItems  value="#{usuarioEditController.perfiles}" />
+                    </p:selectOneMenu>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="EmptyBox30"></div>
+        <div class="Container100 ShowOnMobile">
+            <div class="Card Wid90 HeiAutoOnMobile">
+                <div class="Fright">
+                    <p:commandButton value="Aceptar"  action="#{usuarioEditController.aceptar()}" /> 
+                    <p:commandButton value="Cancelar" action="#{usuarioEditController.cancelar()}" />                                
+                </div>
+                <div class="ContainerIndent ">
+                </div>
+            </div>        
+        </div> 
+
+    </ui:define>
+</ui:composition> 

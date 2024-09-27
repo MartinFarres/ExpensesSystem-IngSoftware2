@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/template.xhtml">
+
+    <ui:define name="content">
+        <div class="botoneraAMB ShowOnDesktop Responsive">
+            <p:breadCrumb styleClass="navegacion">
+                <p:menuitem value="" url="/view/ini.jsf" />
+                <p:menuitem value="Lista Perfil" url="/admin/perfil/listPerfiles.jsf" />
+                <p:menuitem value="#{perfilEditController.casoDeUso} Perfil" url="#" />
+            </p:breadCrumb>                
+            <div class="botones">
+                <p:commandButton value="Aceptar" action="#{perfilEditController.aceptar()}" update="msj" />
+                <p:commandButton value="Cancelar" action="#{perfilEditController.cancelar()}" />            
+            </div>
+        </div>
+        <div class="EmptyBox60"></div>
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect HeiAutoOnMobile Wid90">
+                    PERFIL
+                    <p:separator/>
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Nombre:"/>
+                    <div class="EmptyBox1"></div>                        
+                    <p:inputText id="nombre" value="#{perfilEditController.nombre}" type="text" styleClass="Wid90"/>
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Detalle:"/>
+                    <div class="EmptyBox1"></div>                                            
+                    <p:inputTextarea id="detalle" value="#{perfilEditController.detalle}" styleClass="Wid90" />
+                </div>
+            </div>
+        </div>
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect HeiAutoOnMobile Wid90">
+                    MENÚ PERFIL
+                    <p:messages id="msj" />
+                    <p:separator/>
+                    <p:tree value="#{perfilEditController.menues}" 
+                            var="variable"
+                            selectionMode="checkbox"
+                            selection="#{perfilEditController.menuSeleccionados}">
+                        <p:treeNode>
+                            <h:outputText value="#{variable.nombre}"/>
+                        </p:treeNode>
+                    </p:tree>
+                </div>
+            </div>
+        </div>
+        <div class="EmptyBox30"></div>
+        <div class="Container100 ShowOnMobile">
+            <div class="ContainerIndent">
+                <div class="Card Wid90 HeiAutoOnMobile">
+                    <div class="Fright">
+                        <p:commandButton value="Aceptar" action="#{perfilEditController.aceptar()}" update="msj"/>
+                        <p:commandButton value="Cancelar" action="#{perfilEditController.cancelar()}" />
+                    </div>                        
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

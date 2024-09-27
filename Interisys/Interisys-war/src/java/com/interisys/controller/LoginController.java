@@ -14,12 +14,16 @@ import com.interisys.business.logic.PerfilServiceBean;
 import com.interisys.business.logic.SubMenuServiceBean;
 import com.interisys.business.logic.UsuarioServiceBean;
 import com.interisys.business.persistence.NoResultDAOException;
+import com.interisys.controller.enumeration.CasoDeUsoType;
 import com.interisys.controller.enumeration.MessageType;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -71,7 +75,7 @@ public class LoginController implements Serializable {
             }
             //Validamos el usuario y la clave
             usuario = usuarioService.login(user, password);
-
+            guardarUsuarioSession(usuario);
             
             //Redireccionamos a la págima principal.
             return "index";
@@ -175,4 +179,10 @@ public class LoginController implements Serializable {
         this.user = user;
 
     }  
+    
+    private void guardarUsuarioSession(Usuario usuario){
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        HttpSession session = (HttpSession) context.getSession(true);
+        session.setAttribute("USUARIO_LOGGED", usuario);  
+    }
 }
