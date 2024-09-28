@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.interisys.controller;
+package com.interisys.controller.userSession;
 import com.interisys.business.domain.entity.Usuario;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

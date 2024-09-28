@@ -13,7 +13,7 @@ import com.interisys.business.logic.ErrorServiceException;
 import com.interisys.business.logic.ExpensaInmuebleServiceBean;
 import com.interisys.business.logic.InmuebleServiceBean;
 import com.interisys.business.logic.ReciboServiceBean;
-import com.interisys.controller.Message;
+import com.interisys.controller.enumeration.Message;
 import com.interisys.controller.enumeration.MessageType;
 import java.util.ArrayList;
 import java.util.Collection;

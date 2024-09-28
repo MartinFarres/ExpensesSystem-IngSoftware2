@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.interisys.controller;
+package com.interisys.controller.cuentacorreo;
 
 import com.interisys.business.domain.entity.Consorcio;
 import com.interisys.business.domain.entity.CuentaCorreo;
 import com.interisys.business.logic.ConsorcioServiceBean;
 import com.interisys.business.logic.CuentaCorreoServiceBean;
+import com.interisys.controller.enumeration.Message;
 import com.interisys.controller.enumeration.MessageType;
 import java.util.ArrayList;
 import java.util.Collection;

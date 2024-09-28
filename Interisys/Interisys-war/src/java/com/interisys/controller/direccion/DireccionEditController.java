@@ -1,10 +1,11 @@
 
-package com.interisys.controller;
+package com.interisys.controller.direccion;
 
 import com.interisys.business.domain.entity.Localidad;
 import com.interisys.business.domain.entity.Direccion;
 import com.interisys.business.logic.LocalidadServiceBean;
 import com.interisys.business.logic.DireccionServiceBean;
+import com.interisys.controller.enumeration.Message;
 import com.interisys.controller.enumeration.CasoDeUsoType;
 import com.interisys.controller.enumeration.MessageType;
 import java.util.ArrayList;

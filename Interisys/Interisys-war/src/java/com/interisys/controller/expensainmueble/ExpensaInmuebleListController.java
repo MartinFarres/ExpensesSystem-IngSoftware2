@@ -8,7 +8,7 @@ package com.interisys.controller.expensainmueble;
 import com.interisys.business.domain.entity.ExpensaInmueble;
 import com.interisys.business.logic.ErrorServiceException;
 import com.interisys.business.logic.ExpensaInmuebleServiceBean;
-import com.interisys.controller.Message;
+import com.interisys.controller.enumeration.Message;
 import com.interisys.controller.enumeration.CasoDeUsoType;
 import com.interisys.controller.enumeration.MessageType;
 import java.util.ArrayList;

@@ -7,7 +7,7 @@ package com.interisys.controller.inquilino;
 
 import com.interisys.business.domain.entity.Inquilino;
 import com.interisys.business.logic.InquilinoServiceBean;
-import com.interisys.controller.Message;
+import com.interisys.controller.enumeration.Message;
 import com.interisys.controller.enumeration.CasoDeUsoType;
 import com.interisys.controller.enumeration.MessageType;
 import java.util.ArrayList;

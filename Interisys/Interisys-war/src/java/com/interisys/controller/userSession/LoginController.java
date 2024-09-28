@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.interisys.controller;
+package com.interisys.controller.userSession;
 
+import com.interisys.controller.enumeration.Message;
 import com.interisys.business.domain.entity.Menu;
 import com.interisys.business.domain.entity.Perfil;
 import com.interisys.business.domain.entity.Usuario;

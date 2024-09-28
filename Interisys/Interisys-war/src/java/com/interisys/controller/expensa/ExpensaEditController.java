@@ -8,7 +8,7 @@ package com.interisys.controller.expensa;
 import com.interisys.controller.enumeration.MessageType;
 import com.interisys.business.domain.entity.Expensa;
 import com.interisys.business.logic.ExpensaServiceBean;
-import com.interisys.controller.Message;
+import com.interisys.controller.enumeration.Message;
 import com.interisys.controller.enumeration.CasoDeUsoType;
 import java.util.Date;
 import javax.annotation.PostConstruct;

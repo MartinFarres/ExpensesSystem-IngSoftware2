@@ -6,7 +6,7 @@ import com.interisys.business.logic.ErrorServiceException;
 import com.interisys.controller.enumeration.MessageType;
 import com.interisys.business.logic.PerfilServiceBean;
 import com.interisys.business.logic.SubMenuServiceBean;
-import com.interisys.controller.Message;
+import com.interisys.controller.enumeration.Message;
 import com.interisys.controller.enumeration.CasoDeUsoType;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;

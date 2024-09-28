@@ -7,7 +7,7 @@ import com.interisys.business.domain.entity.Provincia;
 import com.interisys.business.logic.DepartamentoServiceBean;
 import com.interisys.business.logic.LocalidadServiceBean;
 import com.interisys.business.logic.ProvinciaServiceBean;
-import com.interisys.controller.Message;
+import com.interisys.controller.enumeration.Message;
 import com.interisys.controller.enumeration.CasoDeUsoType;
 import com.interisys.controller.enumeration.MessageType;
 import java.util.ArrayList;

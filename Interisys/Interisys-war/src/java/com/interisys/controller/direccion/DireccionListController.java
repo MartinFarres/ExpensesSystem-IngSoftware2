@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.interisys.controller;
+package com.interisys.controller.direccion;
 
-import com.interisys.business.domain.entity.Provincia;
-import com.interisys.business.logic.ProvinciaServiceBean;
+import com.interisys.business.domain.entity.Direccion;
+import com.interisys.business.logic.DireccionServiceBean;
+import com.interisys.controller.enumeration.Message;
 import com.interisys.controller.enumeration.CasoDeUsoType;
 import com.interisys.controller.enumeration.MessageType;
 import java.util.ArrayList;
@@ -24,32 +25,31 @@ import org.primefaces.context.RequestContext;
  *
  * @author spaul
  */
-
 @ManagedBean
 @ViewScoped
-public class ProvinciaListController {
+public class DireccionListController {
+
+    private @EJB DireccionServiceBean direccionService;
     
-    private @EJB ProvinciaServiceBean provinciaService;
-    
-    private Collection<Provincia> provincias = new ArrayList();
+    private Collection<Direccion> direcciones = new ArrayList<>();
 
     @PostConstruct
     public void init() {
         try {
-            listarProvincia();
+            listarDireccion();
         } catch (Exception e) {
             e.printStackTrace();
             Message.show(e.getMessage(), MessageType.ERROR);
         }
     }
     
-    public void listarProvincia() {
+    public void listarDireccion() {
         try {  
-            provincias.clear();
-            provincias.addAll(provinciaService.listarProvinciaActiva());
+            direcciones.clear();
+            direcciones.addAll(direccionService.listarDireccionActiva());
             
-            RequestContext.getCurrentInstance().update("formPpal:panelTablaProvincia");
-            RequestContext.getCurrentInstance().update("formPpal:tablaProvincia");
+            RequestContext.getCurrentInstance().update("formPpal:panelTablaDireccion");
+            RequestContext.getCurrentInstance().update("formPpal:tablaDireccion");
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,8 +59,8 @@ public class ProvinciaListController {
     
     public String alta() {
         try {
-            guardarProvinciaSession(CasoDeUsoType.ALTA, null);
-            return "editProvincia";
+            guardarDireccionSession(CasoDeUsoType.ALTA, null);
+            return "editDireccion";
         } catch (Exception e) {
             e.printStackTrace();
             Message.show(e.getMessage(), MessageType.ERROR);
@@ -68,10 +68,10 @@ public class ProvinciaListController {
         }
     }
     
-    public String consultar(Provincia provincia) {
+    public String consultar(Direccion direccion) {
         try {
-            guardarProvinciaSession(CasoDeUsoType.CONSULTAR, provincia);
-            return "editProvincia";
+            guardarDireccionSession(CasoDeUsoType.CONSULTAR, direccion);
+            return "editDireccion";
         } catch (Exception e) {
             e.printStackTrace();
             Message.show(e.getMessage(), MessageType.ERROR);
@@ -79,10 +79,10 @@ public class ProvinciaListController {
         }
     }
     
-    public String modificar(Provincia provincia) {
+    public String modificar(Direccion direccion) {
         try {
-            guardarProvinciaSession(CasoDeUsoType.MODIFICAR, provincia);
-            return "editProvincia";
+            guardarDireccionSession(CasoDeUsoType.MODIFICAR, direccion);
+            return "editDireccion";
         } catch (Exception e) {
             e.printStackTrace();
             Message.show(e.getMessage(), MessageType.ERROR);
@@ -90,13 +90,13 @@ public class ProvinciaListController {
         }
     }
             
-    public String baja(Provincia provincia) {
+    public String baja(Direccion direccion) {
         try {
-            provinciaService.eliminarProvincia(provincia.getId());
-            listarProvincia();
+            direccionService.eliminarDireccion(direccion.getId());
+            listarDireccion();
             Message.show("La baja se realizó correctamente", MessageType.NOTIFICACION);
             RequestContext.getCurrentInstance().update("formPpal:msj");
-            return "listProvincia";
+            return "listDireccion";
         } catch (Exception e) {
             e.printStackTrace();
             Message.show(e.getMessage(), MessageType.ERROR);
@@ -104,27 +104,26 @@ public class ProvinciaListController {
         }
     }
 
-    public ProvinciaServiceBean getProvinciaService() {
-        return provinciaService;
+    public DireccionServiceBean getDireccionService() {
+        return direccionService;
     }
 
-    public void setProvinciaService(ProvinciaServiceBean provinciaService) {
-        this.provinciaService = provinciaService;
+    public void setDireccionService(DireccionServiceBean direccionService) {
+        this.direccionService = direccionService;
     }
 
-    public Collection<Provincia> getProvincias() {
-        return provincias;
+    public Collection<Direccion> getDirecciones() {
+        return direcciones;
     }
 
-    public void setProvincias(Collection<Provincia> provincias) {
-        this.provincias = provincias;
+    public void setDirecciones(Collection<Direccion> direcciones) {
+        this.direcciones = direcciones;
     }
 
-    private void guardarProvinciaSession(CasoDeUsoType casoDeUso, Provincia provincia) {
+    private void guardarDireccionSession(CasoDeUsoType casoDeUso, Direccion direccion) {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         HttpSession session = (HttpSession) context.getSession(true);
         session.setAttribute("CASO_DE_USO", casoDeUso);  
-        session.setAttribute("PROVINCIA", provincia);  
+        session.setAttribute("DIRECCION", direccion);
     }
 }
-

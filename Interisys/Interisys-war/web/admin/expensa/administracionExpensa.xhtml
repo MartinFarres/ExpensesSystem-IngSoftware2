@@ -207,6 +207,7 @@ and open the template in the editor.
                                     <p:commandButton  icon="fa fa-ellipsis-v" styleClass="Fright GrayButton" id="menuReciboPago"/>
                                     <p:slideMenu overlay="true" my="left top" at="left top" trigger="menuReciboPago" style="height: 50px">
                                         <p:menuitem value="Enviar Email" icon="fa fa-paper-plane BoldGrayBack" action="#{administracionExpensaController.enviarReciboPago(variableRecibo)}"/>
+                                        <p:menuitem value="Generar Recibo" icon="fa-solid fa-file-pdf BoldGrayBack" action="#{administracionExpensaController.enviarReciboPago(variableRecibo)}"/>
                                     </p:slideMenu>
                                 </p:column>
 

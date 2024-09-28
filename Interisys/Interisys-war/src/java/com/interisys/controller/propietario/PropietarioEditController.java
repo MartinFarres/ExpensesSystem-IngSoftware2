@@ -4,7 +4,7 @@ import com.interisys.business.domain.entity.Propietario;
 import com.interisys.business.domain.entity.Direccion;
 import com.interisys.business.logic.PropietarioServiceBean;
 import com.interisys.business.logic.DireccionServiceBean;
-import com.interisys.controller.Message;
+import com.interisys.controller.enumeration.Message;
 import com.interisys.controller.enumeration.CasoDeUsoType;
 import com.interisys.controller.enumeration.MessageType;
 import java.util.ArrayList;
